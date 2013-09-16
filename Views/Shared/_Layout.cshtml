@@ -14,44 +14,46 @@
 <body>
 <div id="page-wrap" class="@ViewContext.RouteData.Values["Controller"].ToString().ToLower()-@ViewContext.RouteData.Values["Action"].ToString().ToLower()">
 
-<div class="navbar navbar-inverse">
-    <div class="navbar-inner">
+    <div class="navbar navbar-default navbar-inverse">
         <div class="container">
-        <a class="brand" href="/">Lawruk.com</a>
-        <ul class="nav">    
+            <div class="navbar-header">       
+                <a class="navbar-brand" href="/">Lawruk.com</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">    
                 
-        @RazorHelpers.LiLink("/about","About")
-        @RazorHelpers.LiLink("/news", "News")
-        @RazorHelpers.LiLink("/metro", "Metro")
-        @RazorHelpers.LiLink("/weather", "Weather")
-        @RazorHelpers.LiLink("/blog", "Blog")        
-        @RazorHelpers.LiLink("/videos", "Videos")
-        @RazorHelpers.LiLink("/rachelemmett", "Rachel and Emmett")
-        @if (!lawrukmvc.Helpers.Account.LoggedIn)
-        {
-        <li class="rpx">@Html.Engage().LogOnLink("Log In", "ProcessLogOn", "Account")</li>
-        }
-        else
-        {
-        <li class="rpx">@Html.ActionLink("Log Out " + Session["Name"].ToString(), "LogOff", "Account")</li>
-        }
+                @RazorHelpers.LiLink("/about","About")
+                @RazorHelpers.LiLink("/news", "News")
+                @RazorHelpers.LiLink("/metro", "Metro")
+                @RazorHelpers.LiLink("/weather", "Weather")
+                @RazorHelpers.LiLink("/blog", "Blog")        
+                @RazorHelpers.LiLink("/videos", "Videos")
+                @RazorHelpers.LiLink("/rachelemmett", "Rachel and Emmett")
+                @if (!lawrukmvc.Helpers.Account.LoggedIn)
+                {
+                <li class="rpx">@Html.Engage().LogOnLink("Log In", "ProcessLogOn", "Account")</li>
+                }
+                else
+                {
+                <li class="rpx">@Html.ActionLink("Log Out " + Session["Name"].ToString(), "LogOff", "Account")</li>
+                }
         
-        </ul>
+                </ul>
+            </div>
         </div>
     </div>
+    
 </div>
 
 <div class="container">
-    <div>
-        <div class="row">
-            <div class="span10">	
-                <h1>@ViewBag.Title</h1>        
-                @RenderBody()
-            </div>
-            <div class="span2">
-                @RenderSection("right", required: false)                 
-            </div>
+    <div>        
+        <div class="span10">	
+            <h1>@ViewBag.Title</h1>        
+            @RenderBody()
         </div>
+        <div class="span2">
+            @RenderSection("right", required: false)                 
+        </div>        
     </div>
 </div>
 

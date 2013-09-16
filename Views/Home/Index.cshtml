@@ -13,20 +13,20 @@
     <!--[if IE 9]><link rel="stylesheet" media="screen" type="text/css" href="/Content/ie9.css" /><![endif]-->
 </head>
 <body>
-<div class="navbar navbar-inverse">
-    <div class="navbar-inner">
+    <div class="navbar navbar-default navbar-inverse">
         <div class="container">
-            <a class="brand home" href="#">Lawruk.com</a>        
-        </div>
+            <div class="navbar-header">       
+                <a class="navbar-brand" href="/">Lawruk.com</a>
+            </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container narrow">
     <div>
         <div class="row">            
             @foreach (var button in Model.HomeButtons)
             {
-                <div class="span4">           
+                <div class="col-lg-4">           
                     <a href="@button.Url" class="home-link">
 					    <img src="@button.ImageUrl" class="nav-img" alt="@button.Description" role="presentation"/>
 					    <span class="personaName">@button.Title</span>

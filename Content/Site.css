@@ -13,12 +13,13 @@ h1 {
 }
 
 /*Nav*/
-.navbar-inner .container {width:940px;}
-.navbar .brand {font-size:26px; margin-left:0px;}
+
+.navbar-brand {font-size:26px; margin-left:0px;}
 .navbar a.brand {padding-left:0px;}
 a.brand.home {margin-left:10px;}
 .navbar-inner .container {width:940px;}
-.navbar-inner li {font-size:16px;}
+.navbar-nav li {font-size:16px;}
+.container.narrow { max-width:960px;}
 
 #header { width:970px; margin:0 auto; overflow:hidden; padding:0 0 5px 0;}
 
@@ -90,7 +91,7 @@ ul.rss-list img {margin-right:5px;}
 .friend { color: #000000; background: #4444FF; font-weight: bold; }
 .family { color: #000000; background: #4444FF; font-weight: bold; }
 
-ul.rss-list {margin-left:0px; margin-top:10px;}
+ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
 .rss-list li {list-style-type:none;margin-bottom:20px;}
 .rss-list a {
     font-size: 18px;
@@ -105,7 +106,7 @@ ul.rss-list {margin-left:0px; margin-top:10px;}
 .attribution {font-size:10px; clear:both; display:block;}
 
 #body {margin-bottom:20px;}
-.thumbnail-list ul {margin-left:0px;}
+.thumbnail-list ul {padding-left:0px;}
 .thumbnail-list li {clear:left; list-style-type:none; line-height:14px; padding-bottom:10px;}
 .thumbnail-list li img {padding-right:5px; padding-bottom:10px; float:left;}
 .thumbnail-list a {font-size:18px; text-decoration:none;}
