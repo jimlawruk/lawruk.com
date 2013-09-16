@@ -4,11 +4,6 @@ p {
     line-height: 1.7em;
 }
 
-li {
-line-height: 1.7em;
-font-size: 16px;
-}
-
 p img {padding:0px 5px 0px 0px;}
 
 textarea {width:500px; height:700px;}
@@ -20,10 +15,10 @@ h1 {
 /*Nav*/
 .navbar-inner .container {width:940px;}
 .navbar .brand {font-size:26px; margin-left:0px;}
-.navbar a.brand { padding:5px;padding-left:0px;}
+.navbar a.brand {padding-left:0px;}
 a.brand.home {margin-left:10px;}
 .navbar-inner .container {width:940px;}
-.navbar-inner .container ul {padding-top:2px;}
+.navbar-inner li {font-size:16px;}
 
 #header { width:970px; margin:0 auto; overflow:hidden; padding:0 0 5px 0;}
 
