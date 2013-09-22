@@ -1,0 +1,107 @@
+<pre>
+Place Sex/Tot  Div/Tot  Num   Name                  S Ag Hometown            Club  Time    Pace  
+===== ======== ======== ===== ===================== = == =================== ===== ======= ===== 
+    1   1/72     1/4      556 Daniel George         M 27 Bethesda MD         MCRRC   33:36  6:46 
+    2   2/72     1/13     139 Noe Fuentez           M 30 Rockville MD        MCRRC   34:06  6:52 
+    3   3/72     1/11     561 Chris Lemos           M 35 Rockville MD        MCRRC   34:18  6:54 
+    4   1/30     1/7     2258 Kristin Andrews       F 31 Chevy Chase MD      MCRRC   34:27  6:56 
+    5   4/72     2/4       89 Andrew Howard         M 28 Silver Spring MD    MCRRC   35:11  7:05 
+    6   5/72     2/11     560 Marco Rosas Galicia   M 38 Columbia MD         MCRRC   35:12  7:05 
+    7   6/72     1/6      555 David Storper         M 40 Bethesda MD         MCRRC   35:14  7:06 
+    8   7/72     2/6       44 Art Drisko            M 44 Bethesda MD         MCRRC   35:33  7:09 
+    9   8/72     1/7     1381 Juan Vasquez          M 51 Hyattsville MD      MCRRC   35:40  7:11 
+   10   9/72     2/13     572 Jim Lawruk            M 33 Bethesda MD         MCRRC   35:48  7:13 
+   11  10/72     3/4      553 Alex Booth            M 25 Bethesda MD         MCRRC   36:05  7:16 
+   12  11/72     1/2      501 Colin Parker          M 24 Silver Spring MD    MCRRC   36:12  7:17 
+   13  12/72     3/11     299 Robert Palmer         M 36 Silver Spring MD    MCRRC   36:49  7:25 
+   14  13/72     3/13     568 Lane Jefferson        M 31 Wheaton MD          MCRRC   37:14  7:30 
+   15  14/72     4/11    2257 Kit Wells             M 36 Damascus MD                 37:53  7:38 
+   16  15/72     1/14    2220 Mark Fanelli          M 49 Reston VA                   37:55  7:38 
+   17  16/72     2/2     2267 Curtis Little         M 23 Arlington VA                38:01  7:39 
+   18  17/72     1/4      362 Timothy Morgan        M 62 Damascus MD         MCRRC   38:33  7:46 
+   19  18/72     5/11     571 Ask Eirik Storsve     M 37 Silver Spring MD    MCRRC   38:35  7:46 
+   20  19/72     2/4      549 Ken Umbarger          M 61 Gaithersburg MD     MCRRC   38:48  7:49 
+   21  20/72     1/1      275 Joshua Sack           M 15 Bethesda MD         MCRRC   38:53  7:50 
+   22  21/72     2/14      95 Hector Montesinos     M 49 Takoma Park MD      MCRRC   38:58  7:51 
+   23  22/72     2/7      564 Nicholas Ryba         M 52 Bethesda MD         MCRRC   39:18  7:55 
+   24  23/72     4/13      13 Yukun Fung            M 34 Silver Spring MD    MCRRC   39:20  7:55 
+   25  24/72     4/4      291 James Hibbs           M 29 Bethesda MD         MCRRC   39:22  7:56 
+   26  25/72     3/7     2256 Stephen Wills         M 51 College Park MD             40:09  8:05 
+   27  26/72     3/14     267 Geoffrey Mason        M 49 Takoma Park MD      MCRRC   40:36  8:10 
+   28  27/72     5/13    1386 Peter Diak            M 34 Gaithersburg MD     MCRRC   41:08  8:17 
+   29  28/72     6/13     121 Joshua Vincent        M 33 Rockville MD        MCRRC   41:23  8:20 
+   30  29/72     1/5       35 John Mornini          M 58 Germantown MD       MCRRC   42:15  8:30 
+   31  30/72     7/13     870 Jeffrey Evans         M 34 Bethesda MD         MCRRC   42:17  8:31 
+   32  31/72     4/7     1366 Ray Bingham           M 54 Montgomery Vill MD  MCRRC   42:22  8:32 
+   33   2/30     1/3     1303 Jane Wikman           F 50 Germantown MD       MCRRC   42:46  8:37 
+   34  32/72     4/14     387 John Holten           M 48 Gaithersburg MD     MCRRC   43:07  8:41 
+   35  33/72     8/13     569 Paul Young            M 31 Arlington VA        MCRRC   43:14  8:42 
+   36   3/30     2/7      567 Laura Cloher          F 31 Chevy Chase MD      MCRRC   43:16  8:43 
+   37  34/72     6/11      34 Thomas Young          M 35 Rockville MD        MCRRC   43:53  8:50 
+   38  35/72     7/11      78 Brian Marron          M 36 Rockville MD        MCRRC   44:38  8:59 
+   39  36/72     9/13    1349 Rodney Rivera         M 32 Poolesville MD      MCRRC   45:15  9:07 
+   40  37/72     5/14    1484 Leonardo Palacios     M 49 Hyattsville MD      MCRRC   45:25  9:09 
+   41  38/72     8/11     562 Wilfredo Santiago     M 36 Wheaton MD          MCRRC   45:27  9:09 
+   42   4/30     1/4     1415 Kathleen Clawson      F 38 Gaithersburg MD     MCRRC   46:03  9:16 
+   43   5/30     1/4      557 Jen Norris            F 42 McLean VA           MCRRC   46:17  9:19 
+   44   6/30     2/3      547 Peggy Dickison        F 52 Bethesda MD         MCRRC   47:00  9:28 
+   45  39/72     3/6      566 Gideon Lachman        M 41 Bethesda MD         MCRRC   47:02  9:28 
+   46  40/72     4/6     2270 Patrick Cummings      M 44 Fairfax VA                  47:06  9:29 
+   47  41/72     6/14    2253 David Poole           M 46 Sterling VA                 47:11  9:30 
+   48   7/30     2/4      686 Kathleen Brooks       F 35 Potomac MD          MCRRC   47:18  9:31 
+   49  42/72     5/7      661 Glenn Golding         M 50 Gaithersburg MD     MCRRC   47:20  9:32 
+   50  43/72     7/14     533 Brian Pike            M 47 Derwood MD          MCRRC   47:23  9:32 
+   51   8/30     1/4      292 Cynthia Landesberg    F 29 Bethesda MD         MCRRC   47:34  9:35 
+   52   9/30     3/4      431 Melanie Mollica       F 38 Gaithersburg MD     MCRRC   47:39  9:35 
+   53                       0 Unknown Runner             Winc VA                     47:39  9:36 
+   54  10/30     1/1      642 Adriana Rosas         F 13 Columbia MD         MCRRC   47:40  9:36 
+   55  44/72     6/7      550 Phil Epstein          M 53 Derwood MD          MCRRC   47:52  9:38 
+   56  45/72     5/6     1397 Travis Woodruff       M 42 Rockville MD        MCRRC   49:10  9:54 
+   57  46/72     8/14     512 Luis Dearribaindia    M 45 Rockville MD        MCRRC   49:19  9:56 
+   58  47/72     1/1      678 Greg Chaconas         M 67 Washington DC       MCRRC   49:22  9:56 
+   59  48/72    10/13    2269 Erik Hart             M 30 Alexandria VA               49:36  9:59 
+   60  11/30     1/1      285 Anne Forsha           F 61 Derwood MD          MCRRC   49:48 10:01 
+   61  12/30     1/1      876 Katherine Young       F 23 Silver Spring MD    MCRRC   49:48 10:02 
+   62  49/72     1/1      639 Mark Rosas            M 10 Columbia MD         MCRRC   49:54 10:03 
+   63  50/72     9/14     559 Dan Lee               M 47 Potomac MD          MCRRC   49:58 10:03 
+   64  51/72     2/5      539 John Kehne            M 58 Potomac MD          MCRRC   49:59 10:04 
+   65  52/72     3/4     2260 Jeffrey Klemm         M 62 McLean VA                   50:24 10:09 
+   66  53/72    11/13    2266 Misha Shenderey       M 31 Rockville MD                50:49 10:14 
+   67  13/30     2/4       25 Cindy Cohen           F 44 Washington DC       MCRRC   51:40 10:24 
+   68  54/72     9/11    2268 Robert Hosick         M 37 Arlington VA                51:54 10:27 
+   69  55/72    12/13    2264 Jeremy Brayman        M 31 Arlington VA                52:19 10:32 
+   70  56/72    10/14    2252 Stephen Poole         M 45 Sterling VA                 52:26 10:33 
+   71  57/72     7/7     1250 Ivano Battistella     M 50 Rockville MD        MCRRC   52:42 10:36 
+   72  14/30     2/4      871 Cynthia Lin           F 28 Washington DC       MCRRC   52:49 10:38 
+   73  58/72     6/6      558 Leo Gueriguian        M 42 Gaithersburg MD     MCRRC   52:59 10:40 
+   74  15/30     3/7       87 Kristina Blair        F 31 Silver Spring MD    MCRRC   54:21 10:56 
+   75  59/72    11/14    1430 Blair Kincer          M 48 Rockville MD        MCRRC   54:22 10:57 
+   76  16/30     3/4     2255 Jori Beck             F 29 Alexandria VA               54:48 11:02 
+   77  17/30     4/4     2289 Lindsay Streeper      F 29 Alexandria VA               55:06 11:05 
+   78  60/72    12/14     277 Michael Sack          M 48 Bethesda MD         MCRRC   55:08 11:06 
+   79  18/30     4/4     1408 Heather Sisan         F 36 Rockville MD        MCRRC   55:12 11:07 
+   80  61/72     4/4       60 Barry Smith           M 60 Silver Spring MD    MCRRC   55:38 11:12 
+   81  62/72     3/5      554 Tom Austin            M 57 Rockville MD        MCRRC   56:19 11:20 
+   82  63/72    13/13     551 Jonathan Bearr        M 33 Rockville MD        MCRRC   56:22 11:21 
+   83  64/72    10/11    2265 Joe Pilch             M 35 Arlington VA                56:36 11:23 
+   84  65/72    13/14    2259 James Palmer          M 46 Reston VA                   56:36 11:24 
+   85  19/30     3/3     1339 Stephanie Daugherty   F 50 Olney MD            MCRRC   56:51 11:27 
+   86  20/30     4/7      570 Meredith Streeper     F 31 Bethesda MD         MCRRC   57:11 11:31 
+   87  21/30     3/4      573 Tina Terrill          F 42 Silver Spring MD    MCRRC   57:58 11:40 
+   88  22/30     1/1     1308 Smita Gokhale         F 48 Rockville MD        MCRRC   58:54 11:51 
+   89  23/30     1/4      669 Cynthia Wallace       F 55 Washington DC       MCRRC   59:21 11:57 
+   90  24/30     5/7     2263 Tam Nguyen            F 33 Arlington VA              1:00:27 12:10 
+   91  66/72    14/14     230 Ramy Radmanesh        M 45 Bethesda MD         MCRRC 1:00:32 12:11 
+   92  67/72     1/2      629 David Brown           M 70 Potomac MD          MCRRC 1:01:25 12:22 
+   93  68/72     4/5      548 Dong Vo               M 55 Columbia MD         MCRRC 1:01:27 12:22 
+   94  25/30     4/4      565 Rosa Sherafat         F 42 Bethesda MD         MCRRC 1:01:27 12:22 
+   95  69/72    11/11    2251 Dippen Zinzuvadia     M 37 Falls Church VA           1:01:46 12:26 
+   96  70/72     5/5     1457 Kirk Gordon           M 56 Glenn Dale MD       MCRRC 1:02:15 12:32 
+   97  26/30     6/7      552 Lucy Slovon           F 33 Silver Spring MD    MCRRC 1:02:16 12:32 
+   98  27/30     2/4      157 Janet Bergman         F 56 Wheaton MD          MCRRC 1:04:19 12:57 
+   99  71/72     2/2      563 Marvin Rosenstein     M 73 Clarksburg MD       MCRRC 1:04:52 13:03 
+  100  28/30     7/7     1350 Alison Rivera         F 33 Poolesville MD      MCRRC 1:11:19 14:21 
+  101  29/30     3/4      136 Anna Enriquez-Robi    F 59 Clarksburg MD       MCRRC 1:15:25 15:11 
+  102  30/30     4/4      701 Cathleen Jubert       F 55 Gaithersburg MD     MCRRC 1:15:26 15:11 
+  103  72/72     1/1       26 Robert Smith          M 78 Comus MD            MCRRC 1:18:38 15:50
+  </pre>
