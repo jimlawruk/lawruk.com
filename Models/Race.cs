@@ -12,7 +12,7 @@ using System.Web.Configuration;
 
 namespace lawrukmvc.Models
 {
-    public class Race
+    public class RaceFile
     {
         public string Filename { get; private set; }
         public string Title { get; set; }
@@ -20,9 +20,8 @@ namespace lawrukmvc.Models
         public string Distance { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Text { get; set; }
-
-        public Race(string filename)
+       
+        public RaceFile(string filename)
         {
             Filename = filename;
         }
@@ -33,27 +32,6 @@ namespace lawrukmvc.Models
             using (var sr = new StreamReader(WebConfigurationManager.AppSettings["RootDirectory"] + "\\Races\\" + Filename))
             {
                 text = sr.ReadToEnd();
-                string toLower = text.ToLower();
-                int body = toLower.IndexOf("<body");                 
-                int start =0;
-                int end = text.Length - 1;                
-
-                if (body >= 0)
-                {
-                    start = text.IndexOf(">", body) + 1;                    
-                }
-                int script = toLower.IndexOf("<script",start);
-                if (script >= 0)
-                {
-                    end = script - 1;
-                }
-                int endBody = toLower.IndexOf("</body");
-                if (endBody < end)
-                {
-                    end = endBody;
-                }
-
-                text = text.Substring(start, end - start);
             }
             return text;
         }

@@ -1,0 +1,6 @@
+﻿@model lawrukmvc.ViewModels.RaceViewModel
+@{
+    ViewBag.Title = Model.Title + " " + Model.DateTime.Year + " Race Results";
+}
+<h3>@Model.DisplayDate</h3>
+@Html.Raw(Model.Text)

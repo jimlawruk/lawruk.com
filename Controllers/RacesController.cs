@@ -24,80 +24,26 @@ namespace lawrukmvc.Controllers
 
         private List<RaceViewModel> GetRacesByDateDescending()
         {
-            var races = GetRaces();
+            var races = GetRaceViewModels();
             races = races.OrderByDescending(r => r.DateTime).ToList();
             return races;
         }
 
+        public List<RaceViewModel> GetRaceViewModels()
+        {
+            var raceLogic = new RaceLogic();
+            return raceLogic.GetRaceViewModels();
+        }
+
         public ActionResult Race(string urlTitle, string year)
         {
-            var races = GetRaces();
-            var filteredRaces = races.Where(r => r.Race.Title.ToUrl() == urlTitle);
-
-            RaceViewModel race = null;
-            if (year != "")
-            {
-                race = filteredRaces.First(r => r.Race.Date.Year == int.Parse(year));
-            }
+            var raceLogic = new RaceLogic();
+            var raceViewModel = raceLogic.GetRaceByUrl(urlTitle);
+            if (raceViewModel != null)
+                return View(raceViewModel);
             else
-            {
-                race = filteredRaces.OrderByDescending(r => r.Race.Date.Year).First();
-            }
-            return View(race);
-        } 
-
-        public List<RaceViewModel> GetRaces()
-        {
-            var races = new List<RaceViewModel>();
-            string path = WebConfigurationManager.AppSettings["RootDirectory"] + "\\Races";
-            if (Request.Url.Host.Contains("localhost"))
-            {
-                path = "C:\\Users\\lawruk\\Documents\\GitHub\\lawruk.com\\Races";
-            }
-            var di = new DirectoryInfo(path);
-            foreach (FileInfo fi in di.GetFiles())
-            {
-                try
-                {
-                    string name = fi.Name.ToLower();
-                    if (name.Contains("-allison") || name.Contains("-none"))
-                    {
-                        continue;
-                    }
-                    Race race = new Race(fi.Name);
-                    string[] array = fi.Name.Split('-');
-                    int year = int.Parse(array[0].Substring(0, 4));
-                    int month = int.Parse(array[0].Substring(4, 2));
-                    int day = int.Parse(array[0].Substring(6, 2));
-                    race.Date = new DateTime(year, month, day);
-                    race.Distance = array[1];
-                    race.Title = array[2].Replace("_", " ");
-                    race.City = array[3].Replace("_", " ");
-                    string state = array[4];
-                    if (state.Contains("."))
-                    {
-                        state = state.Substring(0, state.IndexOf('.'));
-                    }
-                    race.State = state;
-                    races.Add(new RaceViewModel(race));
-                }
-                catch { }
-            }
-
-            var raceResults = lawrukEntities.RaceResults;
-            foreach (RaceResult raceResult in raceResults)
-            {
-                var fileRace = races.FirstOrDefault(r=>r.Distance == raceResult.Distance && 
-                   r.DateTime.ToShortDateString() == raceResult.Date.ToShortDateString());
-                if (fileRace !=null)
-                {
-                    races.Remove(fileRace);
-                }
-                races.Add(new RaceViewModel(raceResult));
-            }
-
-            return races;
-        }
+                return new HttpNotFoundResult();
+        }         
 
         public override EntityObject NewItem()
         {
