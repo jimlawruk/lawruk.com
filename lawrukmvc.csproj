@@ -171,7 +171,6 @@
     <Compile Include="Models\Marc\MarcTrain.cs" />
     <Compile Include="Models\MetroStation.cs" />
     <Compile Include="Models\Photo.cs" />
-    <Compile Include="Models\Race.cs" />
     <Compile Include="Models\TagTitleUrl.cs" />
     <Compile Include="Models\TitleUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,7 +228,6 @@
     <Content Include="Views\Marc\Index.aspx" />
     <Content Include="Views\Photos\Index.aspx" />
     <Content Include="Views\Photos\Tag.aspx" />
-    <Content Include="Views\Races\Race.aspx" />
     <Content Include="Views\RachelEmmett\Index.aspx" />
     <Content Include="Views\RachelEmmett\Weather.aspx" />
     <Content Include="Views\RachelEmmett\Wedding-Party.aspx" />

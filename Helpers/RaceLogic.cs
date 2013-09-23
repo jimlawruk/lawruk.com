@@ -13,10 +13,10 @@ namespace lawrukmvc.Helpers
     {
         internal List<RaceViewModel> GetRaceViewModels()
         {            
-            var databaseRaceViewModels = GetRaceViewModelsFromDatabaseResults();
+            var raceViewModels = GetRaceViewModelsFromDatabaseResults();
             var raceFileViewModels = GetRaceViewModelsFromRaceFiles();
-            foreach (var viewModel in databaseRaceViewModels)
-            {
+            foreach (var viewModel in raceViewModels)
+            {                
                 var match = raceFileViewModels.FirstOrDefault(r=> r.DateTime.DayOfYear == viewModel.DateTime.DayOfYear 
                                                                 && r.DateTime.Year == viewModel.DateTime.Year
                                                                 && r.Distance == viewModel.Distance);
@@ -25,7 +25,7 @@ namespace lawrukmvc.Helpers
                     raceFileViewModels.Remove(match);   
                 }
             }
-            return databaseRaceViewModels.Union(raceFileViewModels).ToList();            
+            return raceViewModels.Union(raceFileViewModels).OrderByDescending(r => r.DateTime).ToList();         
         }
 
         private List<RaceViewModel> GetRaceViewModelsFromDatabaseResults()
@@ -44,29 +44,38 @@ namespace lawrukmvc.Helpers
             var raceViewModels = new List<RaceViewModel>();
             foreach (var raceFile in GetRaceFiles())
             {
-                raceViewModels.Add(GetViewModelFromRaceFile(raceFile));
+                try
+                {
+                    raceViewModels.Add(GetViewModelFromRaceFile(raceFile));
+                }
+                catch { }
             }
             return raceViewModels;
         
         }
             
-        private RaceViewModel GetViewModelFromRaceFile(RaceFile raceFile)
+        private RaceViewModel GetViewModelFromRaceFile(string raceFilename)
         {
             var raceViewModel = new RaceViewModel();
-            string trip = "1-3 of 3 trip";
-            string[] array = trip.Split(' ');
-            int theNumberYouWant = int.Parse(array[2]);
-            raceViewModel.Title = raceFile.Title;
-            raceViewModel.Url = "/races/" + raceFile.Filename.Replace(".txt","");
-            raceViewModel.Distance = raceFile.Distance;
-            raceViewModel.City = raceFile.City;
-            raceViewModel.State = raceFile.State;
-            raceViewModel.DateTime = raceFile.Date;           
-            
+            string[] array = raceFilename.Split('-');
+            int year = int.Parse(array[0].Substring(0, 4));
+            int month = int.Parse(array[0].Substring(4, 2));
+            int day = int.Parse(array[0].Substring(6, 2));
+            raceViewModel.DateTime = new DateTime(year, month, day);
+            raceViewModel.Distance = array[1];
+            raceViewModel.Title = array[2].Replace("_", " ");
+            raceViewModel.Url = "/races/" + raceFilename.Replace(".txt", "");
+            raceViewModel.City = array[3].Replace("_", " ");
+            string state = array[4];
+            if (state.Contains("."))
+            {
+                state = state.Substring(0, state.IndexOf('.'));
+            }
+            raceViewModel.State = state;            
             raceViewModel.RelatedRaces = new List<RaceViewModel>();
             try
             {
-                raceViewModel.Text = raceFile.GetText();
+                raceViewModel.Text = GetTextFromRaceFile(raceFilename);
                 if (raceViewModel.Text.IndexOf("<pre") == 0)
                 {
                     string[] lines = raceViewModel.Text.Split('\n');
@@ -99,15 +108,11 @@ namespace lawrukmvc.Helpers
             return raceViewModel;
         }
 
-        private List<RaceFile> GetRaceFiles()
+        private List<string> GetRaceFiles()
         {
-            var raceFiles = new List<RaceFile>();
-            string path = WebConfigurationManager.AppSettings["RootDirectory"] + "\\Races";
-            if (System.Web.HttpContext.Current.Request.Url.Host.Contains("localhost"))
-            {
-                //TODO Cean this up
-                path = "C:\\Users\\Jim\\Documents\\lawruk.com\\Races";
-            }
+            var raceFileNames = new List<string>();
+            string path = RacePath;
+            
             var di = new DirectoryInfo(path);
             foreach (FileInfo fi in di.GetFiles())
             {
@@ -117,27 +122,27 @@ namespace lawrukmvc.Helpers
                     if (name.Contains("-allison") || name.Contains("-none"))
                     {
                         continue;
-                    }
-                    RaceFile race = new RaceFile(fi.Name);
-                    string[] array = fi.Name.Split('-');
-                    int year = int.Parse(array[0].Substring(0, 4));
-                    int month = int.Parse(array[0].Substring(4, 2));
-                    int day = int.Parse(array[0].Substring(6, 2));
-                    race.Date = new DateTime(year, month, day);
-                    race.Distance = array[1];
-                    race.Title = array[2].Replace("_", " ");
-                    race.City = array[3].Replace("_", " ");
-                    string state = array[4];
-                    if (state.Contains("."))
-                    {
-                        state = state.Substring(0, state.IndexOf('.'));
-                    }
-                    race.State = state;
-                    raceFiles.Add(race);
+                    }                    
+                    raceFileNames.Add(fi.Name);
                 }
                 catch { }
             }
-            return raceFiles;
+            return raceFileNames;
+        }
+
+        internal string RacePath
+        {
+            get { return WebConfigurationManager.AppSettings["RootDirectory"] + "\\Races";}
+        }
+
+        internal string GetRaceFileNameFromUrl(string url)
+        {
+            var raceFileName = string.Format("{0}.txt", url);
+            var raceFilePath = string.Format("{0}\\{1}.txt", RacePath, url);
+            if (File.Exists(raceFilePath))
+                return raceFileName;
+            else
+                return null;
         }
 
         private List<RaceResult> GetDatabaseRaces()
@@ -146,13 +151,23 @@ namespace lawrukmvc.Helpers
             return lawrukEntities.RaceResults.ToList();
         }
 
-        internal RaceViewModel GetRaceByUrl(string urlTitle)
+        internal RaceViewModel GetRaceViewModelByUrl(string urlTitle)
         {
-            var raceFile = GetRaceFiles().Where(r => r.Filename == urlTitle + ".txt").FirstOrDefault();
+            var raceFile = GetRaceFileNameFromUrl(urlTitle);
             if (raceFile != null)
                 return GetViewModelFromRaceFile(raceFile);
             else
                 return null;
+        }
+
+        internal string GetTextFromRaceFile(string fileName)
+        {
+            string text;
+            using (var sr = new StreamReader(RacePath + "\\" + fileName))
+            {
+                text = sr.ReadToEnd();
+            }
+            return text;
         }
     }
 }

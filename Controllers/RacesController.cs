@@ -16,34 +16,21 @@ namespace lawrukmvc.Controllers
 
     public class RacesController : BaseController
     {
-        
-        public ActionResult Results()
-        {            
-            return View(GetRacesByDateDescending());
-        }      
+        private RaceLogic raceLogic = new RaceLogic();
 
-        private List<RaceViewModel> GetRacesByDateDescending()
+        public ActionResult Results(string extension)
         {
-            var races = GetRaceViewModels();
-            races = races.OrderByDescending(r => r.DateTime).ToList();
-            return races;
-        }
-
-        public List<RaceViewModel> GetRaceViewModels()
-        {
-            var raceLogic = new RaceLogic();
-            return raceLogic.GetRaceViewModels();
-        }
+            return Index(extension);
+        }        
 
         public ActionResult Race(string urlTitle, string year)
-        {
-            var raceLogic = new RaceLogic();
-            var raceViewModel = raceLogic.GetRaceByUrl(urlTitle);
+        {            
+            var raceViewModel = raceLogic.GetRaceViewModelByUrl(urlTitle);
             if (raceViewModel != null)
                 return View(raceViewModel);
             else
                 return new HttpNotFoundResult();
-        }         
+        }        
 
         public override EntityObject NewItem()
         {
@@ -87,7 +74,8 @@ namespace lawrukmvc.Controllers
 
         public override object GetListModel(bool editMode)
         {
-            var races = GetRacesByDateDescending();
+            var races = raceLogic.GetRaceViewModels();
+            races.ForEach(r => r.Text = "");//Clear text for .json response
             races.ForEach(r => r.Edit = editMode);
             return races;
         }
@@ -96,9 +84,7 @@ namespace lawrukmvc.Controllers
         {
             get { return "Results"; }
             set { return;  } 
-        }
-
-        
+        }        
        
     }//class
 }//namespace
