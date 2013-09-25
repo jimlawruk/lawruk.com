@@ -241,7 +241,7 @@
     <Content Include="Views\Shared\TitleUrlListPage.aspx" />
     <Content Include="Views\Shared\TopMenu.ascx" />
     <Content Include="Views\Test\Index.aspx" />
-    <Content Include="Views\Video\Edit.aspx" />
+    <Content Include="Views\Videos\Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -368,7 +368,7 @@
     <Content Include="Views\Blog\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Video\Detail.cshtml" />
+    <Content Include="Views\Videos\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\TagList.cshtml" />
