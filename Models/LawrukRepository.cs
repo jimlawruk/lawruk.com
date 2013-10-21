@@ -9,14 +9,19 @@ namespace lawrukmvc.Models
 {
     public class LawrukRepository
     {
-        lawrukEntities lawrukEntities = new lawrukEntities();
+        public lawrukEntities LawrukEntities { get; set; }
+
+        public LawrukRepository()
+        {
+            LawrukEntities = new lawrukEntities();
+        }
      
         public List<ListItem> GetBlogPostViewModels()
         {
             //Set up a list of ViewModels
             List<lawrukmvc.ViewModels.BlogPostViewModel> viewModels = new List<lawrukmvc.ViewModels.BlogPostViewModel>();           
 
-            var blogPosts = from bp in lawrukEntities.BlogPosts
+            var blogPosts = from bp in LawrukEntities.BlogPosts
                             where bp.Visibility <= Helpers.Account.Visibility
                             orderby bp.Date descending
                             select new { bp.Id, bp.Title, bp.Date, bp.FlickrImageUrl };            
@@ -48,7 +53,7 @@ namespace lawrukmvc.Models
         internal List<ListItem> GetVideoViewModels()
         {             
             var viewModels = new List<VideoViewModel>();
-            var videos = from v in lawrukEntities.Videos.Where(v=>v.Visibility <= Helpers.Account.Visibility)
+            var videos = from v in LawrukEntities.Videos.Where(v=>v.Visibility <= Helpers.Account.Visibility)
                          orderby v.Date descending
                          select new ListItem()
                          {
@@ -64,7 +69,7 @@ namespace lawrukmvc.Models
         internal List<TagViewModel> GetTagViewModels()
         {
             var viewModels = new List<TagViewModel>();
-            var tags = lawrukEntities.Tags;
+            var tags = LawrukEntities.Tags;
             foreach (var tag in tags)
             {
                 viewModels.Add(new TagViewModel(tag));
@@ -83,13 +88,13 @@ namespace lawrukmvc.Models
 
         private List<CalendarEntry> GetCalendarEntries()
         {
-            return lawrukEntities.CalendarEntries.
+            return LawrukEntities.CalendarEntries.
                 Where(ce => ce.Date > LawrukRepository.Midnight).ToList();
         } 
 
         private List<CalendarEntry> GetCalendarEntryByType(CalendarEntryType type)
         {
-            return lawrukEntities.CalendarEntries.
+            return LawrukEntities.CalendarEntries.
                 Where(ce => ce.Date > LawrukRepository.Midnight && ce.Type == (int)type).ToList();
         }
 
@@ -111,7 +116,7 @@ namespace lawrukmvc.Models
 
         public List<ICalendarEntry> GetPersonViewModels()
         {
-            var people = lawrukEntities.People.Where(p => p.BirthdayMonth.HasValue);
+            var people = LawrukEntities.People.Where(p => p.BirthdayMonth.HasValue);
             var viewModels = new List<PersonViewModel>();
             foreach (Person person in people)
             {
@@ -142,6 +147,36 @@ namespace lawrukmvc.Models
                 return ConvertToViewModels(entries).Cast<ICalendarEntry>().ToList();
             }
         }
+
+         public void SaveTags(Video video, string tags)
+         {
+             string[] tagList = tags.ToLower().Split(',');
+             video.Tags.Clear();
+
+             foreach (string tagString in tagList)
+             {
+                 Tag tag;
+                 var tagItem = LawrukEntities.Tags.FirstOrDefault(t => t.Title.ToLower() == tagString);
+                 if (tagItem != null)
+                 {
+                     tag = tagItem;
+                 }
+                 else
+                 {
+                     tag = CreateTag(tagString);
+                 }
+                 video.Tags.Add(tag);
+             }
+         }
+
+         public Tag CreateTag(string title)
+         {
+             Tag tag = new Tag();
+             tag.Title = title;
+             LawrukEntities.Tags.AddObject(tag);
+             LawrukEntities.SaveChanges();
+             return tag;
+         }
 
         
     }

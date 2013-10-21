@@ -10,8 +10,7 @@ using System.ServiceModel;
 namespace lawrukmvc.Controllers
 {
     public abstract class BaseController : Controller
-    {
-        protected lawrukEntities lawrukEntities = new lawrukEntities();
+    {        
         protected lawrukmvc.Models.LawrukRepository lawrukRepository = new Models.LawrukRepository();
         protected virtual string ListView { get; set; }
 
@@ -83,9 +82,9 @@ namespace lawrukmvc.Controllers
 
             if (item.EntityState == System.Data.EntityState.Added || item.EntityState == System.Data.EntityState.Detached)
             {
-                lawrukEntities.AddObject(item.GetType().Name + "s", item);
+                lawrukRepository.LawrukEntities.AddObject(item.GetType().Name + "s", item);
             }
-            lawrukEntities.SaveChanges();
+            lawrukRepository.LawrukEntities.SaveChanges();
             string redirectStr = "/" + item.GetType().Name + "s/edit";
             redirectStr = redirectStr.ToLower().Replace("blogposts", "blog");//TODO Hack
             redirectStr = redirectStr.ToLower().Replace("results", "s");
