@@ -8,15 +8,15 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
-
 namespace lawrukmvc
 {
     #region Contexts
@@ -242,6 +242,7 @@ namespace lawrukmvc
         private ObjectSet<VideoTag> _VideoTags;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -333,11 +334,11 @@ namespace lawrukmvc
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -372,7 +373,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -391,7 +393,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -416,7 +418,7 @@ namespace lawrukmvc
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -440,7 +442,7 @@ namespace lawrukmvc
             {
                 OnLastModifiedChanging(value);
                 ReportPropertyChanging("LastModified");
-                _LastModified = StructuralObject.SetValidValue(value);
+                _LastModified = StructuralObject.SetValidValue(value, "LastModified");
                 ReportPropertyChanged("LastModified");
                 OnLastModifiedChanged();
             }
@@ -464,7 +466,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -488,7 +490,7 @@ namespace lawrukmvc
             {
                 OnBodyChanging(value);
                 ReportPropertyChanging("Body");
-                _Body = StructuralObject.SetValidValue(value, false);
+                _Body = StructuralObject.SetValidValue(value, false, "Body");
                 ReportPropertyChanged("Body");
                 OnBodyChanged();
             }
@@ -512,7 +514,7 @@ namespace lawrukmvc
             {
                 OnFlickrImageUrlChanging(value);
                 ReportPropertyChanging("FlickrImageUrl");
-                _FlickrImageUrl = StructuralObject.SetValidValue(value, false);
+                _FlickrImageUrl = StructuralObject.SetValidValue(value, false, "FlickrImageUrl");
                 ReportPropertyChanged("FlickrImageUrl");
                 OnFlickrImageUrlChanged();
             }
@@ -536,7 +538,7 @@ namespace lawrukmvc
             {
                 OnVisibilityChanging(value);
                 ReportPropertyChanging("Visibility");
-                _Visibility = StructuralObject.SetValidValue(value);
+                _Visibility = StructuralObject.SetValidValue(value, "Visibility");
                 ReportPropertyChanged("Visibility");
                 OnVisibilityChanged();
             }
@@ -546,7 +548,7 @@ namespace lawrukmvc
         partial void OnVisibilityChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -573,7 +575,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -592,7 +595,7 @@ namespace lawrukmvc
                 {
                     OnBlogPostIdChanging(value);
                     ReportPropertyChanging("BlogPostId");
-                    _BlogPostId = StructuralObject.SetValidValue(value);
+                    _BlogPostId = StructuralObject.SetValidValue(value, "BlogPostId");
                     ReportPropertyChanged("BlogPostId");
                     OnBlogPostIdChanged();
                 }
@@ -619,7 +622,7 @@ namespace lawrukmvc
                 {
                     OnTagIdChanging(value);
                     ReportPropertyChanging("TagId");
-                    _TagId = StructuralObject.SetValidValue(value);
+                    _TagId = StructuralObject.SetValidValue(value, "TagId");
                     ReportPropertyChanged("TagId");
                     OnTagIdChanged();
                 }
@@ -630,7 +633,7 @@ namespace lawrukmvc
         partial void OnTagIdChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -663,7 +666,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -682,7 +686,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -707,7 +711,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -731,7 +735,7 @@ namespace lawrukmvc
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -755,7 +759,7 @@ namespace lawrukmvc
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, false);
+                _Url = StructuralObject.SetValidValue(value, false, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -779,7 +783,7 @@ namespace lawrukmvc
             {
                 OnTypeChanging(value);
                 ReportPropertyChanging("Type");
-                _Type = StructuralObject.SetValidValue(value);
+                _Type = StructuralObject.SetValidValue(value, "Type");
                 ReportPropertyChanged("Type");
                 OnTypeChanged();
             }
@@ -803,7 +807,7 @@ namespace lawrukmvc
             {
                 OnVisibilityChanging(value);
                 ReportPropertyChanging("Visibility");
-                _Visibility = StructuralObject.SetValidValue(value);
+                _Visibility = StructuralObject.SetValidValue(value, "Visibility");
                 ReportPropertyChanged("Visibility");
                 OnVisibilityChanged();
             }
@@ -813,7 +817,7 @@ namespace lawrukmvc
         partial void OnVisibilityChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -864,7 +868,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -883,7 +888,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -908,7 +913,7 @@ namespace lawrukmvc
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, false);
+                _FirstName = StructuralObject.SetValidValue(value, false, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -932,7 +937,7 @@ namespace lawrukmvc
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, false);
+                _LastName = StructuralObject.SetValidValue(value, false, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -956,7 +961,7 @@ namespace lawrukmvc
             {
                 OnMiddleNameChanging(value);
                 ReportPropertyChanging("MiddleName");
-                _MiddleName = StructuralObject.SetValidValue(value, false);
+                _MiddleName = StructuralObject.SetValidValue(value, false, "MiddleName");
                 ReportPropertyChanged("MiddleName");
                 OnMiddleNameChanged();
             }
@@ -980,7 +985,7 @@ namespace lawrukmvc
             {
                 OnSummaryChanging(value);
                 ReportPropertyChanging("Summary");
-                _Summary = StructuralObject.SetValidValue(value, false);
+                _Summary = StructuralObject.SetValidValue(value, false, "Summary");
                 ReportPropertyChanged("Summary");
                 OnSummaryChanged();
             }
@@ -1004,7 +1009,7 @@ namespace lawrukmvc
             {
                 OnStackOverflowUrlChanging(value);
                 ReportPropertyChanging("StackOverflowUrl");
-                _StackOverflowUrl = StructuralObject.SetValidValue(value, false);
+                _StackOverflowUrl = StructuralObject.SetValidValue(value, false, "StackOverflowUrl");
                 ReportPropertyChanged("StackOverflowUrl");
                 OnStackOverflowUrlChanged();
             }
@@ -1028,7 +1033,7 @@ namespace lawrukmvc
             {
                 OnWikipediaUrlChanging(value);
                 ReportPropertyChanging("WikipediaUrl");
-                _WikipediaUrl = StructuralObject.SetValidValue(value, false);
+                _WikipediaUrl = StructuralObject.SetValidValue(value, false, "WikipediaUrl");
                 ReportPropertyChanged("WikipediaUrl");
                 OnWikipediaUrlChanged();
             }
@@ -1052,7 +1057,7 @@ namespace lawrukmvc
             {
                 OnWebsitesChanging(value);
                 ReportPropertyChanging("Websites");
-                _Websites = StructuralObject.SetValidValue(value, false);
+                _Websites = StructuralObject.SetValidValue(value, false, "Websites");
                 ReportPropertyChanged("Websites");
                 OnWebsitesChanged();
             }
@@ -1076,7 +1081,7 @@ namespace lawrukmvc
             {
                 OnBooksChanging(value);
                 ReportPropertyChanging("Books");
-                _Books = StructuralObject.SetValidValue(value, false);
+                _Books = StructuralObject.SetValidValue(value, false, "Books");
                 ReportPropertyChanged("Books");
                 OnBooksChanged();
             }
@@ -1100,7 +1105,7 @@ namespace lawrukmvc
             {
                 OnTwitterUrlChanging(value);
                 ReportPropertyChanging("TwitterUrl");
-                _TwitterUrl = StructuralObject.SetValidValue(value, false);
+                _TwitterUrl = StructuralObject.SetValidValue(value, false, "TwitterUrl");
                 ReportPropertyChanged("TwitterUrl");
                 OnTwitterUrlChanged();
             }
@@ -1124,7 +1129,7 @@ namespace lawrukmvc
             {
                 OnFacebookUrlChanging(value);
                 ReportPropertyChanging("FacebookUrl");
-                _FacebookUrl = StructuralObject.SetValidValue(value, false);
+                _FacebookUrl = StructuralObject.SetValidValue(value, false, "FacebookUrl");
                 ReportPropertyChanged("FacebookUrl");
                 OnFacebookUrlChanged();
             }
@@ -1148,7 +1153,7 @@ namespace lawrukmvc
             {
                 OnPhotoUrlChanging(value);
                 ReportPropertyChanging("PhotoUrl");
-                _PhotoUrl = StructuralObject.SetValidValue(value, false);
+                _PhotoUrl = StructuralObject.SetValidValue(value, false, "PhotoUrl");
                 ReportPropertyChanged("PhotoUrl");
                 OnPhotoUrlChanged();
             }
@@ -1172,7 +1177,7 @@ namespace lawrukmvc
             {
                 OnPrimaryLanguageChanging(value);
                 ReportPropertyChanging("PrimaryLanguage");
-                _PrimaryLanguage = StructuralObject.SetValidValue(value, false);
+                _PrimaryLanguage = StructuralObject.SetValidValue(value, false, "PrimaryLanguage");
                 ReportPropertyChanged("PrimaryLanguage");
                 OnPrimaryLanguageChanged();
             }
@@ -1196,7 +1201,7 @@ namespace lawrukmvc
             {
                 OnNicknameChanging(value);
                 ReportPropertyChanging("Nickname");
-                _Nickname = StructuralObject.SetValidValue(value, false);
+                _Nickname = StructuralObject.SetValidValue(value, false, "Nickname");
                 ReportPropertyChanged("Nickname");
                 OnNicknameChanged();
             }
@@ -1206,7 +1211,7 @@ namespace lawrukmvc
         partial void OnNicknameChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -1247,7 +1252,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1266,7 +1272,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1291,7 +1297,7 @@ namespace lawrukmvc
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value);
+                _Place = StructuralObject.SetValidValue(value, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -1315,7 +1321,7 @@ namespace lawrukmvc
             {
                 OnEventChanging(value);
                 ReportPropertyChanging("Event");
-                _Event = StructuralObject.SetValidValue(value, false);
+                _Event = StructuralObject.SetValidValue(value, false, "Event");
                 ReportPropertyChanged("Event");
                 OnEventChanged();
             }
@@ -1339,7 +1345,7 @@ namespace lawrukmvc
             {
                 OnYearChanging(value);
                 ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value);
+                _Year = StructuralObject.SetValidValue(value, "Year");
                 ReportPropertyChanged("Year");
                 OnYearChanged();
             }
@@ -1363,7 +1369,7 @@ namespace lawrukmvc
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, false);
+                _City = StructuralObject.SetValidValue(value, false, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -1387,7 +1393,7 @@ namespace lawrukmvc
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, false);
+                _FirstName = StructuralObject.SetValidValue(value, false, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -1411,7 +1417,7 @@ namespace lawrukmvc
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, false);
+                _LastName = StructuralObject.SetValidValue(value, false, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -1435,7 +1441,7 @@ namespace lawrukmvc
             {
                 OnTimeChanging(value);
                 ReportPropertyChanging("Time");
-                _Time = StructuralObject.SetValidValue(value, false);
+                _Time = StructuralObject.SetValidValue(value, false, "Time");
                 ReportPropertyChanged("Time");
                 OnTimeChanged();
             }
@@ -1459,7 +1465,7 @@ namespace lawrukmvc
             {
                 OnGenderChanging(value);
                 ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value, false);
+                _Gender = StructuralObject.SetValidValue(value, false, "Gender");
                 ReportPropertyChanged("Gender");
                 OnGenderChanged();
             }
@@ -1469,7 +1475,7 @@ namespace lawrukmvc
         partial void OnGenderChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -1494,7 +1500,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1513,7 +1520,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1538,7 +1545,7 @@ namespace lawrukmvc
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -1562,7 +1569,7 @@ namespace lawrukmvc
             {
                 OnMiddleNameChanging(value);
                 ReportPropertyChanging("MiddleName");
-                _MiddleName = StructuralObject.SetValidValue(value, true);
+                _MiddleName = StructuralObject.SetValidValue(value, true, "MiddleName");
                 ReportPropertyChanged("MiddleName");
                 OnMiddleNameChanged();
             }
@@ -1586,7 +1593,7 @@ namespace lawrukmvc
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, true);
+                _LastName = StructuralObject.SetValidValue(value, true, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -1610,7 +1617,7 @@ namespace lawrukmvc
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, true);
+                _Url = StructuralObject.SetValidValue(value, true, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -1634,7 +1641,7 @@ namespace lawrukmvc
             {
                 OnBirthdayYearChanging(value);
                 ReportPropertyChanging("BirthdayYear");
-                _BirthdayYear = StructuralObject.SetValidValue(value);
+                _BirthdayYear = StructuralObject.SetValidValue(value, "BirthdayYear");
                 ReportPropertyChanged("BirthdayYear");
                 OnBirthdayYearChanged();
             }
@@ -1658,7 +1665,7 @@ namespace lawrukmvc
             {
                 OnBirthdayMonthChanging(value);
                 ReportPropertyChanging("BirthdayMonth");
-                _BirthdayMonth = StructuralObject.SetValidValue(value);
+                _BirthdayMonth = StructuralObject.SetValidValue(value, "BirthdayMonth");
                 ReportPropertyChanged("BirthdayMonth");
                 OnBirthdayMonthChanged();
             }
@@ -1682,7 +1689,7 @@ namespace lawrukmvc
             {
                 OnBirthdayDayChanging(value);
                 ReportPropertyChanging("BirthdayDay");
-                _BirthdayDay = StructuralObject.SetValidValue(value);
+                _BirthdayDay = StructuralObject.SetValidValue(value, "BirthdayDay");
                 ReportPropertyChanged("BirthdayDay");
                 OnBirthdayDayChanged();
             }
@@ -1706,7 +1713,7 @@ namespace lawrukmvc
             {
                 OnAddressChanging(value);
                 ReportPropertyChanging("Address");
-                _Address = StructuralObject.SetValidValue(value, true);
+                _Address = StructuralObject.SetValidValue(value, true, "Address");
                 ReportPropertyChanged("Address");
                 OnAddressChanged();
             }
@@ -1730,7 +1737,7 @@ namespace lawrukmvc
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, true);
+                _City = StructuralObject.SetValidValue(value, true, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -1754,7 +1761,7 @@ namespace lawrukmvc
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, true);
+                _State = StructuralObject.SetValidValue(value, true, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -1778,7 +1785,7 @@ namespace lawrukmvc
             {
                 OnZipChanging(value);
                 ReportPropertyChanging("Zip");
-                _Zip = StructuralObject.SetValidValue(value, true);
+                _Zip = StructuralObject.SetValidValue(value, true, "Zip");
                 ReportPropertyChanged("Zip");
                 OnZipChanged();
             }
@@ -1802,7 +1809,7 @@ namespace lawrukmvc
             {
                 OnCellPhoneChanging(value);
                 ReportPropertyChanging("CellPhone");
-                _CellPhone = StructuralObject.SetValidValue(value);
+                _CellPhone = StructuralObject.SetValidValue(value, "CellPhone");
                 ReportPropertyChanged("CellPhone");
                 OnCellPhoneChanged();
             }
@@ -1826,7 +1833,7 @@ namespace lawrukmvc
             {
                 OnGoogleIdChanging(value);
                 ReportPropertyChanging("GoogleId");
-                _GoogleId = StructuralObject.SetValidValue(value, true);
+                _GoogleId = StructuralObject.SetValidValue(value, true, "GoogleId");
                 ReportPropertyChanged("GoogleId");
                 OnGoogleIdChanged();
             }
@@ -1850,7 +1857,7 @@ namespace lawrukmvc
             {
                 OnYahooIdChanging(value);
                 ReportPropertyChanging("YahooId");
-                _YahooId = StructuralObject.SetValidValue(value, true);
+                _YahooId = StructuralObject.SetValidValue(value, true, "YahooId");
                 ReportPropertyChanged("YahooId");
                 OnYahooIdChanged();
             }
@@ -1860,7 +1867,7 @@ namespace lawrukmvc
         partial void OnYahooIdChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -1899,7 +1906,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1918,7 +1926,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1943,7 +1951,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -1967,7 +1975,7 @@ namespace lawrukmvc
             {
                 OnDistanceChanging(value);
                 ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value, false);
+                _Distance = StructuralObject.SetValidValue(value, false, "Distance");
                 ReportPropertyChanged("Distance");
                 OnDistanceChanged();
             }
@@ -1991,7 +1999,7 @@ namespace lawrukmvc
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, false);
+                _Url = StructuralObject.SetValidValue(value, false, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -2015,7 +2023,7 @@ namespace lawrukmvc
             {
                 OnCityChanging(value);
                 ReportPropertyChanging("City");
-                _City = StructuralObject.SetValidValue(value, false);
+                _City = StructuralObject.SetValidValue(value, false, "City");
                 ReportPropertyChanged("City");
                 OnCityChanged();
             }
@@ -2039,7 +2047,7 @@ namespace lawrukmvc
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, false);
+                _State = StructuralObject.SetValidValue(value, false, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -2063,7 +2071,7 @@ namespace lawrukmvc
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -2087,7 +2095,7 @@ namespace lawrukmvc
             {
                 OnSecondsChanging(value);
                 ReportPropertyChanging("Seconds");
-                _Seconds = StructuralObject.SetValidValue(value);
+                _Seconds = StructuralObject.SetValidValue(value, "Seconds");
                 ReportPropertyChanged("Seconds");
                 OnSecondsChanged();
             }
@@ -2097,7 +2105,7 @@ namespace lawrukmvc
         partial void OnSecondsChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -2134,7 +2142,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2153,7 +2162,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2178,7 +2187,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -2202,7 +2211,7 @@ namespace lawrukmvc
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, false);
+                _Url = StructuralObject.SetValidValue(value, false, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -2226,7 +2235,7 @@ namespace lawrukmvc
             {
                 OnBodyChanging(value);
                 ReportPropertyChanging("Body");
-                _Body = StructuralObject.SetValidValue(value, false);
+                _Body = StructuralObject.SetValidValue(value, false, "Body");
                 ReportPropertyChanged("Body");
                 OnBodyChanged();
             }
@@ -2250,7 +2259,7 @@ namespace lawrukmvc
             {
                 OnRunChanging(value);
                 ReportPropertyChanging("Run");
-                _Run = StructuralObject.SetValidValue(value);
+                _Run = StructuralObject.SetValidValue(value, "Run");
                 ReportPropertyChanged("Run");
                 OnRunChanged();
             }
@@ -2274,7 +2283,7 @@ namespace lawrukmvc
             {
                 OnHikeChanging(value);
                 ReportPropertyChanging("Hike");
-                _Hike = StructuralObject.SetValidValue(value);
+                _Hike = StructuralObject.SetValidValue(value, "Hike");
                 ReportPropertyChanged("Hike");
                 OnHikeChanged();
             }
@@ -2298,7 +2307,7 @@ namespace lawrukmvc
             {
                 OnDistanceChanging(value);
                 ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value);
+                _Distance = StructuralObject.SetValidValue(value, "Distance");
                 ReportPropertyChanged("Distance");
                 OnDistanceChanged();
             }
@@ -2308,7 +2317,7 @@ namespace lawrukmvc
         partial void OnDistanceChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -2335,7 +2344,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2354,7 +2364,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2379,7 +2389,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -2389,7 +2399,7 @@ namespace lawrukmvc
         partial void OnTitleChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -2420,7 +2430,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2439,7 +2450,7 @@ namespace lawrukmvc
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -2464,7 +2475,7 @@ namespace lawrukmvc
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -2488,7 +2499,7 @@ namespace lawrukmvc
             {
                 OnYouTubeIdChanging(value);
                 ReportPropertyChanging("YouTubeId");
-                _YouTubeId = StructuralObject.SetValidValue(value, false);
+                _YouTubeId = StructuralObject.SetValidValue(value, false, "YouTubeId");
                 ReportPropertyChanged("YouTubeId");
                 OnYouTubeIdChanged();
             }
@@ -2512,7 +2523,7 @@ namespace lawrukmvc
             {
                 OnDateChanging(value);
                 ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
+                _Date = StructuralObject.SetValidValue(value, "Date");
                 ReportPropertyChanged("Date");
                 OnDateChanged();
             }
@@ -2536,7 +2547,7 @@ namespace lawrukmvc
             {
                 OnVisibilityChanging(value);
                 ReportPropertyChanging("Visibility");
-                _Visibility = StructuralObject.SetValidValue(value);
+                _Visibility = StructuralObject.SetValidValue(value, "Visibility");
                 ReportPropertyChanged("Visibility");
                 OnVisibilityChanged();
             }
@@ -2546,7 +2557,7 @@ namespace lawrukmvc
         partial void OnVisibilityChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -2573,7 +2584,8 @@ namespace lawrukmvc
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2592,7 +2604,7 @@ namespace lawrukmvc
                 {
                     OnVideoIdChanging(value);
                     ReportPropertyChanging("VideoId");
-                    _VideoId = StructuralObject.SetValidValue(value);
+                    _VideoId = StructuralObject.SetValidValue(value, "VideoId");
                     ReportPropertyChanged("VideoId");
                     OnVideoIdChanged();
                 }
@@ -2619,7 +2631,7 @@ namespace lawrukmvc
                 {
                     OnTagIdChanging(value);
                     ReportPropertyChanging("TagId");
-                    _TagId = StructuralObject.SetValidValue(value);
+                    _TagId = StructuralObject.SetValidValue(value, "TagId");
                     ReportPropertyChanged("TagId");
                     OnTagIdChanged();
                 }
@@ -2630,9 +2642,9 @@ namespace lawrukmvc
         partial void OnTagIdChanged();
 
         #endregion
-    
+
     }
 
     #endregion
-    
+
 }

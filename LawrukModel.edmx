@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="lawrukModelStoreContainer">
-          <EntitySet Name="BlogPost" EntityType="lawrukModel.Store.BlogPost" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BlogPostTag" EntityType="lawrukModel.Store.BlogPostTag" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CalendarEntry" EntityType="lawrukModel.Store.CalendarEntry" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="FamousDeveloper" EntityType="lawrukModel.Store.FamousDeveloper" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="OlympicResult" EntityType="lawrukModel.Store.OlympicResult" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Person" EntityType="lawrukModel.Store.Person" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RaceResult" EntityType="lawrukModel.Store.RaceResult" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Route" EntityType="lawrukModel.Store.Route" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlogPost" EntityType="lawrukModel.Store.BlogPost" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BlogPostTag" EntityType="lawrukModel.Store.BlogPostTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CalendarEntry" EntityType="lawrukModel.Store.CalendarEntry" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="FamousDeveloper" EntityType="lawrukModel.Store.FamousDeveloper" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="OlympicResult" EntityType="lawrukModel.Store.OlympicResult" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Person" EntityType="lawrukModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RaceResult" EntityType="lawrukModel.Store.RaceResult" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Route" EntityType="lawrukModel.Store.Route" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
         </EntityContainer>
         <EntityType Name="BlogPost">
           <Key>
@@ -159,8 +159,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="lawrukmvc.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="lawrukEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="lawrukmvc.Models" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="lawrukEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="BlogPosts" EntityType="lawrukmvc.Models.BlogPost" />
           <EntitySet Name="BlogPostTags" EntityType="lawrukmvc.Models.BlogPostTag" />
           <EntitySet Name="CalendarEntries" EntityType="lawrukmvc.Models.CalendarEntry" />
@@ -177,7 +177,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="DateTime" Name="LastModified" Nullable="false" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -197,7 +197,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -208,7 +208,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -227,7 +227,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="Place" Nullable="false" />
           <Property Type="String" Name="Event" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Year" Nullable="false" />
@@ -241,7 +241,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="MiddleName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -261,7 +261,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Distance" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Url" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -274,7 +274,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -286,14 +286,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="YouTubeId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
@@ -311,7 +311,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="lawrukModelStoreContainer" CdmEntityContainer="lawrukEntities">
           <EntitySetMapping Name="BlogPosts">
             <EntityTypeMapping TypeName="lawrukmvc.Models.BlogPost">
@@ -461,34 +461,34 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-      </DesignerInfoPropertySet>
-    </Options>
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="True" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram Name="LawrukModel" ZoomLevel="55">
-        <EntityTypeShape EntityType="lawrukmvc.Models.BlogPost" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.BlogPostTag" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.CalendarEntry" Width="1.5" PointX="2.75" PointY="3.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.FamousDeveloper" Width="1.5" PointX="4.75" PointY="0.75" Height="3.7109993489583388" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.OlympicResult" Width="1.5" PointX="4.75" PointY="5.75" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.Person" Width="1.5" PointX="6.75" PointY="0.75" Height="3.9033007812500031" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.RaceResult" Width="1.5" PointX="0.75" PointY="6.75" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.Route" Width="1.5" PointX="6.75" PointY="5.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.Tag" Width="1.5" PointX="8.75" PointY="0.75" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.Video" Width="1.5" PointX="8.75" PointY="3.75" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="lawrukmvc.Models.VideoTag" Width="1.5" PointX="8.75" PointY="6.75" Height="1.4033821614583282" />
-      </Diagram>
-    </Diagrams>
-  </Designer>
+    <edmx:Diagrams>
+      <edmx:Diagram Name="LawrukModel" ZoomLevel="55">
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.BlogPost" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166674" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.BlogPostTag" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583388" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.CalendarEntry" Width="1.5" PointX="2.75" PointY="3.75" Height="2.1725878906250031" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.FamousDeveloper" Width="1.5" PointX="4.75" PointY="0.75" Height="3.7109993489583388" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.OlympicResult" Width="1.5" PointX="4.75" PointY="5.75" Height="2.7494921875000031" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.Person" Width="1.5" PointX="6.75" PointY="0.75" Height="3.9033007812500031" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.RaceResult" Width="1.5" PointX="0.75" PointY="6.75" Height="2.5571907552083388" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.Route" Width="1.5" PointX="6.75" PointY="5.75" Height="2.3648893229166674" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.Tag" Width="1.5" PointX="8.75" PointY="0.75" Height="1.4033821614583388" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.Video" Width="1.5" PointX="8.75" PointY="3.75" Height="1.9802864583333388" />
+        <edmx:EntityTypeShape EntityType="lawrukmvc.Models.VideoTag" Width="1.5" PointX="8.75" PointY="6.75" Height="1.4033821614583282" />
+      </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
 </edmx:Edmx>
