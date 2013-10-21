@@ -19,7 +19,7 @@ namespace lawrukmvc.Controllers
 
         public override EntityObject GetItem(int id)
         {
-            return lawrukEntities.Tags.Where(t => t.Id == id).FirstOrDefault();
+            return lawrukRepository.LawrukEntities.Tags.Where(t => t.Id == id).FirstOrDefault();
         }
 
         public override object GetDetailModel(int id)

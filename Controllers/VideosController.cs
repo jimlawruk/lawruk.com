@@ -52,7 +52,7 @@ namespace lawrukmvc.Controllers
 
         private Video GetVideo(int id)
         {
-            return lawrukEntities.Videos.FirstOrDefault(i => i.Id == id);
+            return lawrukRepository.LawrukEntities.Videos.FirstOrDefault(i => i.Id == id);
         }
 
         public override object GetDetailModel(int id)
@@ -70,8 +70,14 @@ namespace lawrukmvc.Controllers
             video.Visibility = int.Parse(Request.Params["visibility"]);
             video.Title = Request.Params["title"];
             video.Date = DateTime.Parse(Request.Params["date"]);
+            var tags = Request.Params["tags"];
+            lawrukRepository.SaveTags(video, tags);
             return video;
         }
+
+        
+
+        
 
     }
 }

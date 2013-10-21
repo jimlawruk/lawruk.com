@@ -16,6 +16,14 @@
           <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_VideoTag_Tag" Association="lawrukModel.Store.FK_VideoTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="VideoTag" EntitySet="VideoTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoTag_Video" Association="lawrukModel.Store.FK_VideoTag_Video">
+            <End Role="Video" EntitySet="Video" />
+            <End Role="VideoTag" EntitySet="VideoTag" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BlogPost">
           <Key>
@@ -140,6 +148,30 @@
           <Property Name="VideoId" Type="int" Nullable="false" />
           <Property Name="TagId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_VideoTag_Tag">
+          <End Role="Tag" Type="lawrukModel.Store.Tag" Multiplicity="1" />
+          <End Role="VideoTag" Type="lawrukModel.Store.VideoTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VideoTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoTag_Video">
+          <End Role="Video" Type="lawrukModel.Store.Video" Multiplicity="1" />
+          <End Role="VideoTag" Type="lawrukModel.Store.VideoTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VideoTag">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -154,7 +186,10 @@
           <EntitySet Name="RaceResults" EntityType="lawrukmvc.Models.RaceResult" />
           <EntitySet Name="Tags" EntityType="lawrukmvc.Models.Tag" />
           <EntitySet Name="Videos" EntityType="lawrukmvc.Models.Video" />
-          <EntitySet Name="VideoTags" EntityType="lawrukmvc.Models.VideoTag" />
+          <AssociationSet Name="VideoTag1" Association="lawrukmvc.Models.VideoTag1">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BlogPost">
           <Key>
@@ -259,6 +294,7 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Videos" Relationship="lawrukmvc.Models.VideoTag1" FromRole="Tag" ToRole="Video" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
@@ -270,15 +306,12 @@
           <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="Visibility" />
           <Property Type="Boolean" Name="Catholic" />
+          <NavigationProperty Name="Tags" Relationship="lawrukmvc.Models.VideoTag1" FromRole="Video" ToRole="Tag" />
         </EntityType>
-        <EntityType Name="VideoTag">
-          <Key>
-            <PropertyRef Name="VideoId" />
-            <PropertyRef Name="TagId" />
-          </Key>
-          <Property Type="Int32" Name="VideoId" Nullable="false" />
-          <Property Type="Int32" Name="TagId" Nullable="false" />
-        </EntityType>
+        <Association Name="VideoTag1">
+          <End Type="lawrukmvc.Models.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="lawrukmvc.Models.Video" Role="Video" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -408,14 +441,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VideoTags">
-            <EntityTypeMapping TypeName="lawrukmvc.Models.VideoTag">
-              <MappingFragment StoreEntitySet="VideoTag">
-                <ScalarProperty Name="TagId" ColumnName="TagId" />
-                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="VideoTag1" TypeName="lawrukmvc.Models.VideoTag1" StoreEntitySet="VideoTag">
+            <EndProperty Name="Video">
+              <ScalarProperty Name="Id" ColumnName="VideoId" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -42,7 +42,7 @@ namespace lawrukmvc.Controllers
 
         public override EntityObject GetItem(int id)
         {
-            return lawrukEntities.RaceResults.First(r => r.Id == id);     
+            return lawrukRepository.LawrukEntities.RaceResults.First(r => r.Id == id);     
         }
 
         public override object GetDetailModel(int id)

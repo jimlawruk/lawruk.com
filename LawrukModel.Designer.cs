@@ -17,6 +17,12 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM Relationship Metadata
+
+[assembly: EdmRelationshipAttribute("lawrukmvc.Models", "VideoTag1", "Tag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(lawrukmvc.Tag), "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(lawrukmvc.Video))]
+
+#endregion
+
 namespace lawrukmvc
 {
     #region Contexts
@@ -180,22 +186,6 @@ namespace lawrukmvc
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Route> Routes
-        {
-            get
-            {
-                if ((_Routes == null))
-                {
-                    _Routes = base.CreateObjectSet<Route>("Routes");
-                }
-                return _Routes;
-            }
-        }
-        private ObjectSet<Route> _Routes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Tag> Tags
         {
             get
@@ -224,22 +214,6 @@ namespace lawrukmvc
             }
         }
         private ObjectSet<Video> _Videos;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<VideoTag> VideoTags
-        {
-            get
-            {
-                if ((_VideoTags == null))
-                {
-                    _VideoTags = base.CreateObjectSet<VideoTag>("VideoTags");
-                }
-                return _VideoTags;
-            }
-        }
-        private ObjectSet<VideoTag> _VideoTags;
 
         #endregion
 
@@ -302,14 +276,6 @@ namespace lawrukmvc
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Routes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToRoutes(Route route)
-        {
-            base.AddObject("Routes", route);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Tags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTags(Tag tag)
@@ -323,14 +289,6 @@ namespace lawrukmvc
         public void AddToVideos(Video video)
         {
             base.AddObject("Videos", video);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the VideoTags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToVideoTags(VideoTag videoTag)
-        {
-            base.AddObject("VideoTags", videoTag);
         }
 
         #endregion
@@ -2111,218 +2069,6 @@ namespace lawrukmvc
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="lawrukmvc.Models", Name="Route")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Route : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Route object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="title">Initial value of the Title property.</param>
-        /// <param name="url">Initial value of the Url property.</param>
-        /// <param name="body">Initial value of the Body property.</param>
-        /// <param name="run">Initial value of the Run property.</param>
-        /// <param name="hike">Initial value of the Hike property.</param>
-        /// <param name="distance">Initial value of the Distance property.</param>
-        public static Route CreateRoute(global::System.Int32 id, global::System.String title, global::System.String url, global::System.String body, global::System.Boolean run, global::System.Boolean hike, global::System.Double distance)
-        {
-            Route route = new Route();
-            route.Id = id;
-            route.Title = title;
-            route.Url = url;
-            route.Body = body;
-            route.Run = run;
-            route.Hike = hike;
-            route.Distance = distance;
-            return route;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Title
-        {
-            get
-            {
-                return _Title;
-            }
-            set
-            {
-                OnTitleChanging(value);
-                ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false, "Title");
-                ReportPropertyChanged("Title");
-                OnTitleChanged();
-            }
-        }
-        private global::System.String _Title;
-        partial void OnTitleChanging(global::System.String value);
-        partial void OnTitleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Url
-        {
-            get
-            {
-                return _Url;
-            }
-            set
-            {
-                OnUrlChanging(value);
-                ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, false, "Url");
-                ReportPropertyChanged("Url");
-                OnUrlChanged();
-            }
-        }
-        private global::System.String _Url;
-        partial void OnUrlChanging(global::System.String value);
-        partial void OnUrlChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Body
-        {
-            get
-            {
-                return _Body;
-            }
-            set
-            {
-                OnBodyChanging(value);
-                ReportPropertyChanging("Body");
-                _Body = StructuralObject.SetValidValue(value, false, "Body");
-                ReportPropertyChanged("Body");
-                OnBodyChanged();
-            }
-        }
-        private global::System.String _Body;
-        partial void OnBodyChanging(global::System.String value);
-        partial void OnBodyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean Run
-        {
-            get
-            {
-                return _Run;
-            }
-            set
-            {
-                OnRunChanging(value);
-                ReportPropertyChanging("Run");
-                _Run = StructuralObject.SetValidValue(value, "Run");
-                ReportPropertyChanged("Run");
-                OnRunChanged();
-            }
-        }
-        private global::System.Boolean _Run;
-        partial void OnRunChanging(global::System.Boolean value);
-        partial void OnRunChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean Hike
-        {
-            get
-            {
-                return _Hike;
-            }
-            set
-            {
-                OnHikeChanging(value);
-                ReportPropertyChanging("Hike");
-                _Hike = StructuralObject.SetValidValue(value, "Hike");
-                ReportPropertyChanged("Hike");
-                OnHikeChanged();
-            }
-        }
-        private global::System.Boolean _Hike;
-        partial void OnHikeChanging(global::System.Boolean value);
-        partial void OnHikeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Double Distance
-        {
-            get
-            {
-                return _Distance;
-            }
-            set
-            {
-                OnDistanceChanging(value);
-                ReportPropertyChanging("Distance");
-                _Distance = StructuralObject.SetValidValue(value, "Distance");
-                ReportPropertyChanged("Distance");
-                OnDistanceChanged();
-            }
-        }
-        private global::System.Double _Distance;
-        partial void OnDistanceChanging(global::System.Double value);
-        partial void OnDistanceChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="lawrukmvc.Models", Name="Tag")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2397,6 +2143,32 @@ namespace lawrukmvc
         private global::System.String _Title;
         partial void OnTitleChanging(global::System.String value);
         partial void OnTitleChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("lawrukmvc.Models", "VideoTag1", "Video")]
+        public EntityCollection<Video> Videos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Video>("lawrukmvc.Models.VideoTag1", "Video");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Video>("lawrukmvc.Models.VideoTag1", "Video", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2555,91 +2327,56 @@ namespace lawrukmvc
         private Nullable<global::System.Int32> _Visibility;
         partial void OnVisibilityChanging(Nullable<global::System.Int32> value);
         partial void OnVisibilityChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="lawrukmvc.Models", Name="VideoTag")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class VideoTag : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new VideoTag object.
-        /// </summary>
-        /// <param name="videoId">Initial value of the VideoId property.</param>
-        /// <param name="tagId">Initial value of the TagId property.</param>
-        public static VideoTag CreateVideoTag(global::System.Int32 videoId, global::System.Int32 tagId)
-        {
-            VideoTag videoTag = new VideoTag();
-            videoTag.VideoId = videoId;
-            videoTag.TagId = tagId;
-            return videoTag;
-        }
-
-        #endregion
-
-        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 VideoId
+        public Nullable<global::System.Boolean> Catholic
         {
             get
             {
-                return _VideoId;
+                return _Catholic;
             }
             set
             {
-                if (_VideoId != value)
-                {
-                    OnVideoIdChanging(value);
-                    ReportPropertyChanging("VideoId");
-                    _VideoId = StructuralObject.SetValidValue(value, "VideoId");
-                    ReportPropertyChanged("VideoId");
-                    OnVideoIdChanged();
-                }
+                OnCatholicChanging(value);
+                ReportPropertyChanging("Catholic");
+                _Catholic = StructuralObject.SetValidValue(value, "Catholic");
+                ReportPropertyChanged("Catholic");
+                OnCatholicChanged();
             }
         }
-        private global::System.Int32 _VideoId;
-        partial void OnVideoIdChanging(global::System.Int32 value);
-        partial void OnVideoIdChanged();
+        private Nullable<global::System.Boolean> _Catholic;
+        partial void OnCatholicChanging(Nullable<global::System.Boolean> value);
+        partial void OnCatholicChanged();
+
+        #endregion
+
+        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.Int32 TagId
+        [EdmRelationshipNavigationPropertyAttribute("lawrukmvc.Models", "VideoTag1", "Tag")]
+        public EntityCollection<Tag> Tags
         {
             get
             {
-                return _TagId;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Tag>("lawrukmvc.Models.VideoTag1", "Tag");
             }
             set
             {
-                if (_TagId != value)
+                if ((value != null))
                 {
-                    OnTagIdChanging(value);
-                    ReportPropertyChanging("TagId");
-                    _TagId = StructuralObject.SetValidValue(value, "TagId");
-                    ReportPropertyChanged("TagId");
-                    OnTagIdChanged();
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Tag>("lawrukmvc.Models.VideoTag1", "Tag", value);
                 }
             }
         }
-        private global::System.Int32 _TagId;
-        partial void OnTagIdChanging(global::System.Int32 value);
-        partial void OnTagIdChanged();
 
         #endregion
 
