@@ -4,19 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="lawrukModelStoreContainer">
-          <EntitySet Name="BlogPost" EntityType="lawrukModel.Store.BlogPost" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BlogPostTag" EntityType="lawrukModel.Store.BlogPostTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CalendarEntry" EntityType="lawrukModel.Store.CalendarEntry" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="FamousDeveloper" EntityType="lawrukModel.Store.FamousDeveloper" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="OlympicResult" EntityType="lawrukModel.Store.OlympicResult" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Person" EntityType="lawrukModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="RaceResult" EntityType="lawrukModel.Store.RaceResult" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Route" EntityType="lawrukModel.Store.Route" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BlogPost" EntityType="lawrukModel.Store.BlogPost" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlogPostTag" EntityType="lawrukModel.Store.BlogPostTag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CalendarEntry" EntityType="lawrukModel.Store.CalendarEntry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FamousDeveloper" EntityType="lawrukModel.Store.FamousDeveloper" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OlympicResult" EntityType="lawrukModel.Store.OlympicResult" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="lawrukModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RaceResult" EntityType="lawrukModel.Store.RaceResult" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="BlogPost">
           <Key>
@@ -115,22 +114,6 @@
           <Property Name="Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Seconds" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6005: The data type 'geography' is not supported; the column 'StartLocation' in table 'lawruk.dbo.Route' was excluded.
-      warning 6005: The data type 'geography' is not supported; the column 'EndLocation' in table 'lawruk.dbo.Route' was excluded.
-      -->
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="Url" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="Body" Type="varchar(max)" Nullable="false" />
-          <Property Name="Run" Type="bit" Nullable="false" />
-          <Property Name="Hike" Type="bit" Nullable="false" />
-          <Property Name="Distance" Type="float" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="Id" />
@@ -147,6 +130,7 @@
           <Property Name="YouTubeId" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Visibility" Type="int" />
+          <Property Name="Catholic" Type="bit" />
         </EntityType>
         <EntityType Name="VideoTag">
           <Key>
@@ -168,7 +152,6 @@
           <EntitySet Name="OlympicResults" EntityType="lawrukmvc.Models.OlympicResult" />
           <EntitySet Name="People" EntityType="lawrukmvc.Models.Person" />
           <EntitySet Name="RaceResults" EntityType="lawrukmvc.Models.RaceResult" />
-          <EntitySet Name="Routes" EntityType="lawrukmvc.Models.Route" />
           <EntitySet Name="Tags" EntityType="lawrukmvc.Models.Tag" />
           <EntitySet Name="Videos" EntityType="lawrukmvc.Models.Video" />
           <EntitySet Name="VideoTags" EntityType="lawrukmvc.Models.VideoTag" />
@@ -178,8 +161,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
-          <Property Type="DateTime" Name="LastModified" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="LastModified" Nullable="false" Precision="0" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="FlickrImageUrl" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -199,7 +182,7 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
           <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Type" Nullable="false" />
           <Property Type="Int32" Name="Visibility" />
@@ -267,20 +250,8 @@
           <Property Type="String" Name="Url" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="City" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="Seconds" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="Run" Nullable="false" />
-          <Property Type="Boolean" Name="Hike" Nullable="false" />
-          <Property Type="Double" Name="Distance" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -296,8 +267,9 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="YouTubeId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="Visibility" />
+          <Property Type="Boolean" Name="Catholic" />
         </EntityType>
         <EntityType Name="VideoTag">
           <Key>
@@ -416,19 +388,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Routes">
-            <EntityTypeMapping TypeName="lawrukmvc.Models.Route">
-              <MappingFragment StoreEntitySet="Route">
-                <ScalarProperty Name="Distance" ColumnName="Distance" />
-                <ScalarProperty Name="Hike" ColumnName="Hike" />
-                <ScalarProperty Name="Run" ColumnName="Run" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tags">
             <EntityTypeMapping TypeName="lawrukmvc.Models.Tag">
               <MappingFragment StoreEntitySet="Tag">
@@ -440,6 +399,7 @@
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="lawrukmvc.Models.Video">
               <MappingFragment StoreEntitySet="Video">
+                <ScalarProperty Name="Catholic" ColumnName="Catholic" />
                 <ScalarProperty Name="Visibility" ColumnName="Visibility" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="YouTubeId" ColumnName="YouTubeId" />
