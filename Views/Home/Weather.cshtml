@@ -3,6 +3,15 @@
 @{
     ViewBag.Title = "Weather";
 }
-
-@Html.Partial("RSSList",Model);
-
+<div class="weather">
+@foreach (lawrukmvc.ViewModels.SyndicationItemViewModel item in Model) {
+    <li class="panel panel-primary">
+        <h4>@item.Title</h4>
+        
+        @if (item.DisplaySummary)
+          {
+        @Html.Raw(item.Summary)  
+        }
+    </li>
+    }
+</div>

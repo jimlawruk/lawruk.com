@@ -62,6 +62,7 @@ namespace lawrukmvc.Controllers
                 syndicationItems.Add(Helpers.RSS.GetListFromRSSFeed(place)[0]);
             }
             var viewModels = Helpers.Helpers.GetSyndicationItemViewModels(syndicationItems, true);
+            viewModels = viewModels.Select(vm => {vm.Title = string.Join(" ", vm.Title.Split(' ').Take(3)); return vm;}).ToList();
             return View(viewModels);
             
         //@Html.Partial("RSSList", Helpers.GetRSSList("

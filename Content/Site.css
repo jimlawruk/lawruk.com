@@ -99,6 +99,13 @@ ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
     font-size: 18px;
 }
 
+/*Weather*/
+.weather {
+    margin: auto;
+}
+.weather li {list-style-type: none; float:left; padding:10px; margin:5px;}
+.weather h4 {padding-top:0px; font-weight:bold;}
+.weather img {}
 
 .home #description {clear:both; display:block;}
 .home .col-left, .home .col-right {width:50%; float:left; clear:right;}

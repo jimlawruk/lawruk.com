@@ -14,9 +14,10 @@ namespace lawrukmvc.ViewModels
         public SyndicationItemViewModel(SyndicationItem item)
         {
             SyndicationItem = item;
+            Title = SyndicationItem.Title.Text;
         }
 
-        public string Title { get { return SyndicationItem.Title.Text; } }
+        public string Title { get; set; }
         public string Url { 
             get {
                 return Helpers.Helpers.ValueOrBlank(SyndicationItem.Links.Count > 0, SyndicationItem.Links[0].Uri.ToString());
