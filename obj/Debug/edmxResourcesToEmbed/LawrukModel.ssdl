@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+<Schema Namespace="lawrukModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="lawrukModelStoreContainer">
     <EntitySet Name="BlogPost" EntityType="lawrukModel.Store.BlogPost" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BlogPostTag" EntityType="lawrukModel.Store.BlogPostTag" store:Type="Tables" Schema="dbo" />
@@ -8,10 +8,17 @@
     <EntitySet Name="OlympicResult" EntityType="lawrukModel.Store.OlympicResult" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Person" EntityType="lawrukModel.Store.Person" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RaceResult" EntityType="lawrukModel.Store.RaceResult" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Route" EntityType="lawrukModel.Store.Route" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tag" EntityType="lawrukModel.Store.Tag" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Video" EntityType="lawrukModel.Store.Video" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="VideoTag" EntityType="lawrukModel.Store.VideoTag" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_VideoTag_Tag" Association="lawrukModel.Store.FK_VideoTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="VideoTag" EntitySet="VideoTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VideoTag_Video" Association="lawrukModel.Store.FK_VideoTag_Video">
+      <End Role="Video" EntitySet="Video" />
+      <End Role="VideoTag" EntitySet="VideoTag" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BlogPost">
     <Key>
@@ -110,22 +117,6 @@
     <Property Name="Date" Type="smalldatetime" Nullable="false" />
     <Property Name="Seconds" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-      warning 6005: The data type 'geography' is not supported; the column 'StartLocation' in table 'lawruk.dbo.Route' was excluded.
-      warning 6005: The data type 'geography' is not supported; the column 'EndLocation' in table 'lawruk.dbo.Route' was excluded.
-      -->
-  <EntityType Name="Route">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Title" Type="varchar" Nullable="false" MaxLength="200" />
-    <Property Name="Url" Type="varchar" Nullable="false" MaxLength="200" />
-    <Property Name="Body" Type="varchar(max)" Nullable="false" />
-    <Property Name="Run" Type="bit" Nullable="false" />
-    <Property Name="Hike" Type="bit" Nullable="false" />
-    <Property Name="Distance" Type="float" Nullable="false" />
-  </EntityType>
   <EntityType Name="Tag">
     <Key>
       <PropertyRef Name="Id" />
@@ -142,6 +133,7 @@
     <Property Name="YouTubeId" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="Date" Type="smalldatetime" Nullable="false" />
     <Property Name="Visibility" Type="int" />
+    <Property Name="Catholic" Type="bit" />
   </EntityType>
   <EntityType Name="VideoTag">
     <Key>
@@ -151,4 +143,28 @@
     <Property Name="VideoId" Type="int" Nullable="false" />
     <Property Name="TagId" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="FK_VideoTag_Tag">
+    <End Role="Tag" Type="lawrukModel.Store.Tag" Multiplicity="1" />
+    <End Role="VideoTag" Type="lawrukModel.Store.VideoTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VideoTag">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VideoTag_Video">
+    <End Role="Video" Type="lawrukModel.Store.Video" Multiplicity="1" />
+    <End Role="VideoTag" Type="lawrukModel.Store.VideoTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VideoTag">
+        <PropertyRef Name="VideoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

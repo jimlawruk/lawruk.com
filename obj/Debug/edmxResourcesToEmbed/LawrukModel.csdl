@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="lawrukmvc.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-  <EntityContainer Name="lawrukEntities" annotation:LazyLoadingEnabled="true">
+<Schema Namespace="lawrukmvc.Models" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="lawrukEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
     <EntitySet Name="BlogPosts" EntityType="lawrukmvc.Models.BlogPost" />
     <EntitySet Name="BlogPostTags" EntityType="lawrukmvc.Models.BlogPostTag" />
     <EntitySet Name="CalendarEntries" EntityType="lawrukmvc.Models.CalendarEntry" />
@@ -8,18 +8,20 @@
     <EntitySet Name="OlympicResults" EntityType="lawrukmvc.Models.OlympicResult" />
     <EntitySet Name="People" EntityType="lawrukmvc.Models.Person" />
     <EntitySet Name="RaceResults" EntityType="lawrukmvc.Models.RaceResult" />
-    <EntitySet Name="Routes" EntityType="lawrukmvc.Models.Route" />
     <EntitySet Name="Tags" EntityType="lawrukmvc.Models.Tag" />
     <EntitySet Name="Videos" EntityType="lawrukmvc.Models.Video" />
-    <EntitySet Name="VideoTags" EntityType="lawrukmvc.Models.VideoTag" />
+    <AssociationSet Name="VideoTag1" Association="lawrukmvc.Models.VideoTag1">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="Video" EntitySet="Videos" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BlogPost">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="DateTime" Name="Date" Nullable="false" />
-    <Property Type="DateTime" Name="LastModified" Nullable="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="LastModified" Nullable="false" Precision="0" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="FlickrImageUrl" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -37,9 +39,9 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="Date" Nullable="false" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
     <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="Type" Nullable="false" />
     <Property Type="Int32" Name="Visibility" />
@@ -48,7 +50,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -67,7 +69,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="Int32" Name="Place" Nullable="false" />
     <Property Type="String" Name="Event" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="Year" Nullable="false" />
@@ -81,7 +83,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="MiddleName" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -101,50 +103,37 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Distance" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Url" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="City" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="Date" Nullable="false" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
     <Property Type="Int32" Name="Seconds" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Route">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="Url" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="Boolean" Name="Run" Nullable="false" />
-    <Property Type="Boolean" Name="Hike" Nullable="false" />
-    <Property Type="Double" Name="Distance" Nullable="false" />
   </EntityType>
   <EntityType Name="Tag">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Videos" Relationship="lawrukmvc.Models.VideoTag1" FromRole="Tag" ToRole="Video" />
   </EntityType>
   <EntityType Name="Video">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="YouTubeId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="Date" Nullable="false" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="0" />
     <Property Type="Int32" Name="Visibility" />
+    <Property Type="Boolean" Name="Catholic" />
+    <NavigationProperty Name="Tags" Relationship="lawrukmvc.Models.VideoTag1" FromRole="Video" ToRole="Tag" />
   </EntityType>
-  <EntityType Name="VideoTag">
-    <Key>
-      <PropertyRef Name="VideoId" />
-      <PropertyRef Name="TagId" />
-    </Key>
-    <Property Type="Int32" Name="VideoId" Nullable="false" />
-    <Property Type="Int32" Name="TagId" Nullable="false" />
-  </EntityType>
+  <Association Name="VideoTag1">
+    <End Type="lawrukmvc.Models.Tag" Role="Tag" Multiplicity="*" />
+    <End Type="lawrukmvc.Models.Video" Role="Video" Multiplicity="*" />
+  </Association>
 </Schema>

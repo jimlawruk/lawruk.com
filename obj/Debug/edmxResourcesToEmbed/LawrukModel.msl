@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="lawrukModelStoreContainer" CdmEntityContainer="lawrukEntities">
     <EntitySetMapping Name="BlogPosts">
       <EntityTypeMapping TypeName="lawrukmvc.Models.BlogPost">
@@ -104,19 +104,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Routes">
-      <EntityTypeMapping TypeName="lawrukmvc.Models.Route">
-        <MappingFragment StoreEntitySet="Route">
-          <ScalarProperty Name="Distance" ColumnName="Distance" />
-          <ScalarProperty Name="Hike" ColumnName="Hike" />
-          <ScalarProperty Name="Run" ColumnName="Run" />
-          <ScalarProperty Name="Body" ColumnName="Body" />
-          <ScalarProperty Name="Url" ColumnName="Url" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Tags">
       <EntityTypeMapping TypeName="lawrukmvc.Models.Tag">
         <MappingFragment StoreEntitySet="Tag">
@@ -128,6 +115,7 @@
     <EntitySetMapping Name="Videos">
       <EntityTypeMapping TypeName="lawrukmvc.Models.Video">
         <MappingFragment StoreEntitySet="Video">
+          <ScalarProperty Name="Catholic" ColumnName="Catholic" />
           <ScalarProperty Name="Visibility" ColumnName="Visibility" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="YouTubeId" ColumnName="YouTubeId" />
@@ -136,13 +124,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="VideoTags">
-      <EntityTypeMapping TypeName="lawrukmvc.Models.VideoTag">
-        <MappingFragment StoreEntitySet="VideoTag">
-          <ScalarProperty Name="TagId" ColumnName="TagId" />
-          <ScalarProperty Name="VideoId" ColumnName="VideoId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <AssociationSetMapping Name="VideoTag1" TypeName="lawrukmvc.Models.VideoTag1" StoreEntitySet="VideoTag">
+      <EndProperty Name="Video">
+        <ScalarProperty Name="Id" ColumnName="VideoId" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Id" ColumnName="TagId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
