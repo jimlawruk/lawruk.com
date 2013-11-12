@@ -29,6 +29,8 @@
                 @RazorHelpers.LiLink("/blog", "Blog")        
                 @RazorHelpers.LiLink("/videos", "Videos")
                 @RazorHelpers.LiLink("/rachelemmett", "Rachel and Emmett")
+                </ul>
+                <ul class="nav navbar-nav navbar-right">    
                 @if (!lawrukmvc.Helpers.Account.LoggedIn)
                 {
                 <li class="rpx">@Html.Engage().LogOnLink("Log In", "ProcessLogOn", "Account")</li>
@@ -36,8 +38,7 @@
                 else
                 {
                 <li class="rpx">@Html.ActionLink("Log Out " + Session["Name"].ToString(), "LogOff", "Account")</li>
-                }
-        
+                }        
                 </ul>
             </div>
         </div>
@@ -46,15 +47,11 @@
 </div>
 
 <div class="container">
-    <div>        
-        <div class="span10">	
-            <h1>@ViewBag.Title</h1>        
-            @RenderBody()
-        </div>
-        <div class="span2">
-            @RenderSection("right", required: false)                 
-        </div>        
-    </div>
+    
+    <h1>@ViewBag.Title</h1>        
+    @RenderBody()       
+    @RenderSection("right", required: false)                 
+       
 </div>
 
 </div>

@@ -2,14 +2,13 @@
 @{
     ViewBag.Title = Model.Title;
 }
-@if (!lawrukmvc.Helpers.Account.LoggedIn)
-{
-    <div style="margin-top:10px; margin-bottom:10px;">
-        <a class="rpxnow btn btn-warning" href="https://lawruk.rpxnow.com/openid/v2/signin?token_url=http%3a%2f%2fwww.lawruk.com%2faccount%2fProcessLogOn" onclick="return false;">Log In</a>
+<div class="row">
+    <div class="col-lg-9">
+        @Html.Partial("ThumbnailList", Model.ThumbnailListViewModel);
     </div>
-}
-@Html.Partial("ThumbnailList", Model.ThumbnailListViewModel);
-@section right {
-@Html.Partial("TitleUrlList", Model.TitleUrlListViewModel);
-@Html.Partial("GoogleAd160x600");
-}
+    <div class="col-lg-3">
+       
+        @Html.Partial("TitleUrlList", Model.TitleUrlListViewModel);
+        @Html.Partial("GoogleAd160x600");
+    </div>
+</div>
