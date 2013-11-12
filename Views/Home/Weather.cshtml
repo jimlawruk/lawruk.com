@@ -1,14 +1,8 @@
 ﻿@using lawrukmvc.Helpers;
+@model List<lawrukmvc.ViewModels.SyndicationItemViewModel>
 @{
     ViewBag.Title = "Weather";
 }
 
-<div class="place">
-@Html.Partial("RSSList", Helpers.GetRSSList("http://weather.yahooapis.com/forecastrss?w=2363527", 1))     
-</div>
-<div class="place">
-@Html.Partial("RSSList", Helpers.GetRSSList("http://weather.yahooapis.com/forecastrss?w=2450407", 1))
-</div>
-<div class="place">
-@Html.Partial("RSSList", Helpers.GetRSSList("http://weather.yahooapis.com/forecastrss?w=2364363", 1))
-</div>
+@Html.Partial("RSSList",Model);
+

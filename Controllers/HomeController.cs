@@ -50,7 +50,22 @@ namespace lawrukmvc.Controllers
         public ActionResult About() {return View(); }
         public ActionResult Error() { throw new Exception("test error"); }
         public ActionResult News() { return View(); }
-        public ActionResult Weather() { return View(); }
+        public ActionResult Weather() {
+            string[] places = new string[] {                
+                "http://weather.yahooapis.com/forecastrss?w=2363527",
+                "http://weather.yahooapis.com/forecastrss?w=2450407",
+                "http://weather.yahooapis.com/forecastrss?w=2364363"};
+            var syndicationItems = new List<SyndicationItem>();
+
+            foreach (var place in places)
+            {
+                syndicationItems.Add(Helpers.RSS.GetListFromRSSFeed(place)[0]);
+            }
+            var viewModels = Helpers.Helpers.GetSyndicationItemViewModels(syndicationItems, true);
+            return View(viewModels);
+            
+        //@Html.Partial("RSSList", Helpers.GetRSSList("
+        }
         public ActionResult NotFound() { return View("404"); }
         public ActionResult Calendar() { return View(); }
         public ActionResult Running() { return View(); }

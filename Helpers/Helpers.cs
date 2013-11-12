@@ -45,14 +45,19 @@ namespace lawrukmvc.Helpers
         {
             List<SyndicationItem> syndicationItems = lawrukmvc.Helpers.RSS.GetListFromRSSFeed(rssUrl);
             syndicationItems = syndicationItems.Take(maxItems).ToList();
+            return GetSyndicationItemViewModels(syndicationItems, displaySummary);
+        }
+
+        public static List<SyndicationItemViewModel> GetSyndicationItemViewModels(List<SyndicationItem> syndicationItems, bool displaySummary)
+        {
             List<SyndicationItemViewModel> rssDisplayItems = new List<SyndicationItemViewModel>();
             foreach (SyndicationItem item in syndicationItems)
             {
                 var syndicationViewModelItem = new SyndicationItemViewModel(item);
-                syndicationViewModelItem.DisplaySummary = displaySummary;                
+                syndicationViewModelItem.DisplaySummary = displaySummary;
                 rssDisplayItems.Add(syndicationViewModelItem);
             }
-            return rssDisplayItems;
+            return rssDisplayItems; 
         }
 
         public static List<SyndicationItemViewModel> GetRSSList(string rssUrl, int maxItems)
