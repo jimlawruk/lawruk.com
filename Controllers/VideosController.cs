@@ -63,6 +63,14 @@ namespace lawrukmvc.Controllers
             return viewModel;
         }
 
+        public ActionResult Create(Models.EditVideoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return null;
+            }
+            return View(viewModel);
+        }
         public override EntityObject PopulateItem(EntityObject item)        
         {
             Video video = item as Video;
@@ -70,6 +78,7 @@ namespace lawrukmvc.Controllers
             video.Visibility = int.Parse(Request.Params["visibility"]);
             video.Title = Request.Params["title"];
             video.Date = DateTime.Parse(Request.Params["date"]);
+            video.Catholic = Request.Params["catholic"].Contains("true");
             var tags = Request.Params["tags"];
             lawrukRepository.SaveTags(video, tags);
             return video;

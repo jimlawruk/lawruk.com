@@ -163,6 +163,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CalendarEntryType.cs" />
     <Compile Include="Models\CalendarRepository.cs" />
+    <Compile Include="Models\EditVideoViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ICalendarEntry.cs" />
     <Compile Include="Models\ITitleUrl.cs" />
@@ -244,7 +245,6 @@
     <Content Include="Views\Shared\TitleUrlListPage.aspx" />
     <Content Include="Views\Shared\TopMenu.ascx" />
     <Content Include="Views\Test\Index.aspx" />
-    <Content Include="Views\Videos\Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
