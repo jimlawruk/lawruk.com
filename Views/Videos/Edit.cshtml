@@ -1,0 +1,23 @@
+﻿@model lawrukmvc.Video
+
+@{
+    ViewBag.Title = "Edit Video";
+}
+
+@using(Html.BeginForm()) {
+
+            <h3>Title:</h3>
+            @Html.TextBox("title", Model.Title, new { @class = "form-control" })
+            <h3>Date:</h3>
+            <h4>Visibility (0=public, 1=loggedin, 2=known,3=friends, 4=insiders, 10=admin (TODO consolidate with Blog Edit.aspx</h4>
+            @Html.TextBox("visibility",Model.Visibility, new { @class = "form-control" })
+            @Html.TextBox("date", Model.Date, new { @class = "form-control" })
+            <h3>Tags:</h3>
+            @Html.TextBox("tags", string.Join(",", Model.Tags.Select(t=>t.Title).ToArray()), new { @class = "form-control" })
+            <h3>YouTubeId:</h3>
+            @Html.TextBox("youtubeid", Model.YouTubeId, new { @class = "form-control" })
+            <h3>Catholic?</h3>
+            @Html.CheckBox("catholic", Model.Catholic.HasValue && Model.Catholic.Value,  new { @class = "form-control" })
+            <h3>Submit:</h3>
+             <input type="submit" value="Submit" />
+ }
