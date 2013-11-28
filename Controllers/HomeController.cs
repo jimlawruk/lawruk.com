@@ -18,14 +18,7 @@ namespace lawrukmvc.Controllers
         {            
             var homeViewModel = new HomeViewModel();
             homeViewModel.HomeButtons = GetHomeButtonsList();
-            if (Helpers.Mobile.ShowMobileSite())
-            {
-                return View("Index.Mobile", homeViewModel);
-            }
-            else
-            {
-                return View(homeViewModel);
-            }
+            return View(homeViewModel);            
         }
 
         private List<HomeButton> GetHomeButtonsList()

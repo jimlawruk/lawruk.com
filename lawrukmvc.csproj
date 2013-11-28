@@ -146,15 +146,12 @@
     <Compile Include="Helpers\Account.cs" />
     <Compile Include="Helpers\Cache.cs" />
     <Compile Include="Helpers\RaceLogic.cs" />
-    <Compile Include="Helpers\CustomMobileViewEngine.cs" />
     <Compile Include="Helpers\Date.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\HTMLParser.cs" />
     <Compile Include="Helpers\Mobile.cs" />
-    <Compile Include="Helpers\MobileCapableRazorViewEngine.cs" />
     <Compile Include="Helpers\RPX.cs" />
     <Compile Include="Helpers\RSS.cs" />
-    <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
     <Compile Include="LawrukModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -218,7 +215,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="GenericError.htm" />
     <Content Include="Global.asax" />
-    <Content Include="Helpers\MobileCapableRazorViewEngine.vb" />
     <Content Include="Scripts\validate.js" />
     <Content Include="Views\Blog\Edit.aspx" />
     <Content Include="Views\Calendar\Edit.aspx" />
@@ -340,9 +336,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Weather.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.Mobile.cshtml">
