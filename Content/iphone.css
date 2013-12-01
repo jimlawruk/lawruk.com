@@ -68,7 +68,7 @@ float: left;
 .thumbnail-list .list-title 
 {
     display:block;
-    padding:5px 0px 0px 2px;
+    padding:5px 5px 0px 2px;
 }
 
 .thumbnail-list li .date {font-weight:normal;}
