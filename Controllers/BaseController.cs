@@ -28,7 +28,7 @@ namespace lawrukmvc.Controllers
                 return View(result);
         }
         
-        public ActionResult Index(string extension)
+        public virtual ActionResult Index(string extension)
         {
             var result = GetListModel(false);
             if (extension == "json")

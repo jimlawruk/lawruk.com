@@ -50,6 +50,23 @@ namespace lawrukmvc.Models
             return url;
         }
 
+        internal Video GetVideo(int id)
+        {
+            return this.LawrukEntities.Videos.FirstOrDefault(i => i.Id == id);
+        }
+
+        internal VideoViewModel GetVideoViewModel(int id)
+        {
+            var video = GetVideo(id);
+            var viewModel = new VideoViewModel();
+            viewModel.Title = video.Title;
+            viewModel.ThumbnailUrl = "http://i.ytimg.com/vi/" + video.YouTubeId + "/default.jpg";
+            viewModel.Date = video.Date;
+            viewModel.YouTubeId = video.YouTubeId;
+            viewModel.RelatedVideos = new List<VideoViewModel>();
+            return viewModel;
+        }
+
         internal List<ListItem> GetVideoViewModels()
         {             
             var viewModels = new List<VideoViewModel>();
@@ -64,6 +81,23 @@ namespace lawrukmvc.Models
                              Date = v.Date
                          };
             return videos.ToList();
+        }
+
+        internal List<VideoJSON> GetAllVideosJSON()
+        {
+            var videos = from v in LawrukEntities.Videos
+                         orderby v.Date descending
+                         select new VideoJSON()
+                         {
+                             Id = v.Id,
+                             Title = v.Title,
+                             YouTubeId = v.YouTubeId,
+                             Tags = "",
+                             Date = v.Date                   
+
+                         };
+            return videos.ToList();
+            
         }
 
         internal List<TagViewModel> GetTagViewModels()

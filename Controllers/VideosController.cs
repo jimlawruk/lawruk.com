@@ -17,6 +17,17 @@ namespace lawrukmvc.Controllers
             this.ListView = "ThumbnailListAndTitleUrlList";
         }
 
+        public override ActionResult Index(string extension)
+        {
+            if (extension == "json")
+            {
+                var videos = lawrukRepository.GetAllVideosJSON();
+                return Json(videos, JsonRequestBehavior.AllowGet);
+            }
+            else
+                return base.Index(extension);
+        }
+
         public override object GetListModel(bool editMode)
         {
             var listViewModel = new ThumbnailListAndTitleUrlList();
@@ -47,20 +58,12 @@ namespace lawrukmvc.Controllers
 
         public override EntityObject GetItem(int id)
         {
-            return GetVideo(id);
-        }
-
-        private Video GetVideo(int id)
-        {
-            return lawrukRepository.LawrukEntities.Videos.FirstOrDefault(i => i.Id == id);
-        }
+            return (EntityObject)lawrukRepository.GetVideo(id);
+        }       
 
         public override object GetDetailModel(int id)
         {
-            var video = GetVideo(id);
-            var viewModel = new VideoViewModel(video);            
-            viewModel.RelatedVideos = new List<VideoViewModel>();
-            return viewModel;
+            return lawrukRepository.GetVideoViewModel(id);           
         }
 
         public ActionResult Create(Models.EditVideoViewModel viewModel)
