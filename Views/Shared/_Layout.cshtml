@@ -10,7 +10,6 @@
     <link href="/content/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
     @Html.Engage().LogOnLinkScript()
-
 </head>
 <body>
 <div id="page-wrap" class="@ViewContext.RouteData.Values["Controller"].ToString().ToLower()-@ViewContext.RouteData.Values["Action"].ToString().ToLower()">
@@ -44,19 +43,15 @@
             </div>
         </div>
     </div>
-    
-</div>
 
-<div class="container">
-    
-    <h1>@ViewBag.Title</h1>        
-    @RenderBody()       
-    @RenderSection("right", required: false)                 
-       
-</div>
+    <div class="container">    
+        <h1>@ViewBag.Title</h1>        
+        @RenderBody()       
+        @RenderSection("right", required: false)       
+    </div>
 
-</div>
     @Html.Partial("GoogleAnalytics")
+</div>
 </body>
 </html>
 

@@ -1,16 +1,17 @@
 ﻿@model lawrukmvc.ViewModels.VideoViewModel
 
 @{
-    ViewBag.Title = Model.Video.Title;
+    ViewBag.Title = Model.Title;
     ViewBag.BackPath = "/videos";
     ViewBag.BackTitle = "Videos";
 }
-
-<p class="blog-detail-date">Date: @Model.DisplayDate</p>
-<div id="body">
-<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/@Model.Video.YouTubeId?autoplay=1" frameborder="0" allowfullscreen="true"></iframe>    
+<div class="row">    
+    <div class="col-lg-9">
+        <p class="blog-detail-date">Date: @Model.DisplayDate</p>
+        <div id="body">
+        <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/@Model.YouTubeId?autoplay=1" frameborder="0" allowfullscreen="true"></iframe>    
+        </div>
+    </div>
+    <div class="col-lg-3">    
+    </div>
 </div>
-
-@section right {
-@Html.Partial("GoogleAd160x600");
-}
