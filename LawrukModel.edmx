@@ -139,6 +139,7 @@
           <Property Name="Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Visibility" Type="int" />
           <Property Name="Catholic" Type="bit" />
+          <Property Name="Body" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="VideoTag">
           <Key>
@@ -307,6 +308,7 @@
           <Property Type="Int32" Name="Visibility" />
           <Property Type="Boolean" Name="Catholic" />
           <NavigationProperty Name="Tags" Relationship="lawrukmvc.Models.VideoTag1" FromRole="Video" ToRole="Tag" />
+          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="VideoTag1">
           <End Type="lawrukmvc.Models.Tag" Role="Tag" Multiplicity="*" />
@@ -432,6 +434,7 @@
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="lawrukmvc.Models.Video">
               <MappingFragment StoreEntitySet="Video">
+                <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="Catholic" ColumnName="Catholic" />
                 <ScalarProperty Name="Visibility" ColumnName="Visibility" />
                 <ScalarProperty Name="Date" ColumnName="Date" />

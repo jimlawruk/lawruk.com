@@ -63,7 +63,18 @@ namespace lawrukmvc.Controllers
 
         public override object GetDetailModel(int id)
         {
-            return lawrukRepository.GetVideoViewModel(id);           
+            var videoViewModel = lawrukRepository.GetVideoViewModel(id);
+            if (Helpers.Mobile.ShowMobileSite())
+            {
+                videoViewModel.Width = "280";
+                videoViewModel.Height = "200";
+            }
+            else
+            {
+                videoViewModel.Width = "480";
+                videoViewModel.Height = "390";
+            }
+            return videoViewModel;
         }
 
         public ActionResult Create(Models.EditVideoViewModel viewModel)
@@ -81,6 +92,7 @@ namespace lawrukmvc.Controllers
             video.Visibility = int.Parse(Request.Params["visibility"]);
             video.Title = Request.Params["title"];
             video.Date = DateTime.Parse(Request.Params["date"]);
+            video.Body = Request.Params["body"];
             video.Catholic = Request.Params["catholic"].Contains("true");
             var tags = Request.Params["tags"];
             lawrukRepository.SaveTags(video, tags);

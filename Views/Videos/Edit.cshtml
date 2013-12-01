@@ -16,8 +16,12 @@
             @Html.TextBox("tags", string.Join(",", Model.Tags.Select(t=>t.Title).ToArray()), new { @class = "form-control" })
             <h3>YouTubeId:</h3>
             @Html.TextBox("youtubeid", Model.YouTubeId, new { @class = "form-control" })
+            <h3>Body:</h3>
+            @Html.TextArea("body", Model.Body)
             <h3>Catholic?</h3>
             @Html.CheckBox("catholic", Model.Catholic.HasValue && Model.Catholic.Value,  new { @class = "form-control" })
+
+    
             <h3>Submit:</h3>
              <input type="submit" value="Submit" />
  }

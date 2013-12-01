@@ -7,9 +7,11 @@
 }
 <div class="row">    
     <div class="col-lg-9">
-        <p class="blog-detail-date">Date: @Model.DisplayDate</p>
+        <p class="blog-detail-date">Date: @Model.DisplayDate</p>        
         <div id="body">
-        <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/@Model.YouTubeId?autoplay=1" frameborder="0" allowfullscreen="true"></iframe>    
+            <iframe title="YouTube video player" width="@Model.Width" height="@Model.Height" src="http://www.youtube.com/embed/@Model.YouTubeId?autoplay=1" frameborder="0" allowfullscreen="true"></iframe>    
+            @Html.Raw(Model.Body)
+            <p><strong>Tags:</strong>@Model.TagList</p>
         </div>
     </div>
     <div class="col-lg-3">    

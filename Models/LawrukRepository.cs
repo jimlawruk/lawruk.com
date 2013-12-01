@@ -63,6 +63,8 @@ namespace lawrukmvc.Models
             viewModel.ThumbnailUrl = "http://i.ytimg.com/vi/" + video.YouTubeId + "/default.jpg";
             viewModel.Date = video.Date;
             viewModel.YouTubeId = video.YouTubeId;
+            viewModel.Body = video.Body;
+            viewModel.TagList = string.Join(",",video.Tags.Select(t => t.Title).ToArray());
             viewModel.RelatedVideos = new List<VideoViewModel>();
             return viewModel;
         }
@@ -85,13 +87,14 @@ namespace lawrukmvc.Models
 
         internal List<VideoJSON> GetAllVideosJSON()
         {
-            var videos = from v in LawrukEntities.Videos
+            var videos = from v in LawrukEntities.Videos                         
                          orderby v.Date descending
                          select new VideoJSON()
                          {
                              Id = v.Id,
                              Title = v.Title,
                              YouTubeId = v.YouTubeId,
+                             Body = v.Body,
                              Tags = "",
                              Date = v.Date                   
 

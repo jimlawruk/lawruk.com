@@ -13,7 +13,11 @@ namespace lawrukmvc.ViewModels
         public Video Video { get; set; }
         public List<VideoViewModel> RelatedVideos { get; set; }
         public string ThumbnailUrl { get; set; }
-        public string YouTubeId { get; set; }      
+        public string YouTubeId { get; set; }
+        public string Body { get; set; }
+        public string TagList { get; set; }
+        public string Height { get; set; }
+        public string Width { get; set; }
     }
 
     public class VideoJSON
