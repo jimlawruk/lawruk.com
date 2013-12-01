@@ -12,6 +12,12 @@ h1 {
     margin-bottom: 15px;
 }
 
+/*Remove long width from bootstrap*/
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
 /*Nav*/
 
 .navbar-brand {font-size:26px; margin-left:0px;}
