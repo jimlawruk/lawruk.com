@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.ServiceModel.Syndication;
 using System.Data;
 using System.Xml;
@@ -12,7 +14,8 @@ using lawrukmvc.ViewModels;
 namespace lawrukmvc.Helpers
 {
     public static class Helpers
-    {
+    {         
+        
         public static string ValueOrDefault(string value, string defaultValue)
         {
             return !string.IsNullOrEmpty(value) ? value : defaultValue;
@@ -230,8 +233,10 @@ namespace lawrukmvc.Helpers
             return viewModel;
         }
 
-        
-
+        public static MvcHtmlString BootTextBox(this HtmlHelper helper, string name, object obj)
+        {
+            return helper.TextBox(name, obj, new { @class = "form-control" });
+        }        
 
     }
 }

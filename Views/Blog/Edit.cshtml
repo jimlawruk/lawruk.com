@@ -1,0 +1,24 @@
+﻿@using System.Web.Mvc.Html
+@using lawrukmvc.Helpers;
+
+@model lawrukmvc.BlogPost
+@{    
+    ViewBag.Title = "Edit Blog Post";
+}
+
+@using (Html.BeginForm()) {                        
+    <h3>Title:</h3>
+    @Html.BootTextBox("title",Model.Title)
+    <h3>Date:</h3>
+    @Html.BootTextBox("date", Model.Date)
+    <h4>Visibility (0=public, 1=loggedin, 2=known,3=friends, 4=insiders, 10=admin</h4>
+    @Html.BootTextBox("visibility",Model.Visibility)
+    <h3>Tags:</h3>
+    @Html.BootTextBox("tags", "")
+    <h3>Flickr Image Url:</h3>
+    @Html.BootTextBox("flickrimageurl", Model.FlickrImageUrl)
+    <h3>Body:</h3>
+    @Html.TextArea("body", Model.Body, new { @class = "form-control" })
+    <h3>Submit:</h3>
+    <input type="submit" value="Submit" />
+ }
