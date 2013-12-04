@@ -1,4 +1,5 @@
-﻿@model lawrukmvc.Video
+﻿@using lawrukmvc.Helpers;
+@model lawrukmvc.Video
 
 @{
     ViewBag.Title = "Edit Video";
@@ -7,17 +8,17 @@
 @using(Html.BeginForm()) {
 
             <h3>Title:</h3>
-            @Html.TextBox("title", Model.Title, new { @class = "form-control" })
+            @Html.TextBox("title", Model.Title)
             <h3>Date:</h3>
             <h4>Visibility (0=public, 1=loggedin, 2=known,3=friends, 4=insiders, 10=admin (TODO consolidate with Blog Edit.aspx</h4>
-            @Html.TextBox("visibility",Model.Visibility, new { @class = "form-control" })
-            @Html.TextBox("date", Model.Date, new { @class = "form-control" })
+            @Html.BootTextBox("visibility",Model.Visibility)
+            @Html.BootTextBox("date", Model.Date)
             <h3>Tags:</h3>
-            @Html.TextBox("tags", string.Join(",", Model.Tags.Select(t=>t.Title).ToArray()), new { @class = "form-control" })
+            @Html.BootTextBox("tags", string.Join(",", Model.Tags.Select(t=>t.Title).ToArray()))
             <h3>YouTubeId:</h3>
-            @Html.TextBox("youtubeid", Model.YouTubeId, new { @class = "form-control" })
+            @Html.BootTextBox("youtubeid", Model.YouTubeId)
             <h3>Body:</h3>
-            @Html.TextArea("body", Model.Body)
+            @Html.TextArea("body", Model.Body,new { @class = "form-control" })
             <h3>Catholic?</h3>
             @Html.CheckBox("catholic", Model.Catholic.HasValue && Model.Catholic.Value,  new { @class = "form-control" })
 
