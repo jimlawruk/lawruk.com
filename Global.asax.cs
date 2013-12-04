@@ -15,10 +15,40 @@ namespace lawrukmvc
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        protected void Application_Start()
+        {
+            RegisterGlobalFilters(GlobalFilters.Filters);
+            AreaRegistration.RegisterAllAreas();
+            RegisterRoutes(RouteTable.Routes);
+            SupportRazorAndWebFormsViewEngines();
+            StartEngage();
+        }       
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var requestUrl = Request.Url.ToString().ToLower();
+            if (requestUrl.Contains(".aspx"))
+            {
+                requestUrl = requestUrl.Replace("default", "");//homepage
+                requestUrl = requestUrl.Replace(".aspx", "");
+                requestUrl = requestUrl.Replace("raceresults", "races/results");
+                Context.Response.StatusCode = 301;
+                Context.Response.Redirect(requestUrl + "?=redirect");
+            }
+        }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            var requestUrl = Request.Url.ToString().ToLower();
+            if (!requestUrl.Contains("process") && System.Web.HttpContext.Current.Session != null)
+            {
+                Session["requestUrl"] = requestUrl;
+            }
+        }
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
-            
+            filters.Add(new HandleErrorAttribute());            
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -70,24 +100,7 @@ namespace lawrukmvc
                 "{action}/{filter}", // URL with parameters
                 new { controller = "Home", action = "Index", filter = "" } // Parameter defaults
             );
-
-
-
-        }
-
-        protected void Application_Start()
-        {
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            AreaRegistration.RegisterAllAreas();
-            RegisterRoutes(RouteTable.Routes);
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
-            ViewEngines.Engines.Add(new WebFormViewEngine());
-            //ViewEngines.Engines.RemoveAt(0);
-            //ViewEngines.Engines.Add(new Microsoft.Web.Mvc.MobileCapableRazorViewEngine());
-            //ViewEngines.Engines.Add(new Microsoft.Web.Mvc.MobileCapableWebFormViewEngine());
-            StartEngage();
-        }
+        }        
 
         protected void StartEngage()
         {
@@ -95,34 +108,16 @@ namespace lawrukmvc
             if (EngageProvider.Settings == null)
             {
                 EngageProvider.ApplicationDomain = "lawruk.rpxnow.com"; //TODO: set your site's Application Domain
-                EngageProvider.Settings = new EngageNetSettings(WebConfigurationManager.AppSettings["RPXKey"]); //TODO: set your API key
-                
-            }
-
-           
+                EngageProvider.Settings = new EngageNetSettings(WebConfigurationManager.AppSettings["RPXKey"]); //TODO: set your API key                
+            }           
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+        private void SupportRazorAndWebFormsViewEngines()
         {
-            var requestUrl = Request.Url.ToString().ToLower();
-            if (requestUrl.Contains(".aspx"))
-            {
-                requestUrl = requestUrl.Replace("default", "");//homepage
-                requestUrl = requestUrl.Replace(".aspx", "");
-                requestUrl = requestUrl.Replace("raceresults", "races/results");
-                Context.Response.StatusCode = 301;
-                Context.Response.Redirect(requestUrl + "?=redirect");
-            }
-            
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEngines.Engines.Add(new WebFormViewEngine());
         }
-
-        protected void Application_AcquireRequestState(object sender, EventArgs e)
-        {
-            var requestUrl = Request.Url.ToString().ToLower();
-            if (!requestUrl.Contains("process") && System.Web.HttpContext.Current.Session != null)
-            {
-                Session["requestUrl"] = requestUrl;
-            }
-        }
+        
     }
 }
