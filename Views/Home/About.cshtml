@@ -2,28 +2,35 @@
 @{
     ViewBag.Title = "About";
 }
-
-<p>
- Hello. Welcome to Lawruk.com! My name is Jim Lawruk. I live in Bethesda, MD with my wonderful wife and two daughters.
- I am Catholic, enjoy running, golf, and spending time with my family.</p>
- @if (lawrukmvc.Helpers.Account.UserType > lawrukmvc.Helpers.UserType.Known)
- {
- <p> 
- <img src="http://farm9.staticflickr.com/8424/7503055910_c8da413d9e_q.jpg" />
- <img src="http://farm8.staticflickr.com/7273/7503083928_a2974e2861_q.jpg" /> 
- <img src="http://farm7.staticflickr.com/6087/6063715120_012d8ec509_q.jpg" /> 
- </p>
- }
- <p>
-<h3>Online Profiles:</h3>
-<ul>
-<li><a href="http://careers.stackoverflow.com/lawruk">Stack Overflow</a></li>
-<li><a href="http://www.linkedin.com/in/lawruk">LinkedIn</a></li>
-<li><a href="http://www.facebook.com/jameslawruk">Facebook</a></li>
-<li><a href="http://www.athlinks.com/rivals/43512815/45765662/Jim-Lawruk.aspx">Athlinks</a></li>
-</ul>
-<h3>About this Site</h3>
-<p>Lawruk.com was developed using Asp.Net MVC 3 with Enity Framework and Razor.  The site includes a mobile version so check it out on your iOS or Android device. 
-The code can be viewed publicly at <a href="https://github.com/jimlawruk/lawruk.com">Github</a>. 
-The site runs on an Amazon EC2 Windows instance.</p>
-</p> 
+<div class="row">    
+    <div class="col-lg-1">    
+    </div>  
+    <div class="col-lg-10">
+    <p>
+     Hello. Welcome to Lawruk.com! My name is Jim Lawruk. I live in Bethesda, MD with my wonderful wife and two daughters.
+     I am Catholic, enjoy running, golf, and spending time with my family.</p>
+     @if (lawrukmvc.Helpers.Account.UserType > lawrukmvc.Helpers.UserType.Known)
+     {
+     <p> 
+     <img src="http://farm9.staticflickr.com/8424/7503055910_c8da413d9e_q.jpg" />
+     <img src="http://farm8.staticflickr.com/7273/7503083928_a2974e2861_q.jpg" /> 
+     <img src="http://farm7.staticflickr.com/6087/6063715120_012d8ec509_q.jpg" /> 
+     </p>
+     }
+     <p>
+    <h3>Online Profiles:</h3>
+    <ul>
+    <li><a href="http://careers.stackoverflow.com/lawruk">Stack Overflow</a></li>
+    <li><a href="http://www.linkedin.com/in/lawruk">LinkedIn</a></li>
+    <li><a href="http://www.facebook.com/jameslawruk">Facebook</a></li>
+    <li><a href="http://www.athlinks.com/rivals/43512815/45765662/Jim-Lawruk.aspx">Athlinks</a></li>
+    </ul>
+    <h3>About this Site</h3>
+    <p>Lawruk.com was developed using Asp.Net MVC 3 with Enity Framework and Razor.  The site includes a mobile version so check it out on your iOS or Android device. 
+    The code can be viewed publicly at <a href="https://github.com/jimlawruk/lawruk.com">Github</a>. 
+    The site runs on an Amazon EC2 Windows instance.</p>
+    </p> 
+    </div>
+    <div class="col-lg-1">    
+    </div>  
+</div>

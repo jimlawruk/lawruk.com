@@ -6,7 +6,9 @@
     ViewBag.BackPath = "/blog";
 }
 <div class="row">    
-    <div class="col-lg-9">
+    <div class="col-lg-1">    
+    </div>  
+    <div class="col-lg-10">
         <p class="blog-detail-date">Date: @Model.DisplayDate</p>
         <div id="body">
             @Html.Raw(Model.BlogPost.Body)
@@ -21,6 +23,6 @@
         </div> 
         }   
     </div>
-    <div class="col-lg-3">    
+    <div class="col-lg-1">    
     </div>          
 </div>
