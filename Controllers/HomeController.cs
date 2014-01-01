@@ -30,7 +30,7 @@ namespace lawrukmvc.Controllers
                 new HomeButton("Blog", "/blog", "http://farm7.static.flickr.com/6084/6142564278_5573968475_m.jpg", "Boring Blog Posts"),
                 new HomeButton("News", "/news", "http://farm4.staticflickr.com/3456/3239806077_373a9b78a1.jpg", "News"),
                 new HomeButton("Weather","/weather", "/content/i/sky.jpg", "Weather for where we typically are"),                
-                new HomeButton("Race Results", "/races/results", "http://farm1.staticflickr.com/246/3263516895_4a921506ec_m.jpg", "Race results")
+                new HomeButton("Videos", "/videos", "http://farm4.staticflickr.com/3603/3378253382_9eb642a331_m.jpg", "Videos")
             };
 
             if (lawrukmvc.Helpers.Mobile.ShowMobileSite())
