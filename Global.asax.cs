@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Configuration;
+using System.Web.Http;
+using System.Web.Http.WebHost;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using EngageNet;
 using EngageNet.Mvc;
 
@@ -16,13 +20,16 @@ namespace lawrukmvc
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
-        {
+        {            
             RegisterGlobalFilters(GlobalFilters.Filters);
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
             SupportRazorAndWebFormsViewEngines();
             StartEngage();
-        }       
+            CamelCaseJsonFormatter();          
+
+
+        }             
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
@@ -118,6 +125,13 @@ namespace lawrukmvc
             ViewEngines.Engines.Add(new RazorViewEngine());
             ViewEngines.Engines.Add(new WebFormViewEngine());
         }
+
+        private void CamelCaseJsonFormatter()
+        {
+            var jsonFormatter = GlobalConfiguration.Configuration.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver =
+                new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+        }  
         
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.Objects.DataClasses;
 using System.ServiceModel;
+using Newtonsoft.Json;
 
 namespace lawrukmvc.Controllers
 {
@@ -32,7 +33,7 @@ namespace lawrukmvc.Controllers
         {
             var result = GetListModel(false);
             if (extension == "json")
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return JsonNetResult(result);
             else
                 return View(ListView, GetListModel(false));
         }
@@ -104,6 +105,23 @@ namespace lawrukmvc.Controllers
         public virtual object GetTaggedList(string tag)
         {
             return View();
+        }
+
+        protected  JsonResult JsonNetResult(object data)
+        {
+            return Json(data,"application\\json", System.Text.Encoding.UTF8, JsonRequestBehavior.AllowGet); 
+        }
+
+        protected override JsonResult Json(object data, string contentType,
+        System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new Helpers.JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
         }
 
         protected override void HandleUnknownAction(string actionName)

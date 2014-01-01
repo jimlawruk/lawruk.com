@@ -3,12 +3,12 @@
     ViewBag.Title = Model.Title;
 }
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-10">
         @Html.Partial("ThumbnailList", Model.ThumbnailListViewModel);
     </div>
-    <div class="col-lg-3">
-       
-        @Html.Partial("TitleUrlList", Model.TitleUrlListViewModel);
-        @Html.Partial("GoogleAd160x600");
+    <div class="col-lg-1">       
+          
     </div>
 </div>

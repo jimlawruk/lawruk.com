@@ -10,9 +10,41 @@ using System.Xml;
 using System.Globalization;
 using lawrukmvc.Models;
 using lawrukmvc.ViewModels;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Utilities;
 
 namespace lawrukmvc.Helpers
 {
+    public class JsonNetResult : JsonResult
+    {
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+
+            HttpResponseBase response = context.HttpContext.Response;
+
+            response.ContentType = !string.IsNullOrEmpty(ContentType)
+              ? ContentType
+              : "application/json";
+
+            if (ContentEncoding != null)
+                response.ContentEncoding = ContentEncoding;
+
+            if (Data != null)
+            {
+                JsonTextWriter writer = new JsonTextWriter(response.Output);
+
+                JsonSerializer serializer = JsonSerializer.Create(new JsonSerializerSettings());
+                serializer.Serialize(writer, Data);
+
+                writer.Flush();
+            }
+        }
+    }
+
     public static class Helpers
     {         
         
