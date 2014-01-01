@@ -46,7 +46,7 @@ namespace lawrukmvc.Models
             {
                 url = "http://farm7.static.flickr.com/6084/6142564278_5573968475.jpg";//default
             }
-            url = url.Replace(".jpg", "_t.jpg");
+            url = url.Replace(".jpg", "_m.jpg");
             return url;
         }
 
