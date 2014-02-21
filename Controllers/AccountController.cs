@@ -94,6 +94,8 @@ namespace lawrukmvc.Controllers
         {
             FormsService.SignOut();
             Session["Email"] = "";
+            Session["displayName"] = null;
+            Session["identifier"] = null;
             return RedirectToAction("Index", "Home");
         }
 

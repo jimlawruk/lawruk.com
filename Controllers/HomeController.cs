@@ -42,6 +42,10 @@ namespace lawrukmvc.Controllers
              
         public ActionResult About() {return View(); }
         public ActionResult Error() { throw new Exception("test error"); }
+        public ActionResult Login() { return RedirectToAction("Logon"); }
+        public ActionResult Logon() { return RedirectToAction("Logon", "Account"); }
+        public ActionResult Logout() { return RedirectToAction("LogOff"); }
+        public ActionResult LogOff() { return RedirectToAction("LogOff", "Account"); }
         public ActionResult News() { return View(); }
         public ActionResult Weather() {
             string[] places = new string[] {                
@@ -79,13 +83,7 @@ namespace lawrukmvc.Controllers
             }
             catch { }
             return View();           
-        }
-
-        public ActionResult Logout() {
-            Session["displayName"] = null;
-            Session["identifier"] = null;
-            return Redirect("/");
-        }      
+        }           
 
     }
 }
