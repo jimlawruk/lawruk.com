@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Helpers\Account.cs" />
     <Compile Include="Helpers\Cache.cs" />
+    <Compile Include="Helpers\MetroStationService.cs" />
     <Compile Include="Helpers\RaceLogic.cs" />
     <Compile Include="Helpers\Date.cs" />
     <Compile Include="Helpers\Helpers.cs" />
@@ -300,6 +301,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Rome\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="LawrukModel.edmx">

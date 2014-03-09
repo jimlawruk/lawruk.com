@@ -9,6 +9,6 @@ namespace lawrukmvc.ViewModels
     public class MetroViewModel
     {
         public MetroStation CurrentMetroStation { get; set; }
-        public List<MetroStation> MetroStations { get; set; }         
+        public List<MetroStation> SameLineStations { get; set; }         
     }
 }
