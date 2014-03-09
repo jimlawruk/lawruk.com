@@ -32,11 +32,7 @@ namespace lawrukmvc.Controllers
                 new HomeButton("Weather","/weather", "http://lawruk.s3.amazonaws.com/images/sky.jpg", "Weather for where we typically are"),                
                 new HomeButton("Videos", "/videos", "http://farm4.staticflickr.com/3603/3378253382_9eb642a331_m.jpg", "Videos")
             };
-
-            if (lawrukmvc.Helpers.Mobile.ShowMobileSite())
-            {
-                buttons.Add(new HomeButton("Videos", "/videos", "http://farm3.staticflickr.com/2461/3711078629_c9307e6ef4_m.jpg", "Videos"));
-            }
+           
             return buttons;
         }
              

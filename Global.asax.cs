@@ -26,8 +26,8 @@ namespace lawrukmvc
             RegisterRoutes(RouteTable.Routes);
             SupportRazorAndWebFormsViewEngines();
             StartEngage();
-            CamelCaseJsonFormatter();          
-
+            CamelCaseJsonFormatter();
+            Bootstrapper.Initialise();
 
         }             
 

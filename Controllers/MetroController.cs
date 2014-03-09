@@ -11,17 +11,22 @@ namespace lawrukmvc.Controllers
 {
     public class MetroController : Controller
     {
-        MetroService metroStationService = new MetroService();
+        IMetroService metroService;
+
+        public MetroController(IMetroService metroService)
+        {
+            this.metroService = metroService;
+        }        
 
         public ActionResult Index(string tag)
         {
             if (tag != "")
             {
-                return View("Metro", metroStationService.GetMetroStationViewModel(tag));
+                return View("Metro", metroService.GetMetroStationViewModel(tag));
             }
             else
             {
-                return View(metroStationService.GetMetroStations());
+                return View(metroService.GetMetroStations());
             }            
         }      
 

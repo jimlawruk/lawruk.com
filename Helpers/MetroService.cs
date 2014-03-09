@@ -7,10 +7,34 @@ using lawrukmvc.ViewModels;
 
 namespace lawrukmvc.Helpers
 {
-    public class MetroService
+    public class MetroService : lawrukmvc.Helpers.IMetroService
     {
 
-        public List<MetroStation> GetStations()
+        public MetroStationsViewModel GetMetroStations()
+        {
+            var model = new MetroStationsViewModel();
+            var stations = GetStations();
+            model.RedStations = stations.Where(m => m.Lines.Contains(MetroLine.Red)).ToList();
+            model.BlueOrangeStations = stations.Where(m => m.Lines.Contains(MetroLine.Orange)
+                || m.Lines.Contains(MetroLine.Blue)).ToList();
+            model.GreenYellowStations = stations.Where(m => m.Lines.Contains(MetroLine.Green)
+                || m.Lines.Contains(MetroLine.Yellow)).ToList();
+            return model;
+        }
+
+        public MetroViewModel GetMetroStationViewModel(string tag)
+        {
+            tag = tag.ToLower().Replace("-", "").Replace("_", "");//allow missing hyphen
+            List<MetroStation> metroStations = GetStations();
+            var metroStation = metroStations.FirstOrDefault(m => m.Tag.Replace("-", "") == tag);
+            var viewModel = new MetroViewModel();
+            viewModel.CurrentMetroStation = metroStation;
+            viewModel.CurrentMetroStation.Body = MetroStationBody(viewModel.CurrentMetroStation.Id);
+            viewModel.SameLineStations = metroStations.Where(m => m.Lines.Contains(metroStation.Lines[0])).ToList();
+            return viewModel;
+        }
+
+        private List<MetroStation> GetStations()
         {
             var metroStations = new List<MetroStation>()
             {
@@ -40,30 +64,6 @@ namespace lawrukmvc.Helpers
 
             metroStations = metroStations.OrderBy(s => s.Title).ToList();
             return metroStations;
-        }
-
-        public MetroStationsViewModel GetMetroStations()
-        {
-            var model = new MetroStationsViewModel();
-            var stations = GetStations();
-            model.RedStations = stations.Where(m => m.Lines.Contains(MetroLine.Red)).ToList();
-            model.BlueOrangeStations = stations.Where(m => m.Lines.Contains(MetroLine.Orange)
-                || m.Lines.Contains(MetroLine.Blue)).ToList();
-            model.GreenYellowStations = stations.Where(m => m.Lines.Contains(MetroLine.Green)
-                || m.Lines.Contains(MetroLine.Yellow)).ToList();
-            return model;
-        }
-
-        public MetroViewModel GetMetroStationViewModel(string tag)
-        {
-            tag = tag.ToLower().Replace("-", "").Replace("_", "");//allow missing hyphen
-            List<MetroStation> metroStations = GetStations();
-            var metroStation = metroStations.FirstOrDefault(m => m.Tag.Replace("-", "") == tag);
-            var viewModel = new MetroViewModel();
-            viewModel.CurrentMetroStation = metroStation;
-            viewModel.CurrentMetroStation.Body = MetroStationBody(viewModel.CurrentMetroStation.Id);
-            viewModel.SameLineStations = metroStations.Where(m => m.Lines.Contains(metroStation.Lines[0])).ToList();
-            return viewModel;
         }
 
         private string MetroStationBody(int id)
