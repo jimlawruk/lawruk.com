@@ -11,7 +11,7 @@ namespace lawrukmvc.Controllers
 {
     public class MetroController : Controller
     {
-        MetroStationService metroStationService = new MetroStationService();
+        MetroService metroStationService = new MetroService();
 
         public ActionResult Index(string tag)
         {
