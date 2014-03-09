@@ -1,5 +1,6 @@
 ﻿@model lawrukmvc.ViewModels.MetroViewModel
 @{
+    ViewBag.HtmlTitle = @Model.CurrentMetroStation.Title + " | DC Metro Realtime";
     ViewBag.Title = @Model.CurrentMetroStation.Title;
     ViewBag.BackTitle = "Metro";
     ViewBag.BackPath = "/metro";
@@ -15,7 +16,7 @@
 {
 <h3>Other Metro Stations</h3>
 <ul>
-    @foreach (var metroStation in Model.MetroStations.Where(m=>m.Lines.Contains(Model.CurrentMetroStation.Lines[0])))
+    @foreach (var metroStation in Model.SameLineStations)
        { 
     <li> <a href="/metro/@metroStation.Tag">@metroStation.Title</a></li>
     } 
