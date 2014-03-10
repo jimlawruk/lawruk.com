@@ -365,17 +365,18 @@ ul.rss-list {
 .video #left-wrap {
   width: 540px;
 }
-#metro {
-  float: left;
-  width: 350px;
+.metro-index h3 {
+  margin-top: 0px;
 }
-#metro table {
+.metro-index table {
   table-layout: auto;
-  width: 330px;
   margin-bottom: 10px;
 }
-#metro th,
-#metro td {
+.metro-station table {
+  width: 330px;
+}
+.metro-index th,
+.metro-index td {
   border-width: 1px;
   border-style: solid;
   border-color: #CCC;

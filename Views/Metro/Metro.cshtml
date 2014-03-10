@@ -5,21 +5,28 @@
     ViewBag.BackTitle = "Metro";
     ViewBag.BackPath = "/metro";
 }
-<div id="metro">
-
-    @Html.Raw(Model.CurrentMetroStation.Body)
-        <br />
-    <p style="clear:both">Courtesy of <a href="http://www.wmata.com/rail/stations.cfm">wmata.com</a></p>
+<div class="row">    
+    <div class="col-lg-2"></div>  
+    <div class="col-lg-4">     
+            <div class="metro-station"> 
+            @Html.Raw(Model.CurrentMetroStation.Body)  
+            </div>        
+    </div>
+     <div class="col-lg-1"></div>
+     <div class="col-lg-4">         
+            <div class="list-group">                
+                @foreach (var metroStation in Model.SameLineStations)
+                   { 
+                <a href="/metro/@metroStation.Tag" class="list-group-item @Html.Raw((metroStation.Title == Model.CurrentMetroStation.Title) ? "active" : "")">@metroStation.Title</a>
+                }                 
+            </div>
+            <h4 class="list-group-item-heading"><a href="/metro">Show All Stations</a></h4>
+             <br />
+            <p style="clear:both">Courtesy of <a href="http://www.wmata.com/rail/stations.cfm">wmata.com</a></p>
+     </div>
+    <div class="col-lg-1"></div>  
 </div>
-
 @section right
 {
-<h3>Other Metro Stations</h3>
-<ul>
-    @foreach (var metroStation in Model.SameLineStations)
-       { 
-    <li> <a href="/metro/@metroStation.Tag">@metroStation.Title</a></li>
-    } 
-    <li><a href="/metro" style="font-size:larger;">Show All Stations</a></li>
-</ul>
+
 }
