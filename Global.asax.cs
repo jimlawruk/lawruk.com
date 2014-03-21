@@ -93,7 +93,8 @@ namespace lawrukmvc
             routes.MapRoute("Metro", "metro/{tag}", new { controller = "Metro", action = "Index", tag = "" });
             routes.MapRoute("RachelEmmettPhotos", "rachelemmett/photos/{otherTags}", new { controller = "Photos", action = "Index", baseUrl = "/rachelemmett/photos", consistentTag = "rachelemmett", otherTags = "wedding" });
             routes.MapRoute("RachelEmmett", "rachelemmett/{page}", new { controller = "RachelEmmett", action = "Page", page = "Index" });
-            routes.MapRoute("News", "news/{tag}", new { controller = "News", action = "Index", tag = "" });
+            routes.MapRoute("News", "news", new { controller = "News", action = "Index"});
+            routes.MapRoute("NewsDetail", "news/{tag}", new { controller = "News", action = "Detail", tag = "" });
             routes.MapRoute("RaceResultsEdit", "races/edit/{tag}", new { controller = "Races", action = "Edit", tag = "" });
             routes.MapRoute("RaceResults", "races/results", new { controller = "Races", action = "Results" });
             routes.MapRoute("RaceResultsExtension", "races/results.{extension}", new { controller = "Races", action = "Results", extension = "" });

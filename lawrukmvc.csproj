@@ -175,6 +175,8 @@
     </Compile>
     <Compile Include="Helpers\Account.cs" />
     <Compile Include="Helpers\Cache.cs" />
+    <Compile Include="Helpers\INewsService.cs" />
+    <Compile Include="Helpers\NewsService.cs" />
     <Compile Include="Helpers\IMetroService.cs" />
     <Compile Include="Helpers\MetroService.cs" />
     <Compile Include="Helpers\RaceLogic.cs" />
