@@ -41,7 +41,7 @@ li {
 }
 .navbar-inner .back-link 
 {
-    display:block; float:left; height:20px; margin:8px 5px 8px 5px; border-color:#333; border-width:1px; padding:3px;
+    display:block; float:left; height:20px; border-color:#333; border-width:1px; padding:3px;
     background-image: -webkit-gradient(linear,0 0,0 100%,from(#777),to(#aaa));
     background-image: -webkit-linear-gradient(top,#777,#aaa);
     
@@ -53,6 +53,7 @@ li {
 display: block;
 float: left;
 padding: 9px 3px 3px 40px;
+margin-left:30px;
 
 font-size: 24px;
 font-weight: 200;
@@ -61,7 +62,7 @@ color: #999;
 }
 
 .back-button { color:Black; font-size:14px; font-weight:bold; margin:3px; text-decoration:none;}
-.navbar-inner a {text-decoration:none;}
+.navbar-inner a {text-decoration:none; margin-right:10px;}
 
 .thumbnail-list ul {margin: -1px -10px 0px -10px; padding:0px; border-top-style:solid; border-top-width:1px; border-top-color:#ccc;}
 
@@ -120,7 +121,7 @@ body.home {
 .home .nav-img {border-top-right-radius: 6px; border-top-left-radius: 6px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
 .home-link:hover {opacity:0.7; }
 .home .personaName:hover {opacity:1; }
-.home .navbar-inner {display:block;width:135px; height:30px; padding-top:10px;margin:auto auto;}
+.navbar-inner {display:block; padding:10px;margin:auto auto;}
 .icon a.home-link {
     float: left;
     display: block;
@@ -129,7 +130,7 @@ body.home {
     margin-left: 2px;
     text-decoration: none;
 }
-.home .navbar-inner .brand { padding:0px;}
+.navbar-inner .brand { padding:0px; margin:auto;}
 
 .circle {-webkit-border-radius: 999px; -moz-border-radius: 999px; border-radius: 999px; display:inline-block; width: 15px; height: 15px; } 
 .circle-red { background: red; }
