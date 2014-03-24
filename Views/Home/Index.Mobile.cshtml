@@ -14,35 +14,20 @@
     <link href="/Content/iphone.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
 </head>
-<body>
-<style>
- body {            
-         
-    background-color:#222;
-          }
- .icon {padding:5px; float:left;}
-.personaName { display:block; font-weight: bold; font-size:11px; color:White; text-align:center; padding:3x 0px 5px;
-               -webkit-font-smoothing: antialiased;
-               }
-.nav-img {border-top-right-radius: 6px; border-top-left-radius: 6px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
-.home-link:hover {opacity:0.7; }
-.personaName:hover {opacity:1; }
-.home .navbar-inner {display:block;width:135px; height:30px; padding-top:10px;margin:auto auto;}
-.home .navbar-inner .brand { padding:0px;}
-</style>
+<body class="home">
 
 <div class="navbar home">
     <div class="navbar-inner">
         <a class="brand">Lawruk.com</a>
     </div>
 </div>
-<div class="container" style="width:320px;">
+<div class="container home" style="width:320px;">
     <div>
         <div class="row">            
             @foreach (var button in Model.HomeButtons)
             {
                 <div class="icon">           
-                    <a href="@button.Url" class="home-link" style="float:left; display:block; width:65px; height:80px; margin-left:2px; text-decoration:none;">
+                    <a href="@button.Url" class="home-link">
 										<img src="@button.ImageUrl" class="nav-img" alt="" role="presentation" style="display:block; width:100%;height:80%;"/>
 										<span class="personaName">@button.Title</span>
 										</a>

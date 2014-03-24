@@ -109,6 +109,28 @@ color: #999;
 font-size: 12px;
 }
 
+body.home {            
+         
+    background-color:#222;
+          }
+.home .icon {padding:5px; float:left;background-color:#222;}
+.home .personaName { display:block; font-weight: bold; font-size:11px; color:White; text-align:center; padding:3x 0px 5px;
+               -webkit-font-smoothing: antialiased;
+               }
+.home .nav-img {border-top-right-radius: 6px; border-top-left-radius: 6px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
+.home-link:hover {opacity:0.7; }
+.home .personaName:hover {opacity:1; }
+.home .navbar-inner {display:block;width:135px; height:30px; padding-top:10px;margin:auto auto;}
+.icon a.home-link {
+    float: left;
+    display: block;
+    width: 87px;
+    height: 102px;
+    margin-left: 2px;
+    text-decoration: none;
+}
+.home .navbar-inner .brand { padding:0px;}
+
 .circle {-webkit-border-radius: 999px; -moz-border-radius: 999px; border-radius: 999px; display:inline-block; width: 15px; height: 15px; } 
 .circle-red { background: red; }
 .circle-orange { background: orange; }
