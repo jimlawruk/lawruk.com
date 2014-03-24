@@ -7,7 +7,7 @@ using lawrukmvc.ViewModels;
 
 namespace lawrukmvc.Helpers
 {
-    public class MetroService : lawrukmvc.Helpers.IMetroService
+    public class MetroService : IMetroService
     {
 
         public MetroStationsViewModel GetMetroStations()
