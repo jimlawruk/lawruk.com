@@ -346,14 +346,17 @@ ul.rss-list {
   margin-right: 10px;
   margin-bottom: 10px;
   float: left;
+  display: block;
+  height: 100px;
+  width: 130px;
 }
 .thumbnail-list a {
-  font-size: 24px;
+  font-size: 20px;
   text-decoration: none;
 }
 .thumbnail-list .list-title {
   display: block;
-  line-height: 28px;
+  line-height: 26px;
 }
 .video .video-thumbnail {
   float: left;
