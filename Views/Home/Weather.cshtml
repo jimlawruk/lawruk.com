@@ -4,6 +4,7 @@
     ViewBag.Title = "Weather";
 }
 <div class="weather">
+<ul>
 @foreach (lawrukmvc.ViewModels.SyndicationItemViewModel item in Model) {
     <li class="panel panel-primary">
         <h4>@item.Title</h4>
@@ -14,4 +15,5 @@
         }
     </li>
     }
+</ul>
 </div>
