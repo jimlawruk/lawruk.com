@@ -1,5 +1,6 @@
 ﻿.center {text-align:center;}
 p {
+    font-family:'Open Sans';
     font-size: 16px;
     line-height: 1.7em;     
 }
@@ -10,6 +11,7 @@ textarea {width:800px; height:700px;}
 div textarea.form-control {width:800px; height:700px;}
 
 h1 {
+    font-family:'Open Sans';
     margin-bottom: 15px;    
     margin-bottom:25px;
 }
@@ -25,9 +27,18 @@ h1 {
 .navbar-brand {font-size:26px; margin-left:0px;}
 .navbar a.brand {padding-left:0px;}
 a.brand.home {margin-left:10px;}
-.navbar-inner .container {width:940px;}
-.navbar-nav li {font-size:16px;}
+.container .navbar-inner {max-width: 700px; margin: auto;}
+.navbar-nav li {font-size:12px;}
 
+@media (min-width: 768px) {
+.navbar-nav li {font-size:14px;}
+.navbar-nav>li>a {padding-left:5px; padding-right:5px;}
+}
+
+@media (min-width: 980px) {
+.navbar-nav li {font-size:16px;}
+.navbar-nav>li>a {padding-left:15px; padding-right:15px;}
+}
 
 #header { width:970px; margin:0 auto; overflow:hidden; padding:0 0 5px 0;}
 
@@ -57,6 +68,8 @@ ul#top-menu-list li a.selected { color:#cccccc !important;}
 .footer-list {float:left; padding-right:30px;}
 
 .navbar .nav li.rpx a {font-weight:bold; color:White;}
+
+.container .content {max-width:700px; margin:auto;}
 
 .metro-index table a {font-size:18px;}
 
@@ -113,9 +126,8 @@ ul.rss-list img {margin-right:5px;}
 
 ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
 .rss-list li {list-style-type:none;margin-bottom:20px;}
-.rss-list a {
-    font-size: 28px;
-}
+
+.list a {font-size: 20px; text-decoration:none;}
 
 /*Weather*/
 .weather {
@@ -136,7 +148,6 @@ ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
 .thumbnail-list ul {padding-left:0px;}
 .thumbnail-list li {clear:left; list-style-type:none; line-height:14px; padding-bottom:10px;}
 .thumbnail-list li img {margin-right:10px; margin-bottom:10px; float:left; display:block; height:100px; width:130px;}
-.thumbnail-list a {font-size:20px; text-decoration:none;}
 .thumbnail-list .list-title {display:block;line-height: 26px}
 
 .video .video-thumbnail {float:left; width:125px; height:100px; display:block;}
