@@ -11,7 +11,7 @@ namespace SeleniumTests
     public class Metro : BaseTest
     {
         [TestMethod]
-        public void TestBethesaMetroPageFromHome()
+        public void TestBethesaMetroPageFromHomeContainsGlenmont()
         {
             TestChromeOnly((Action)delegate
             {
