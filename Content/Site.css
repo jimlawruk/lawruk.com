@@ -322,14 +322,15 @@ ul.rss-list {
   text-decoration: none;
 }
 /*Weather*/
-.weather {
-  margin: auto;
+.weather ul {
+  padding: 0px;
 }
 .weather li {
   list-style-type: none;
   float: left;
   padding: 10px;
   margin: 5px;
+  min-width: 300px;
 }
 .weather h4 {
   padding-top: 0px;
