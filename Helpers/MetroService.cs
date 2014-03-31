@@ -42,7 +42,7 @@ namespace lawrukmvc.Helpers
                 {new MetroStation(82, "lenfant-plaza","L'Enfant Plaza", new MetroLine[] {MetroLine.Yellow, MetroLine.Green, MetroLine.Orange, MetroLine.Blue})},
                 {new MetroStation(59, "capitol-south","Capitol South", new MetroLine[] {MetroLine.Orange, MetroLine.Blue})},
                 {new MetroStation(25, "union-station","Union Station",new MetroLine[] {MetroLine.Red})},
-                {new MetroStation(6, "dupont-circle","Dupont Cirle",new MetroLine[] {MetroLine.Red})},
+                {new MetroStation(6, "dupont-circle","Dupont Circle",new MetroLine[] {MetroLine.Red})},
                 {new MetroStation(8, "cleveland-park","Cleveland Park",new MetroLine[] {MetroLine.Red})},
                 {new MetroStation(10, "tenleytown-au","Tenleytown-AU",new MetroLine[] {MetroLine.Red})},
                 {new MetroStation(12, "bethesda","Bethesda",new MetroLine[] {MetroLine.Red})},
