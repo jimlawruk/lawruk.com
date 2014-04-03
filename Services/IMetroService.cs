@@ -1,5 +1,5 @@
 ﻿using System;
-namespace lawrukmvc.Helpers
+namespace lawrukmvc.Services
 {
     public interface IMetroService
     {

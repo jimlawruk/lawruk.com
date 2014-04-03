@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using lawrukmvc.Helpers;
 using lawrukmvc.Models;
 using lawrukmvc.ViewModels;
 
-namespace lawrukmvc.Helpers
+namespace lawrukmvc.Services
 {
     public class MetroService : IMetroService
     {

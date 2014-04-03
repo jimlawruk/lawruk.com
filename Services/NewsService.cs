@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using lawrukmvc.Models;
 
-namespace lawrukmvc.Helpers
+namespace lawrukmvc.Services
 {
     public class NewsService : INewsService
     {

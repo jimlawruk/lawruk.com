@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using lawrukmvc.Models;
-namespace lawrukmvc.Helpers
+
+namespace lawrukmvc.Services
 {
     public interface INewsService
     {

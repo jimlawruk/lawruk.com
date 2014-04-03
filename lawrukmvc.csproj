@@ -175,10 +175,10 @@
     </Compile>
     <Compile Include="Helpers\Account.cs" />
     <Compile Include="Helpers\Cache.cs" />
-    <Compile Include="Helpers\INewsService.cs" />
-    <Compile Include="Helpers\NewsService.cs" />
-    <Compile Include="Helpers\IMetroService.cs" />
-    <Compile Include="Helpers\MetroService.cs" />
+    <Compile Include="Services\INewsService.cs" />
+    <Compile Include="Services\NewsService.cs" />
+    <Compile Include="Services\IMetroService.cs" />
+    <Compile Include="Services\MetroService.cs" />
     <Compile Include="Helpers\RaceLogic.cs" />
     <Compile Include="Helpers\Date.cs" />
     <Compile Include="Helpers\Helpers.cs" />
@@ -325,7 +325,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Rome\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="LawrukModel.edmx">
