@@ -257,6 +257,13 @@ a.home-link {
     padding: 0px;
   }
 }
+/*About*/
+img.me {
+  width: 110px;
+  float: left;
+  padding: 5px 10px 10px 0px;
+  border-radius: 100px;
+}
 .circle {
   -webkit-border-radius: 999px;
   -moz-border-radius: 999px;
@@ -345,6 +352,9 @@ ul.rss-list {
   width: 50%;
   float: left;
   clear: right;
+}
+.blog-index .thumbnail-list li img {
+  display: none;
 }
 .blog-detail-date {
   font-size: 14px;
