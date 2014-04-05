@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using lawrukmvc.Models;
-using lawrukmvc.ViewModels;
 using System.Xml;
 using System.Xml.Linq;
+using lawrukmvc.Models;
+using lawrukmvc.ViewModels;
 
 namespace lawrukmvc.Controllers
 {
@@ -35,7 +35,14 @@ namespace lawrukmvc.Controllers
             return buttons;
         }
              
-        public ActionResult About() {return View(); }
+        public ActionResult About() 
+        {                        
+            var lawrukRepository = new LawrukRepository();
+            int aboutId = 5;
+            var blogPost = lawrukRepository.GetBlogPost(aboutId);
+            var viewModel = new BlogPostViewModel(blogPost);
+            return View(viewModel); 
+        }
         public ActionResult Error() { throw new Exception("test error"); }
         public ActionResult Login() { return RedirectToAction("Logon"); }
         public ActionResult Logon() { return RedirectToAction("Logon", "Account"); }

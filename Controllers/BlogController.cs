@@ -45,7 +45,7 @@ namespace lawrukmvc.Controllers
 
         public override EntityObject GetItem(int id)
         {
-            return lawrukRepository.LawrukEntities.BlogPosts.FirstOrDefault(i => i.Id == id);
+            return lawrukRepository.GetBlogPost(id);
         }
 
         public override object GetListModel(bool editMode)

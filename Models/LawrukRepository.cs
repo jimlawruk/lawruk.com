@@ -15,6 +15,11 @@ namespace lawrukmvc.Models
         {
             LawrukEntities = new lawrukEntities();
         }
+
+        public BlogPost GetBlogPost(int id)
+        {
+            return LawrukEntities.BlogPosts.FirstOrDefault(i => i.Id == id);
+        }
      
         public List<ListItem> GetBlogPostViewModels()
         {
