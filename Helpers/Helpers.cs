@@ -85,7 +85,7 @@ namespace lawrukmvc.Helpers
 
         public static List<SyndicationItemViewModel> GetSyndicationItemViewModels(List<SyndicationItem> syndicationItems, bool displaySummary)
         {
-            List<SyndicationItemViewModel> rssDisplayItems = new List<SyndicationItemViewModel>();
+            var rssDisplayItems = new List<SyndicationItemViewModel>();
             foreach (SyndicationItem item in syndicationItems)
             {
                 var syndicationViewModelItem = new SyndicationItemViewModel(item);

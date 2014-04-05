@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.ServiceModel.Syndication;
 using lawrukmvc.Models;
 using lawrukmvc.ViewModels;
 using System.Xml;
@@ -43,23 +42,13 @@ namespace lawrukmvc.Controllers
         public ActionResult Logout() { return RedirectToAction("LogOff"); }
         public ActionResult LogOff() { return RedirectToAction("LogOff", "Account"); }
         public ActionResult News() { return View(); }
-        public ActionResult Weather() {
-            string[] places = new string[] {                
-                "http://weather.yahooapis.com/forecastrss?w=2363527",
-                "http://weather.yahooapis.com/forecastrss?w=2450407",
-                "http://weather.yahooapis.com/forecastrss?w=2364363"};
-            var syndicationItems = new List<SyndicationItem>();
 
-            foreach (var place in places)
-            {
-                syndicationItems.Add(Helpers.RSS.GetListFromRSSFeed(place)[0]);
-            }
-            var viewModels = Helpers.Helpers.GetSyndicationItemViewModels(syndicationItems, true);
-            viewModels = viewModels.Select(vm => {vm.Title = string.Join(" ", vm.Title.Split(' ').Take(3)); return vm;}).ToList();
-            return View(viewModels);
-            
-        //@Html.Partial("RSSList", Helpers.GetRSSList("
+        public ActionResult Weather() 
+        {
+            var weatherService = new lawrukmvc.Services.WeatherService();
+            return View(weatherService.GetSyndicationItemViewModels());       
         }
+
         public ActionResult NotFound() { return View("404"); }
         public ActionResult Calendar() { return View(); }
         public ActionResult Running() { return View(); }
