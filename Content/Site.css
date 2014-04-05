@@ -264,13 +264,33 @@ img.me {
   padding: 5px 10px 10px 0px;
   border-radius: 100px;
 }
+/*Metro*/
+.metro-index h3 {
+  margin-top: 0px;
+}
+.metro-index table {
+  table-layout: auto;
+  margin-bottom: 10px;
+}
+.metro-station table {
+  width: 330px;
+}
+.metro-index th,
+.metro-index td {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #CCC;
+  padding: 2px;
+}
+.metro-table ul {
+  padding-left: 20px;
+}
 .circle {
-  -webkit-border-radius: 999px;
-  -moz-border-radius: 999px;
   border-radius: 999px;
   display: inline-block;
   width: 15px;
   height: 15px;
+  line-height: 15px;
 }
 .circle-red {
   background: red;
@@ -399,23 +419,6 @@ ul.rss-list {
 }
 .video #left-wrap {
   width: 540px;
-}
-.metro-index h3 {
-  margin-top: 0px;
-}
-.metro-index table {
-  table-layout: auto;
-  margin-bottom: 10px;
-}
-.metro-station table {
-  width: 330px;
-}
-.metro-index th,
-.metro-index td {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #CCC;
-  padding: 2px;
 }
 .famousdeveloper h2 {
   margin-top: 0px;
