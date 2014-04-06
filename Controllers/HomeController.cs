@@ -13,6 +13,7 @@ namespace lawrukmvc.Controllers
     [HandleError]
     public class HomeController : Controller
     {
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Index() 
         {            
             var homeViewModel = new HomeViewModel();
@@ -34,7 +35,8 @@ namespace lawrukmvc.Controllers
            
             return buttons;
         }
-             
+
+        [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult About() 
         {                        
             var lawrukRepository = new LawrukRepository();
@@ -50,6 +52,7 @@ namespace lawrukmvc.Controllers
         public ActionResult LogOff() { return RedirectToAction("LogOff", "Account"); }
         public ActionResult News() { return View(); }
 
+        [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult Weather() 
         {
             var weatherService = new lawrukmvc.Services.WeatherService();
