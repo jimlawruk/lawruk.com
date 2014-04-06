@@ -17,8 +17,7 @@ div textarea.form-control {
 }
 h1 {
   font-family: 'Open Sans';
-  margin-bottom: 15px;
-  margin-bottom: 25px;
+  margin: 20px 0px 25px 0px;
 }
 /*Header*/
 .navbar-brand {
@@ -41,6 +40,9 @@ a.brand.home {
 #login-bar {
   float: right;
   color: #555555;
+}
+.navbar {
+  margin-bottom: 10px;
 }
 .navbar .nav li.rpx a {
   font-weight: bold;
