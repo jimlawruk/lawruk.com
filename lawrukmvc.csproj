@@ -251,7 +251,6 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\ie9.css" />
     <Content Include="Content\iphone.css" />
     <Content Include="Content\mobile.css" />
     <Content Include="Content\RachelEmmett.css" />
