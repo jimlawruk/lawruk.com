@@ -1,4 +1,4 @@
-﻿.center {text-align:center;}
+﻿/*General*/
 p {
     font-family:'Open Sans';
     font-size: 16px;
@@ -16,19 +16,14 @@ h1 {
     margin-bottom:25px;
 }
 
-/*Remove long width from bootstrap*/
-@media (min-width: 1200px) {
-    .container {
-        max-width: 970px;
-    }
-}
-/*Nav*/
-
+/*Header*/
 .navbar-brand {font-size:26px; margin-left:0px;}
 .navbar a.brand {padding-left:0px;}
 a.brand.home {margin-left:10px;}
 .container .navbar-inner {max-width: 700px; margin: auto;}
 .navbar-nav li {font-size:12px;}
+#login-bar {float:right; color:#555555;}
+.navbar .nav li.rpx a {font-weight:bold; color:White;}
 
 @media (min-width: 768px) {
 .navbar-nav li {font-size:14px;}
@@ -46,45 +41,51 @@ a.brand.home {margin-left:10px;}
 #top-menu {width:970px; height:40px; margin:0 auto 0 auto; overflow:hidden; color:#ffffff;}
 #top-menu a{ color:#fff; text-decoration:none;}
 
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
+
+/*Lists*/
 ul#top-menu-list { display:block; font-size:22px; font-family:Arial, Helvetica, sans-serif; height:40px;}
 ul#top-menu-list li{ display:inline; margin-right:25px; line-height:40px;}
 li.menu-last { margin:0 !important;list-style-image:none;}
 ul#top-menu-list li a:hover{ display:inline; color:#cccccc;}
 ul#top-menu-list li a.selected { color:#cccccc !important;}
+ul.rss-list img {margin-right:5px;}
+ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
+.rss-list li {list-style-type:none;margin-bottom:20px;}
+.list a {font-size: 20px; text-decoration:none;}
+.thumbnail-list ul {padding-left:0px;}
+.thumbnail-list li {clear:left; list-style-type:none; line-height:14px; padding-bottom:10px;}
+.thumbnail-list li img {margin-right:10px; margin-bottom:10px; float:left; display:block; height:100px; width:130px;}
+.thumbnail-list .list-title {display:block;line-height: 26px}
 
-#login-bar {float:right; color:#555555;}
-
+/*Content*/
+#body {margin-bottom:20px;}
 #content-wrap  { width:100%; height:auto; float:left; padding-top:10px; padding-bottom:10px; }
 #content {width:970px; margin:0 auto 0 auto; text-align:left;height:auto;}
-
+.container .content {max-width:700px; margin:auto;}
 #left-wrap {width:740px; display:block; float:left;}
 #left {width:725px; float:left; padding-right:15px;}
 #right-wrap {width:220px;  display:block; float:left;}
 #right {width:215px; padding-left:5px; padding-right:5px;}
 
+/*Footer*/
 #footer-wrap  { width:100%; float:left; height:auto; background-color:#CCCCCC;border-top-width: 2px; border-top-style: solid; border-color:#111111;}
 #footer {width:970px; height:auto; margin:0 auto; text-align:left; padding-top:10px; padding-bottom:10px;}
-
 .footer-list {float:left; padding-right:30px;}
 
-.navbar .nav li.rpx a {font-weight:bold; color:White;}
-
-.container .content {max-width:700px; margin:auto;}
-
-.metro-index table a {font-size:18px;}
-
+/*Helpers*/
+.center {text-align:center;}
 .author {margin-top:10px;}
-
 .tags {font-size:14px; padding-bottom:15px;}
-
 .date {margin:5px 0px 10px 0px; color:#666666; font-size:12px; line-height:1.0em;}
-
 .no-border {border:0px;}
 .no-border th,.no-border td {border:0px;}
-
 .index img, .edit img {float:left;}
-
-
+.photos-right {width:180px; float:left; display:inline;}
 
 /*Homepage*/
 .personaName { background-color:#1C1B1C; display:block; font-weight: bold; font-size:18px; color:White; text-align:center; padding:5px 0px 5px;
@@ -94,19 +95,17 @@ ul#top-menu-list li a.selected { color:#cccccc !important;}
 .home-link:hover {opacity:0.7;}
 a.home-link {text-decoration: none;}
 .personaName:hover {opacity:1; }
+.home #description {clear:both; display:block;}
+.home .col-left, .home .col-right {width:50%; float:left; clear:right;}
 @media (max-width: 1200px) {
 .home-link { width:250px; height:210px; margin-right:20px;}
 }
-
 @media (max-width: 400px) {
     .home-link { width:90px;height:70px; margin-right:5px;}
     .personaName {
         font-size: 10px;
         padding:0px;
-
     }
-    
-
 }
 
 /*About*/
@@ -115,14 +114,14 @@ img.me {width:110px; float:left; padding:5px 10px 10px 0px;border-radius:100px;}
 /*Metro*/
 .metro-index h3 {margin-top:0px;}
 .metro-index table {table-layout:auto; margin-bottom:10px;}
+.metro-index table a {font-size:18px;}
 .metro-station table {width:330px;}
 .metro-index th, .metro-index td {
-border-width: 1px;
-border-style: solid;
-border-color: #CCC;
-padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #CCC;
+    padding: 2px;
 }
-
 .metro-table ul {padding-left: 20px;}
 .circle {border-radius: 999px; display:inline-block; width: 15px; height: 15px; line-height:15px; } 
 .circle-red { background: red; }
@@ -131,19 +130,11 @@ padding: 2px;
 .circle-yellow { background: yellow; }
 .circle-green { background: green; }
 
-.photos-right {width:180px; float:left; display:inline;}
-
-ul.rss-list img {margin-right:5px;}
-
+/*Race Results*/
 .allison { color: #000000; background: #FF4444; font-weight: bold; }
 .jim { color: #000000; background: #33FF33; font-weight: bold; }
 .friend { color: #000000; background: #4444FF; font-weight: bold; }
 .family { color: #000000; background: #4444FF; font-weight: bold; }
-
-ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
-.rss-list li {list-style-type:none;margin-bottom:20px;}
-
-.list a {font-size: 20px; text-decoration:none;}
 
 /*Weather*/
 .weather ul {padding:0px;}
@@ -151,28 +142,15 @@ ul.rss-list {margin-left:0px; margin-top:10px; padding-left:0px;}
 .weather h4 {padding-top:0px; font-weight:bold;}
 .weather img {}
 
-.home #description {clear:both; display:block;}
-.home .col-left, .home .col-right {width:50%; float:left; clear:right;}
-
+/*Blog*/
 .blog-index .thumbnail-list li img {display:none;}
 .blog-detail-date { font-size:14px; margin-top:10px; margin-bottom:15px; color:#666666;}
-
 .attribution {font-size:10px; clear:both; display:block;}
 
-#body {margin-bottom:20px;}
-.thumbnail-list ul {padding-left:0px;}
-.thumbnail-list li {clear:left; list-style-type:none; line-height:14px; padding-bottom:10px;}
-.thumbnail-list li img {margin-right:10px; margin-bottom:10px; float:left; display:block; height:100px; width:130px;}
-.thumbnail-list .list-title {display:block;line-height: 26px}
-
+/*Videos*/
 .video .video-thumbnail {float:left; width:125px; height:100px; display:block;}
 .video #left-wrap {width:540px;}
 
-
-.famousdeveloper h2 {margin-top:0px;}
-.famousdeveloper table {border-width:0px;}
-.famousdeveloper .col1 {width:250px;}
-.famousdeveloper .col2 {vertical-align:top;}
-
+/*Calendar*/
 .calendar-index span {float:right; font-size:0.7em; display:block; }
 .calendar-index td {height:60px; font-size:0.9em; line-height:1.1em;}

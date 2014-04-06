@@ -1,6 +1,4 @@
-﻿.center {
-  text-align: center;
-}
+﻿/*General*/
 p {
   font-family: 'Open Sans';
   font-size: 16px;
@@ -22,13 +20,7 @@ h1 {
   margin-bottom: 15px;
   margin-bottom: 25px;
 }
-/*Remove long width from bootstrap*/
-@media (min-width: 1200px) {
-  .container {
-    max-width: 970px;
-  }
-}
-/*Nav*/
+/*Header*/
 .navbar-brand {
   font-size: 26px;
   margin-left: 0px;
@@ -45,6 +37,14 @@ a.brand.home {
 }
 .navbar-nav li {
   font-size: 12px;
+}
+#login-bar {
+  float: right;
+  color: #555555;
+}
+.navbar .nav li.rpx a {
+  font-weight: bold;
+  color: White;
 }
 @media (min-width: 768px) {
   .navbar-nav li {
@@ -89,6 +89,12 @@ a.brand.home {
   color: #fff;
   text-decoration: none;
 }
+@media (min-width: 1200px) {
+  .container {
+    max-width: 970px;
+  }
+}
+/*Lists*/
 ul#top-menu-list {
   display: block;
   font-size: 22px;
@@ -111,9 +117,46 @@ ul#top-menu-list li a:hover {
 ul#top-menu-list li a.selected {
   color: #cccccc !important;
 }
-#login-bar {
-  float: right;
-  color: #555555;
+ul.rss-list img {
+  margin-right: 5px;
+}
+ul.rss-list {
+  margin-left: 0px;
+  margin-top: 10px;
+  padding-left: 0px;
+}
+.rss-list li {
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+.list a {
+  font-size: 20px;
+  text-decoration: none;
+}
+.thumbnail-list ul {
+  padding-left: 0px;
+}
+.thumbnail-list li {
+  clear: left;
+  list-style-type: none;
+  line-height: 14px;
+  padding-bottom: 10px;
+}
+.thumbnail-list li img {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  float: left;
+  display: block;
+  height: 100px;
+  width: 130px;
+}
+.thumbnail-list .list-title {
+  display: block;
+  line-height: 26px;
+}
+/*Content*/
+#body {
+  margin-bottom: 20px;
 }
 #content-wrap {
   width: 100%;
@@ -127,6 +170,10 @@ ul#top-menu-list li a.selected {
   margin: 0 auto 0 auto;
   text-align: left;
   height: auto;
+}
+.container .content {
+  max-width: 700px;
+  margin: auto;
 }
 #left-wrap {
   width: 740px;
@@ -148,6 +195,7 @@ ul#top-menu-list li a.selected {
   padding-left: 5px;
   padding-right: 5px;
 }
+/*Footer*/
 #footer-wrap {
   width: 100%;
   float: left;
@@ -169,16 +217,9 @@ ul#top-menu-list li a.selected {
   float: left;
   padding-right: 30px;
 }
-.navbar .nav li.rpx a {
-  font-weight: bold;
-  color: White;
-}
-.container .content {
-  max-width: 700px;
-  margin: auto;
-}
-.metro-index table a {
-  font-size: 18px;
+/*Helpers*/
+.center {
+  text-align: center;
 }
 .author {
   margin-top: 10px;
@@ -203,6 +244,11 @@ ul#top-menu-list li a.selected {
 .index img,
 .edit img {
   float: left;
+}
+.photos-right {
+  width: 180px;
+  float: left;
+  display: inline;
 }
 /*Homepage*/
 .personaName {
@@ -239,6 +285,16 @@ a.home-link {
 .personaName:hover {
   opacity: 1;
 }
+.home #description {
+  clear: both;
+  display: block;
+}
+.home .col-left,
+.home .col-right {
+  width: 50%;
+  float: left;
+  clear: right;
+}
 @media (max-width: 1200px) {
   .home-link {
     width: 250px;
@@ -271,6 +327,9 @@ img.me {
 .metro-index table {
   table-layout: auto;
   margin-bottom: 10px;
+}
+.metro-index table a {
+  font-size: 18px;
 }
 .metro-station table {
   width: 330px;
@@ -307,14 +366,7 @@ img.me {
 .circle-green {
   background: green;
 }
-.photos-right {
-  width: 180px;
-  float: left;
-  display: inline;
-}
-ul.rss-list img {
-  margin-right: 5px;
-}
+/*Race Results*/
 .allison {
   color: #000000;
   background: #FF4444;
@@ -335,19 +387,6 @@ ul.rss-list img {
   background: #4444FF;
   font-weight: bold;
 }
-ul.rss-list {
-  margin-left: 0px;
-  margin-top: 10px;
-  padding-left: 0px;
-}
-.rss-list li {
-  list-style-type: none;
-  margin-bottom: 20px;
-}
-.list a {
-  font-size: 20px;
-  text-decoration: none;
-}
 /*Weather*/
 .weather ul {
   padding: 0px;
@@ -363,16 +402,7 @@ ul.rss-list {
   padding-top: 0px;
   font-weight: bold;
 }
-.home #description {
-  clear: both;
-  display: block;
-}
-.home .col-left,
-.home .col-right {
-  width: 50%;
-  float: left;
-  clear: right;
-}
+/*Blog*/
 .blog-index .thumbnail-list li img {
   display: none;
 }
@@ -387,30 +417,7 @@ ul.rss-list {
   clear: both;
   display: block;
 }
-#body {
-  margin-bottom: 20px;
-}
-.thumbnail-list ul {
-  padding-left: 0px;
-}
-.thumbnail-list li {
-  clear: left;
-  list-style-type: none;
-  line-height: 14px;
-  padding-bottom: 10px;
-}
-.thumbnail-list li img {
-  margin-right: 10px;
-  margin-bottom: 10px;
-  float: left;
-  display: block;
-  height: 100px;
-  width: 130px;
-}
-.thumbnail-list .list-title {
-  display: block;
-  line-height: 26px;
-}
+/*Videos*/
 .video .video-thumbnail {
   float: left;
   width: 125px;
@@ -420,18 +427,7 @@ ul.rss-list {
 .video #left-wrap {
   width: 540px;
 }
-.famousdeveloper h2 {
-  margin-top: 0px;
-}
-.famousdeveloper table {
-  border-width: 0px;
-}
-.famousdeveloper .col1 {
-  width: 250px;
-}
-.famousdeveloper .col2 {
-  vertical-align: top;
-}
+/*Calendar*/
 .calendar-index span {
   float: right;
   font-size: 0.7em;
