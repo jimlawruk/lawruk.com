@@ -5,44 +5,33 @@
 <html>
 <head>
     <title><asp:ContentPlaceHolder ID="HeadTitleContent" runat="server"></asp:ContentPlaceHolder></title>    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <link href="/content/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="/content/site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
 <div id="pae-wrap" class="<%=ViewContext.RouteData.Values["Controller"].ToString().ToLower() + "-" + ViewContext.RouteData.Values["Action"].ToString().ToLower()%>">
 
-<div class="navbar">
-    <div class="navbar-inner">
+    <div class="navbar navbar-default navbar-inverse">
         <div class="container">
-        <a class="brand" href="/">Lawruk.com</a>
-        <ul class="nav">        
-        <li><a href="/about">About</a></li>
-        <li><a href="/news">News</a></li>
-        <li><a href="/metro">Metro</a></li>
-        <li><a href="/weather">Weather</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/rome">Rome</a></li>
-        <li><a href="/videos">Videos</a></li>
-        <li><a href="/rachelemmett">Rachel and Emmett</a></li>
-        </ul>
+            <div class="navbar-inner">
+            <div class="navbar-header">       
+                <a class="navbar-brand" href="/">Lawruk.com</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">              
+                </ul>
+            </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div>
-        <div class="row">
-            <div class="span8">            
+    <div class="container">
+        <div class="content">       
                 <h2><asp:ContentPlaceHolder ID="TitleContent" runat="server"></asp:ContentPlaceHolder></h2>         
                 <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-            </div>
-            <div class="span4"><asp:ContentPlaceHolder ID="RightContent" runat="server"></asp:ContentPlaceHolder></div>
         </div>
-    </div>
-</div>
-
+    </div>           
 </div>
  <script type="text/javascript">
      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
