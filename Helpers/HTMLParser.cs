@@ -18,6 +18,9 @@ namespace lawrukmvc.Helpers
         {
             StringBuilder tables = new StringBuilder();
             HtmlNodeCollection nodes = GetTableNodes(url);
+            if (nodes == null)
+                return "";
+            
             foreach (HtmlNode node in nodes)
             {
                 tables.Append(GetTableTextFromHtmlNode(node,false));

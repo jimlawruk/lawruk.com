@@ -70,6 +70,8 @@ namespace lawrukmvc.Services
         private string MetroStationBody(int id)
         {
             string tables = HTMLParser.GetTables("http://www.wmata.com/rider_tools/pids/showpid.cfm?station_id=" + id.ToString());
+            if (tables == "")
+                return "No Metro data for this station";
 
             tables = tables.Replace("<img src=\"/img/icon-marble-", "");
 
