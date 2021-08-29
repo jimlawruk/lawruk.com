@@ -17,14 +17,14 @@ namespace Lawruk
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();                
             }
             else
             {
