@@ -1,0 +1,54 @@
+<h1>Tracking Traffic Trends During COVID-19</h1>
+
+<div class="author">by Jim Lawruk</div>
+<div class="date">December 03, 2020</div>
+
+    <img src="/img/blog/tracking-traffic-during-covid/hero.png"/>
+      <p>
+        When COVID turned the world upside down back in late March, road traffic volume plummeted.
+        Highways became ghost towns, and the usual bottlenecks cleared. Driving during rush hour was no longer a concern. Yet as summer turned to fall, it felt as if traffic was returning to normal. 
+        
+        <p> 
+        This left me wondering how much had volume actually fallen back in the spring? Did rural and urban areas experiance the same changes? And with increased online shopping, had truck volume increased? Are we back to normal?</p>
+ 
+      <h2>Gettings Answers</h2>
+      <p>
+        To answer these questions, I created a program to query the traffic counts from PennDOT's publicly available <a
+          href="https://gis.penndot.gov/tire">Traffic Information Repository.</a> (I was the original developer for TIRe
+        and was familiar with the API.) I picked a few different
+        continuous traffic counters from various Pennsylvania locations to sample various regions.  The program collects all the traffic counts from the selected locations and creates rolling averages for them. The program separates weekday and weekend traffic counts and collects truck counts where available. Traffic counts day to day can fluctuate due to weather, accidents, holidays, and counter errors, so it was challenging to account for these edge case situations and to smooth out the graph lines to see meaningful results.
+      </p>
+
+      <h2>Traffic Changes</h2>
+      <p>
+        In general, for most of the counters I surveyed, traffic volume fell by 50-60% from mid-March to mid-April.
+        Traffic then gradually increased over the summer, and has now leveled off at about 10-15% below 2019 levels. Data
+        from an I-83 counter near Harrisburg is shown below and is typical of what happened throughout the state:
+      </p>
+
+      <img src="/img/blog/tracking-traffic-during-covid/harrisburg.png" width="100%" />
+
+      <h2>Urban vs Rural</h2>
+      <p>
+        The two big cities, Pittsburgh and Philadelphia, show the most dramatic differences. In October, they are 26% and 29% down from
+        2019 levels compared to the more general 10-15% found on
+        other locations throughout the state. Rural areas and smaller cities showed smaller shifts. The map below shows average traffic declines for October 2020 compared to last year. 
+      </p>
+
+      <img src="/img/blog/tracking-traffic-during-covid/map.png" width="100%" />
+
+      <h2>Trucks</h2>
+      <p>
+        In general, truck traffic fell initially but then quickly returned to 2019 levels and for some locations
+        exceeded 2019 levels. Truck counter data is not available for every location over both years so I could only look at a handful of locations. Data from an I-78 counter near Allentown is a typical pattern and is shown below:
+      </p>
+
+      <img src="/img/blog/tracking-traffic-during-covid/allentown-truck.png" width="100%" />     
+      
+       <h2>What's Next?</h2>
+       <p>
+       I have always been interested in data journalism and in finding ways for statistics to tell a story or illuminate a set of truths. We all have perceptions of what we think it true, and it is fun to use statistics and charts to confirm or deny one's perceptions.</p>
+      <p>
+        My next steps will be to see if newer restrictions cause traffic level to start decreasing again. I plan to
+        analyze holiday travel and compare it to previous years where possible. I will also look at hourly traffic data, and see if rush hour traffic changes are more or less dramatic than overall daily counts. Lastly, I plan to aggregate all the various counters into one figure, rather than analyze locations individually.
+      </p>
