@@ -30,6 +30,10 @@ h2 {
     font-size: 24px;
 }
 
+figure {
+    margin-bottom: 25px;
+}
+
 .navbar {
     background-color: #363555;
     color: #fff;
