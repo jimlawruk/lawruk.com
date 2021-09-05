@@ -14,7 +14,6 @@ namespace Lawruk.Services
         {
             var raceResultsViewModel = new RaceResultsViewModel();
             raceResultsViewModel.PageTitle = "Race Results";
-            raceResultsViewModel.DateTimeFormat = "yyyy-mmm-dd";
             raceResultsViewModel.RaceResults = GetRaceViewModelsFromRaceFiles();
             return raceResultsViewModel;
         }
@@ -57,6 +56,7 @@ namespace Lawruk.Services
             int month = int.Parse(array[0].Substring(4, 2));
             int day = int.Parse(array[0].Substring(6, 2));
             raceViewModel.DateTime = new DateTime(year, month, day);
+            raceViewModel.DateTimeFormat = "yyyy-mmm-dd";
             raceViewModel.Distance = array[1];
             raceViewModel.Title = array[2].Replace("_", " ");
             raceViewModel.PageTitle = $"{raceViewModel.Title} - {raceViewModel.DateTimeDisplay}";
