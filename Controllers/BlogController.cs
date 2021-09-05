@@ -19,6 +19,12 @@ namespace Lawruk.Controllers
         {
             return View(new PageViewModel());
         }
+
+        [Route("blog/graphing-holiday-traffic-during-covid")]
+        public IActionResult GraphingHolidayTrafficDuringCovid()
+        {
+            return View(new PageViewModel());
+        }
        
     }
 }

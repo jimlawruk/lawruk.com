@@ -1,0 +1,72 @@
+@model PageViewModel
+@{
+    Model.PageTitle = "Graphing Holiday Traffic During Covid COVID-19";
+    Model.Author = "Jim Lawruk";
+    Model.DateTime = new DateTime(2021, 1, 22);
+}
+<div class="author">by @Model.Author</div>
+<div class="date">@Model.DateTimeDisplay</div>
+
+<p style="font-style: italic; text-align: center;">This is a follow-up to a <a
+        href="/blog/tracking-traffic-during-covid" target="_new">previous post</a> that graphed Pennsylvania traffic
+    patterns during Covid-19.
+</p>
+
+<p>
+    This past November, rising rates of Covid-19 prompted government leaders in Pennsylvania to issue strict
+    guidelines for travel during the holidays. Motorists were reminded to stay at home, get tested for out-of-state
+    travel, or to quarantine.
+    So how were traffic levels impacted as a result? PennDOT's <a href="https://gis.penndot.gov/tire">Traffic
+        Information Repository</a>, offers answers.
+</p>
+
+<h3>Holiday Traffic: 2019 vs 2020</h3>
+<p>I collected traffic data from a sample of 14 continuous traffic counters throughout Pennsylvania. The goal was
+    to compare 2020 holiday traffic levels to last year's levels.
+    Rather than simply looking at Thanksgiving Day and
+    Christmas Day, I collected traffic counts for a five-day period surrounding each holiday. The resulting analysis
+    is the percentage drop from 2019 to 2020 for the 14 sampled locations. The results are shown on this map below.
+</p>
+
+<figure>
+    <img src="/img/blog/graphing-holiday-traffic-during-covid/holiday-map.png" />
+</figure>
+
+<h3>Thanksgiving Traffic: 2019 vs 2020</h3>
+<p>The following bar chart aggegrates the traffic counts for all of the 14 sites samples for the days surrounding
+    Thanksgiving. Wednesday through Sunday were chosen.
+    The percentage show the decline from 2019 to 2020. Note that Thanksgiving Day has the
+    largest percentage decline.
+</p>
+
+<figure>
+    <img src="/img/blog/graphing-holiday-traffic-during-covid/thanksgiving-days.png">
+</figure>
+
+<h3>Christmas Traffic: 2019 vs 2020</h3>
+<p>
+    For Christmas, I sampled the same 14 continuous traffic counters and aggregated the counts for December
+    23rd through 27th.
+    Since Christmas falls on a different day each year, the day of the week is shown in the x-axis labels.
+</p>
+
+<figure>
+    <img src="/img/blog/graphing-holiday-traffic-during-covid/christmas-days.png" />
+</figure>
+
+<h3>New Year's Eve Traffic: 2019 vs 2020</h3>
+<p>I also tracked differences for New Year's Eve. For something a little different, I compared the hour by hour
+    counts during the evening of New Year's Eve. As parties and "drop" events were cancelled, the year-to-year
+    differences increase near midnight.
+</p>
+
+<figure>
+    <img src="/img/blog/graphing-holiday-traffic-during-covid/newyears.png" />
+</figure>
+
+<h3>Returning to Baseline in 2021?</h3>
+<p>
+    When will we see a return to pre-pandemic levels? Vaccinations are beginning to roll out, but we are also getting
+    reports of the new Covid variant appearing in Pennsylvania.
+    Will we return to baseline in 2021? Readers, stay tuned.
+</p>
