@@ -106,6 +106,10 @@ body {
 /* Blog
 ----------------------------*/
 
+div.author-date {
+    margin-bottom: 15px;
+}
+
 .author,
 .date {
     color: #777;

@@ -4,10 +4,12 @@
     Model.Author = "Jim Lawruk";
     Model.DateTime = new DateTime(2021, 1, 22);
 }
-<div class="author">by @Model.Author</div>
-<div class="date">@Model.DateTimeDisplay</div>
+<div class="author-date">
+    <div class="author">by @Model.Author</div>
+    <div class="date">@Model.DateTimeDisplay</div>
+</div>
 
-<p style="font-style: italic; text-align: center;">This is a follow-up to a <a
+<p style="font-style: italic;">This is a follow-up to a <a
         href="/blog/tracking-traffic-during-covid" target="_new">previous post</a> that graphed Pennsylvania traffic
     patterns during Covid-19.
 </p>
