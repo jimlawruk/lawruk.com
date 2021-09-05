@@ -17,7 +17,7 @@ namespace Lawruk.Controllers
         [Route("blog/tracking-traffic-during-covid")]
         public IActionResult TrackingTrafficDuringCovid()
         {
-            return View();
+            return View(new PageViewModel());
         }
        
     }

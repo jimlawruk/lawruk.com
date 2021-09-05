@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Lawruk.Services;
 
 namespace Lawruk
 {
@@ -18,6 +19,7 @@ namespace Lawruk
         public void ConfigureServices(IServiceCollection services)
         {
              services.AddControllersWithViews().AddRazorRuntimeCompilation();
+             services.AddSingleton<RaceResultService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

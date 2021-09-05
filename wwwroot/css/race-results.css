@@ -1,0 +1,15 @@
+#race-results_filter label {
+    display: flex;
+    width: 100%;
+    line-height: 37px;
+}
+
+#race-results_filter label input {
+    flex: 2;
+    margin-left: 10px;
+}
+
+.table td,
+.table th {
+    padding: .50rem;
+}
