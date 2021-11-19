@@ -18,15 +18,15 @@ namespace Lawruk
 
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-             services.AddSingleton<RaceResultService>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSingleton<RaceResultService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -34,7 +34,8 @@ namespace Lawruk
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+         
+            app.UseFileServer();
 
             app.UseRouting();
 
