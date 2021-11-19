@@ -24,6 +24,7 @@ h6,
 
 h1 {
     font-size: 34px;
+    text-align: center;
 }
 
 h2 {
@@ -102,6 +103,28 @@ body {
     font-size: 24px;
 }
 
+.blog-posts {
+    margin: auto;
+    max-width: 684px;
+    margin-top: 40px;
+}
+
+.blog-posts .list {
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.blog-posts .title {
+    font-size: 20px;
+}
+
+.blog-posts a.list-group-item {
+    color: #0366d6;
+}
+
 
 /* Blog
 ----------------------------*/
@@ -115,4 +138,20 @@ div.author-date {
     color: #777;
     font-size: 16px;
     font-weight: 600;
+}
+
+
+/* Maps
+----------------------------*/
+
+@media(max-width: 1000px) {
+    .esri-legend {
+        display: none;
+    }
+}
+
+@media(max-height: 800px) {
+    .esri-legend {
+        display: none;
+    }
 }
