@@ -5,10 +5,11 @@ namespace Lawruk.Models
     public class PageViewModel
     {
         public string PageTitle { get; set; }
+        public string PageType { get; set; }
         public bool ShowPageTitle { get; set; }
         public string Author { get; set; }
         public DateTime DateTime { get; set; }
-        public string DateTimeFormat { get; set; }        
+        public string DateTimeFormat { get; set; }
 
         public PageViewModel()
         {
