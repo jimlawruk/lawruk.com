@@ -25,6 +25,12 @@ namespace Lawruk.Controllers
         {
             return View(new PageViewModel());
         }
-       
+
+        [Route("blog/does-performance-drive-kudos-on-strava")]
+        public IActionResult DoesPerformanceDriveKudosOnStrava()
+        {
+            return View(new PageViewModel());
+        }
+
     }
 }
