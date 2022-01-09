@@ -1,4 +1,8 @@
 ﻿@model PageViewModel
+@{
+    Model.PageTitle = "Lawruk.com";
+    Model.PageType = "Home";
+}
 
 <div class="container">
     <main role="main" class="pb-3">
@@ -17,6 +21,59 @@
             <div><a href="https://www.linkedin.com/in/lawruk/" target="_blank">LinkedIn</a></div>
             <div><a href="https://github.com/jimlawruk" target="_blank">GitHub</a></div>
             <div><a href="https://www.strava.com/athletes/9609385" target="_blank">Strava</a></div>
+        </div>
+        <div class="recent-blogs">
+            <div class="blog-posts">
+                <div class="list">
+                    <a href="/blog/does-performance-drive-kudos-on-strava"
+                        class="list-group-item list-group-item-action">
+                        <div class="item d-flex w-100 justify-content-between">
+                            <div class="info">
+                                <div class="type">BLOG</div>
+                                <div class="title">Does Performance Drive Kudos on Strava</div>
+                                <div class="date">January 1, 2022</div>
+                            </div>
+                            <div class="img">
+                                <img src="/img/blog/does-performance-drive-kudos-on-strava_150x200.png" />
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/haunted-places.html" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="info">
+                                <div class="type">MAP</div>
+                                <div class="title">Haunted Places in America</div>
+                                <div class="date">October 27, 2021</div>
+                            </div>
+                            <div class="img">
+                                <img src="/img/blog/haunted-places_150x200.png" />
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/blog/graphing-holiday-traffic-during-covid"
+                        class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="info">
+                                <div class="type">BLOG</div>
+                                <div class="title">Graphing Holiday Traffic During Covid</div>
+                                <div class="date">January 22, 2021</div>
+                            </div>
+                            <div class="img"><img src="/img/blog/holiday-traffic_150x200.png" /></div>
+                        </div>
+                    </a>
+                    <a href="/blog/tracking-traffic-during-covid" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="info">
+                                <div class="type">BLOG</div>
+                                <div class="title"> Graphing Traffic During Covid</div>
+                                <div class="date">December 3, 2020</div>
+                            </div>
+                            <div class="img"><img src="/img/blog/traffic-trends-during-covid_150x200.png" /></div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
         </p>
     </main>

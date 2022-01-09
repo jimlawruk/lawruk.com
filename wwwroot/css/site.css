@@ -125,19 +125,82 @@ body {
     color: #0366d6;
 }
 
+.blog-posts .info {
+    color: #666;
+}
+
+.blog-posts .list-group-item-action:hover .title {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+.blog-posts .info .title {
+    color: #000;
+    margin-bottom: 7px;
+    padding-right: 5px;
+}
+
+.blog-posts .info .date {
+    font-size: 14px;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .list-group-item {
+        padding-left: 10px;
+        padding-right: 10px;
+        border-left-width: 0px;
+        border-right-width: 0px;
+    }
+    .blog-posts .info .title {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    .blog-posts img {
+        height: 75px;
+        width: 100px;
+    }
+}
+
 
 /* Blog
 ----------------------------*/
 
-div.author-date {
+.blog h1 {
+    text-align: left;
+}
+
+.blog div.author-date {
     margin-bottom: 15px;
 }
 
-.author,
-.date {
+.blog .author,
+.blog .date {
     color: #777;
     font-size: 16px;
     font-weight: 600;
+}
+
+.blog .formula {
+    color: #666666;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.blog .formula .operator {
+    padding: 5px;
+}
+
+.blog .chart-x-axis {
+    margin-top: -35px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
 }
 
 
