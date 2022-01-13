@@ -33,6 +33,13 @@ namespace Lawruk.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Route("haunted-places")]
+        public IActionResult HauntedPlaces()
+        {
+            var pageViewModel = new PageViewModel();
+            return View(pageViewModel);
+        }
+
         [Route("race-results")]
         public IActionResult RaceResults()
         {

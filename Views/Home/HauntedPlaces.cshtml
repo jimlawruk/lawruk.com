@@ -1,0 +1,222 @@
+@model PageViewModel
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    Model.PageTitle = "Haunted Places in America";
+    Model.PageType = "Map";
+}
+
+<style>
+    html,
+    body,
+    #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #data-source {
+        position: absolute;
+        background-color: #fff;
+        padding: 10px;
+        left: 15px;
+        bottom: 27px;
+        width: 143px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    #data-source a {
+        color: hsl(240, 43%, 33%);
+    }
+    
+    .esri-ui-bottom-left.esri-ui-corner {
+        bottom: 40px;
+    }
+    
+    .esri-component.esri-widget--panel.esri-legend {
+        width: 163px !important;
+    }
+    
+    .esri-popup__footer.esri-popup__footer--has-actions {
+        display: none;
+    }
+    
+    @@media(max-width: 1000px) {
+        .esri-legend {
+            display: none;
+        }
+    }
+    
+    @@media(max-height: 700px) {
+        .esri-legend {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/LayerList",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/Legend",
+        "esri/widgets/Locate",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer",
+        "esri/geometry/Point",
+        "esri/layers/FeatureLayer",
+        "esri/PopupTemplate"
+    ], function(
+        Map, MapView,
+        BasemapToggle,
+        LayerList,
+        FeatureLayer,
+        Legend,
+        Locate,
+        Graphic, GraphicsLayer, Point,
+        FeatureLayer,
+        PopupTemplate
+    ) {
+
+        var map = new Map({
+            basemap: "streets-night-vector"
+        });
+
+        var view = new MapView({
+            container: "viewDiv",
+            map: map,
+            zoom: 5,
+            center: [-80.925, 38.245]
+        });
+
+        var toggle = new BasemapToggle({
+            titleVisible: true,
+            view: view
+        });
+        view.ui.add(toggle, "bottom-right");
+
+        var locateBtn = new Locate({
+            view: view
+        });
+        view.ui.add(locateBtn, "top-left");
+
+        var hauntedPlacesLayer = new FeatureLayer({
+            url: "https://services.arcgis.com/0hWR1h1PHFoPztOo/arcgis/rest/services/Haunted_Places_in_America/FeatureServer/0",
+            title: "Haunted Places",
+            popupTemplate: getPopupTemplate()
+        });
+
+        hauntedPlacesLayer.renderer = {
+            type: "unique-value",
+            field: "location_type",
+            defaultSymbol: {
+                type: "simple-marker",
+                size: 8,
+                color: [140, 190, 214]
+            },
+            uniqueValueInfos: [{
+                value: "cemetery",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [128, 128, 128]
+                }
+            }, {
+                value: "church",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [65, 10, 128]
+                }
+            }, {
+                value: "hospital",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [0, 128, 255]
+                }
+            }, {
+                value: "house",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [200, 102, 0]
+                }
+            }, {
+                value: "park",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [0, 140, 10]
+
+                }
+            }, {
+                value: "hotel",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [200, 50, 0]
+                }
+            }, {
+
+                value: "school",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [140, 10, 250]
+                }
+            }, {
+                value: "theatre",
+                symbol: {
+                    type: "simple-marker",
+                    size: 8,
+                    color: [240, 102, 178]
+                }
+            }]
+        };
+
+        view.ui.add(new Legend({
+            view: view
+        }), "bottom-left");
+
+        hauntedPlacesLayer.when(() => {
+            hauntedPlacesLayer.effect = `bloom(1.5, 0.5px, 0.5)`;
+        });
+
+        map.add(hauntedPlacesLayer);
+
+    });
+
+    function getPopupTemplate() {
+        return {
+            title: "{title}",
+            content: [{
+                type: "fields",
+                fieldInfos: [{
+                    fieldName: "location_type",
+                    label: "Location Type"
+                }, {
+                    fieldName: "ghost_type",
+                    label: "Ghost Type"
+                }, {
+                    fieldName: "city",
+                    label: "City"
+                }, {
+                    fieldName: "state",
+                    label: "State"
+                }, {
+                    fieldName: "description",
+                    label: "Description"
+                }]
+            }]
+        };
+    }
+</script>
+
+<div id="viewDiv"></div>
+<div id="data-source">
+    <a href="https://data.world/timothyrenner/haunted-places" target="_black">Geocoded by Tim Renner</a> from <a href="http://www.theshadowlands.net/places/" target="_black">Shadowlands Haunted Places</a>
+</div>
