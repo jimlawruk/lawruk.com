@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="//js.arcgis.com/4.21/esri/css/main.css" rel="stylesheet" type="text/css">
+    <script src="//js.arcgis.com/4.21"></script>    
+</head>
+
+<style>
+    html,
+    body,
+    #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+<body class="@Model.PageType.ToLower()">
+    @RenderBody()
+</body>
