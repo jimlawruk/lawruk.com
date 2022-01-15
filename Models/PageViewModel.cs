@@ -10,6 +10,7 @@ namespace Lawruk.Models
         public string Author { get; set; }
         public DateTime DateTime { get; set; }
         public string DateTimeFormat { get; set; }
+        public string OpenGraphImageUrl { get; set; }
 
         public PageViewModel()
         {

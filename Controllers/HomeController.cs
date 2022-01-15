@@ -33,6 +33,13 @@ namespace Lawruk.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Route("camp-hill-street-lights")]
+        public IActionResult CampHillStreetLights()
+        {
+            var pageViewModel = new PageViewModel();
+            return View(pageViewModel);
+        }
+
         [Route("haunted-places")]
         public IActionResult HauntedPlaces()
         {
