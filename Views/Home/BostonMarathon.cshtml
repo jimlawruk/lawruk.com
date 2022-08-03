@@ -1,0 +1,337 @@
+@model PageViewModel
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    Model.PageTitle = "Boston Marathon Course Map";
+    Model.PageType = "Map";
+}
+
+<style>
+    html,
+    body,
+    #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    #data-source {
+        position: absolute;
+        background-color: #fff;
+        padding: 10px;
+        left: 15px;
+        bottom: 27px;
+        width: 143px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    #data-source a {
+        color: hsl(240, 43%, 33%);
+    }
+
+    .esri-ui-bottom-left.esri-ui-corner {
+        bottom: 40px;
+    }
+
+    .esri-component.esri-widget--panel.esri-legend {
+        width: 163px !important;
+    }
+
+    .esri-popup__footer.esri-popup__footer--has-actions {
+        display: none;
+    }
+
+    @@media(max-width: 1000px) {
+        .esri-legend {
+            display: none;
+        }
+    }
+
+    @@media(max-height: 700px) {
+        .esri-legend {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+
+    const mileMarkers = [
+        [42.23626191262371, -71.50627202510685, 1],
+        [42.24068539216792, -71.48754851853018, 2],
+        [42.250906680613696, -71.47219151128903, 3],
+        [42.258127, -71.456966, 4],
+        [42.26973747414591, -71.44469118833605, 5],
+
+        [42.27328718606571, -71.42690948367147, 6],
+        [42.27841342303497, -71.40922031521815, 7],
+        [42.28187235544563, -71.39129645347451, 8],
+        [42.2838091159092, -71.36780030250607, 9],
+        [42.283760323873864, -71.34761875418138, 10],
+
+        [42.287891452612385, -71.33305583927591, 11],
+        [42.29439, -71.318865, 12],
+        [42.295977, -71.302814, 13],
+        [42.302666, -71.28599, 14],
+        [42.311471, -71.275248, 15],
+
+        [42.323513, -71.262313, 16],
+        [42.331841, -71.247112, 17],
+        [42.339324, -71.236382, 18],
+        [42.33714, -71.21742, 19],
+        [42.337851, -71.198494, 20],
+
+        [42.336277, -71.180072, 21],
+        [42.34007490450584, -71.16403135373514, 22],
+        [42.33682509623725, -71.14594087569148, 23],
+        [42.34141286097229, -71.12364635435664, 24],
+        [42.34539763993352, -71.10906586615123, 25],
+
+        [42.348981742762206, -71.08975396124349, 26]
+    ];
+
+    const hills = [  // first path
+        [
+            [42.33614754609016, -71.19261047959259],
+            [42.33621099264794, -71.19137398123712],
+            [42.3361971137189, -71.1899604570867],
+            [42.33632797207099, -71.1871307265769],
+            [42.33651632831192, -71.18562064290195],
+            [42.33662537640409, -71.18453166604222],
+            [42.336510380228724, -71.18242881417518],
+            [42.336113840080195, -71.17906264186252],
+            [42.336117805494055, -71.17863348842026]
+        ]
+    ];
+
+    const landmarks = [
+        [42.34062175509552, -71.23860881147961, 'Firehouse'],
+        [42.34915968999376, -71.0964546275122, 'Citgo Sign'],
+        [42.336120779553106, -71.17863482952106, 'Top of Heartbreak'],
+        [42.358822895613926, -71.05694108486482, 'Boston Massacre'],
+        [42.36632673826361, -71.05447249944879, 'Old North Church']
+    ];
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/LayerList",
+        "esri/widgets/Legend",
+        "esri/widgets/Locate",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/geometry/Point",
+        "esri/geometry/Polyline",
+        "esri/layers/FeatureLayer",
+        "esri/PopupTemplate",
+        "esri/geometry/SpatialReference",
+    ], function (
+        Map, MapView,
+        BasemapToggle,
+        LayerList,
+        Legend,
+        Locate,
+        Graphic, GraphicsLayer, SimpleLineSymbol, Point, Polyline,
+        FeatureLayer,
+        PopupTemplate,
+        SpatialReference
+    ) {
+
+        var map = new Map({
+            basemap: "topo-vector"
+        });
+
+        var view = new MapView({
+            container: "viewDiv",
+            map: map,
+            zoom: 11,
+            center: [-71.07, 42.29]
+        });
+
+        var toggle = new BasemapToggle({
+            titleVisible: true,
+            view: view
+        });
+        view.ui.add(toggle, "bottom-right");
+
+        var locateBtn = new Locate({
+            view: view
+        });
+        view.ui.add(locateBtn, "top-left");
+
+        var marathonLayer = new FeatureLayer({
+            url: "https://services5.arcgis.com/wBdB5z26dRdLbBYy/arcgis/rest/services/Boston_Marathon/FeatureServer/0",
+            title: "Boston Marathon"
+        });
+
+        const lineSymbol = new SimpleLineSymbol({ color: [0, 0, 150], width: 2, style: "solid" });
+        marathonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "simple-line",
+                width: 4,
+                color: [0, 0, 200, .4]
+            }
+        };
+
+        map.add(marathonLayer);
+
+        const start = [42.23614800000001, -71.506257];
+
+        var markerSymbol = {
+            type: "simple-marker",
+            color: [200, 0, 0],
+            size: 8,
+            outline: {
+                color: [255, 255, 255],
+                width: 2
+            }
+        };
+
+        view.on('click', (e) => { console.log(e.mapPoint.latitude + ' ' + e.mapPoint.longitude); });
+
+        addHillLayer();
+
+        addPointLayer('Landmarks', [0, 200, 0], landmarks);
+        var textLandmarksLayer = new GraphicsLayer({});
+        updateTextSymbols(textLandmarksLayer, landmarks);
+        map.add(textLandmarksLayer);
+
+        addPointLayer('Mile Markers', [200, 0, 0], mileMarkers);
+        var textMileMarkersLayer = new GraphicsLayer({});
+        updateTextSymbols(textMileMarkersLayer, mileMarkers);
+        map.add(textMileMarkersLayer);
+
+        view.ui.add(new Legend({
+            view: view
+        }), "bottom-left");
+
+        view.watch("scale", (newValue) => {
+            updateTextSymbols(textMileMarkersLayer, mileMarkers);
+            updateTextSymbols(textLandmarksLayer, landmarks);
+        });
+
+        function addPointLayer(title, colorArray, pointsArray) {
+            const graphics = [];
+            for (let i = 0; i < pointsArray.length; i++) {
+                const pointArray = pointsArray[i];
+                var point = new Point({
+                    'type': 'point',
+                    'longitude': pointArray[1],
+                    'latitude': pointArray[0],
+                    'spatialReference': new SpatialReference({ 'wkid': 4326 })
+                });
+
+                var graphicDefinition = {
+                    geometry: point,
+                    symbol: getPointSymbol(colorArray),
+                    attributes: {},
+                    popupTemplate: {
+                        title: "Segment",
+                        content: [{
+                            type: "fields",
+                            fieldInfos: []
+                        }]
+                    }
+                };
+                var pointGraphic = new Graphic(graphicDefinition);
+                graphics.push(pointGraphic);
+            }
+            var pointLayer = new GraphicsLayer({});
+            graphics.forEach(function (graphic) {
+                pointLayer.add(graphic);
+            });
+            map.add(pointLayer);
+        }
+
+        function addHillLayer() {
+            var hillsLayer = new GraphicsLayer({});
+            const paths = [];
+            for (let i = 0; i < hills.length; i++) {
+                const item = hills[i];
+                const innerPath = [];
+                for (let j = 0; j < item.length; j++) {
+                    const point = item[j];
+                    const reversedPoint = [point[1], point[0]];
+                    innerPath.push(reversedPoint);
+                }
+                paths.push(innerPath);
+            }
+            let line = new Polyline({
+                hasZ: false,
+                hasM: true,
+                paths: paths,
+                spatialReference: { wkid: 4326 }
+            });
+            const hillSymbolDefinition = { type: "simple-line", color: [200, 0, 0, 0.6], width: 4, style: "solid" };
+            var hillGraphicDefinition = {
+                geometry: line,
+                symbol: hillSymbolDefinition
+            };
+
+            var hillGraphic = new Graphic(hillGraphicDefinition);
+            hillsLayer.add(hillGraphic);
+            map.add(hillsLayer);
+        }
+
+        function updateTextSymbols(textLayer, pointsArray) {
+            const scale = view.scale;
+            const offset = Math.sqrt(scale) / 400000;
+            textLayer.removeAll();
+            console.log(view.scale);
+            if (scale > 36112) {
+                return;
+            }
+            for (let i = 0; i < pointsArray.length; i++) {
+                const pointArray = pointsArray[i];
+                var textPoint = new Point({
+                    'type': 'point',
+                    'longitude': pointArray[1],
+                    'latitude': pointArray[0] + offset,
+                    'spatialReference': new SpatialReference({ 'wkid': 4326 })
+                });
+                var textGraphicDefinition = {
+                    geometry: textPoint,
+                    symbol: getTextSymbol(pointArray[2]),
+                    attributes: { 'MILE_MARKER': i.toString() }
+                };
+                var textGraphic = new Graphic(textGraphicDefinition);
+                textLayer.add(textGraphic);
+            }
+        }
+
+    });
+
+    function getPointSymbol(colorArray) {
+        return {
+            type: "simple-marker",
+            color: colorArray,
+            size: 8,
+            outline: {
+                color: colorArray,
+                width: 2
+            }
+        };
+    }
+
+    function getTextSymbol(text) {
+        return {
+            type: "text",
+            angle: 0,
+            color: [50, 50, 50, .8],
+            text: text,
+            font: {
+                family: "Arial",
+                size: 14
+            },
+            horizontalAlignment: "center",
+            verticalAlignment: "middle"
+        };
+    }
+
+</script>
+
+<div id="viewDiv"></div>

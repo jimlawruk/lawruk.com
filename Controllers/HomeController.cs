@@ -47,6 +47,13 @@ namespace Lawruk.Controllers
             return View(pageViewModel);
         }
 
+        [Route("boston-marathon")]
+        public IActionResult BostonMarathon()
+        {
+            var pageViewModel = new PageViewModel();
+            return View(pageViewModel);
+        }
+
         [Route("race-results")]
         public IActionResult RaceResults()
         {
