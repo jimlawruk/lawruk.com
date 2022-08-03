@@ -1,0 +1,7 @@
+MC;th&Ov-w.wI%YsoSTALv@GrP77-Mz.
+
+
+run acme program C:\win-acme\wacs.exe
+If it cannot connect, reboot the instance.
+
+Select R from the menu
