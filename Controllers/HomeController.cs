@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,6 +7,8 @@ using Lawruk.Services;
 
 namespace Lawruk.Controllers
 {
+    [ApiController]
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
@@ -19,6 +21,7 @@ namespace Lawruk.Controllers
             raceResultService.RacesFolderFilePath = env.ContentRootPath + "\\races";
         }
 
+        [Route("")]
         public IActionResult Index()
         {
             var pageViewModel = new PageViewModel();
@@ -28,6 +31,7 @@ namespace Lawruk.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [Route("error")]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
