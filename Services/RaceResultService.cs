@@ -8,11 +8,12 @@ namespace Lawruk.Services
 {
     public class RaceResultService
     {
-        public string RacesFolderFilePath { get; set; }
+        public string RacesFolderFilePath { get; set; } = "";
 
         public RaceResultsViewModel GetRaceResultsViewModel()
         {
             var raceResultsViewModel = new RaceResultsViewModel();
+            raceResultsViewModel.PageType = "App";
             raceResultsViewModel.PageTitle = "Race Results";
             raceResultsViewModel.RaceResults = GetRaceViewModelsFromRaceFiles();
             return raceResultsViewModel;
@@ -51,22 +52,27 @@ namespace Lawruk.Services
         private RaceViewModel GetViewModelFromRaceFile(string raceFilePath)
         {
             var raceViewModel = new RaceViewModel();
+            raceViewModel.PageType = "App";
             string[] array = raceFilePath.Split('-');
             int year = int.Parse(array[0].Substring(0, 4));
             int month = int.Parse(array[0].Substring(4, 2));
             int day = int.Parse(array[0].Substring(6, 2));
             raceViewModel.DateTime = new DateTime(year, month, day);
-            raceViewModel.DateTimeFormat = "yyyy-mmm-dd";
+            raceViewModel.DateTimeFormat = "yyyy-MM-dd";
             raceViewModel.Distance = array[1];
             raceViewModel.Title = array[2].Replace("_", " ");
             raceViewModel.PageTitle = $"{raceViewModel.Title} - {raceViewModel.DateTimeDisplay}";
 
             raceViewModel.Url = "/race-results/" + raceFilePath;
             raceViewModel.City = array[3].Replace("_", " ");
-            string state = array[4];
-            if (state.Contains("."))
+            string state = "";
+            if (array.Length > 4)
             {
-                state = state.Substring(0, state.IndexOf('.'));
+                state = array[4];
+                if (state.Contains("."))
+                {
+                    state = state.Substring(0, state.IndexOf('.'));
+                }
             }
             raceViewModel.State = state;
             return raceViewModel;
