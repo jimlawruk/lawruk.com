@@ -3,6 +3,8 @@ using Lawruk.Services;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 services.AddMvc();
+services.AddRazorPages();
+
 services.AddControllers(
 options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 services.AddSingleton<RaceResultService>();
