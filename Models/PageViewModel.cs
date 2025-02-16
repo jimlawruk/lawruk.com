@@ -11,6 +11,7 @@ namespace Lawruk.Models
         public DateTime DateTime { get; set; }
         public string DateTimeFormat { get; set; }
         public string? OpenGraphImageUrl { get; set; }
+        public string? BodyClass { get; set; }
 
         public PageViewModel()
         {
