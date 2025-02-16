@@ -1,0 +1,89 @@
+﻿@page
+@model PageViewModel
+@{
+    Model.PageTitle = "Traffic Disparities in Pennsylvania on April 8th Due to Solar Eclipse";
+    Model.PageType = "Blog";
+    Model.BodyClass = "traffic-due-to-solar-eclipse";
+    Model.Author = "Jim Lawruk";
+    Model.DateTime = new DateTime(2024, 4, 27);
+}
+<link href="//js.arcgis.com/4.27/esri/css/main.css" rel="stylesheet" type="text/css" />
+<script type="module" crossorigin src="/assets/index-Ca0LZvUN.js"></script>
+<link rel="stylesheet" crossorigin href="/assets/index-B9eVnuhG.css">
+
+<style>
+    .traffic-due-to-solar-eclipse p, .traffic-due-to-solar-eclipse h3, .traffic-due-to-solar-eclipse h1,
+    .traffic-due-to-solar-eclipse .author, .traffic-due-to-solar-eclipse .date {
+        max-width:1000px;
+    }
+    .traffic-due-to-solar-eclipse .intro {
+        margin-bottom:50px;
+    }
+ </style>
+
+<div class="author-date">
+    <div class="author">by @Model.Author</div>
+    <div class="date">@Model.DateTimeDisplay</div>
+</div>
+
+<div id="app"></div>
+<div id="main-content">    
+    <p class="intro">
+        The recent solar eclipse on April 8th gave us a rare but expected glimpse at unusual traffic disparities in Pennsylvania. To visualize this, I
+        used PennDOT's 
+        <a href="https://gis.penndot.gov/tire">Traffic Information Repository (TIRe)</a> to map and graph the hourly
+        directional traffic volume for April 8th. Below is a map of the locations of traffic counters for this post. I
+        picked a sampling of counters in a variety of locations on highways going roughly north and south.
+        <strong>
+            For reference, the solar eclipse occurred from 2:02 PM to 4:30 PM in Erie, PA. Totality occurred from 3:16 to
+            3:20.
+        </strong>
+    </p>
+    <h3>Locations of Traffic Counters Mentioned in this Post</h3>
+    <div class="map-container">
+        <div id="mapViewDiv"></div>
+    </div>
+    <div class="chart-outer-container">
+        <p>
+            This first counter in Crawford county just south of Erie shows an expected increase in northbound traffic in
+            the morning and then a huge surge of southbound traffic after totality.
+        </p>
+        <div class="chart-container">
+            <canvas id="chartCanvas0079"></canvas>
+        </div>
+    </div>
+    <div class="chart-outer-container">
+        <p>
+            My family travelled through the Route 15 counter shown below around 6 pm. Tioga county is pretty rural and
+            this road is usually empty, and so it was rare to see so many cars going in one direction.
+            Traffic was about 600% of normal. Notice the peak time of southbound traffic is about two hours
+            after totality, reflecting the time required to drive from the totality path area to the counter.
+        </p>
+        <div class="chart-container">
+            <canvas id="chartCanvas0015"></canvas>
+        </div>
+    </div>
+    <div class="chart-outer-container">
+        <p>
+            This counter on I-81 near Scranton is further south.  The disparity of southbound traffic here spans multiple hours into the evening.
+            This position would likely pick up a large portion of travellers going back to the NYC area.
+        </p>
+        <div class="chart-container">
+            <canvas id="chartCanvas0081"></canvas>
+        </div>
+    </div>
+    <div class="chart-outer-container">
+        <p>
+            The chart for this I-83 counter is several hours south of the totality path.
+            It does not look as dramatic, but you notice a large disparity late in the evening starting at 10 p.m with traffic around 300% of normal.
+        </p>
+        <div class="chart-container">
+            <canvas id="chartCanvas0083"></canvas>
+        </div>
+    </div>
+    <p>
+        Aside from major accidents our road closures, The traffic disparities on April 8 were significant. A good
+        follow-up project could be to compare the elipse to other events like big sporting events or holidays. If you
+        have any events in mind to rival April 8th, send them my way.
+    </p>
+</div>
