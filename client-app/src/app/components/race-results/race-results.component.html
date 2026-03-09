@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Race Results</h1>
+
+  <div *ngIf="loading" class="text-center py-4">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table *ngIf="!loading && !error" id="race-results" class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="race-header">
+        <th style="width:130px;" (click)="sortBy(0)" [class.sort-asc]="sortCol===0 && sortAsc" [class.sort-desc]="sortCol===0 && !sortAsc">Date</th>
+        <th (click)="sortBy(1)" [class.sort-asc]="sortCol===1 && sortAsc" [class.sort-desc]="sortCol===1 && !sortAsc">Title</th>
+        <th (click)="sortBy(2)" [class.sort-asc]="sortCol===2 && sortAsc" [class.sort-desc]="sortCol===2 && !sortAsc">Distance</th>
+        <th (click)="sortBy(3)" [class.sort-asc]="sortCol===3 && sortAsc" [class.sort-desc]="sortCol===3 && !sortAsc">City</th>
+        <th (click)="sortBy(4)" [class.sort-asc]="sortCol===4 && sortAsc" [class.sort-desc]="sortCol===4 && !sortAsc">State</th>
+        <th>Map</th>
+      </tr>
+      <tr class="filter-row">
+        <td><input type="text" [(ngModel)]="filterDate" (input)="applyFilters()" class="form-control form-control-sm" placeholder="Filter..." /></td>
+        <td><input type="text" [(ngModel)]="filterTitle" (input)="applyFilters()" class="form-control form-control-sm" placeholder="Filter..." /></td>
+        <td>
+          <select [(ngModel)]="filterDistance" (change)="applyFilters()" class="form-control form-control-sm">
+            <option *ngFor="let opt of distanceOptions" [value]="opt.value">{{ opt.label }}</option>
+          </select>
+        </td>
+        <td><input type="text" [(ngModel)]="filterCity" (input)="applyFilters()" class="form-control form-control-sm" placeholder="Filter..." /></td>
+        <td><input type="text" [(ngModel)]="filterState" (input)="applyFilters()" class="form-control form-control-sm" placeholder="Filter..." /></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let race of filteredRaces">
+        <td>{{ race.dateTimeDisplay }}</td>
+        <td><a [routerLink]="['/race-results', race.url.split('/').pop()]">{{ race.title }}</a></td>
+        <td>{{ race.distance }}</td>
+        <td>{{ race.city }}</td>
+        <td>{{ race.state }}</td>
+        <td class="text-center">
+          <a *ngIf="race.gpxBaseFileName"
+             [href]="'https://replayrun.com?gpx=' + race.gpxBaseFileName"
+             target="_blank" title="View map">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

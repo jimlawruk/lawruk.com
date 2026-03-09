@@ -1,0 +1,7 @@
+<div class="container">
+  <div *ngIf="loading" class="text-center py-4">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <ng-container *ngIf="race && safeHtml">
+    <div [innerHTML]="safeHtml"></div>
+  </ng-container>
+</div>

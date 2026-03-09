@@ -1,0 +1,5 @@
+<div class="container blog">
+  <div *ngIf="loading" class="text-center py-4">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div #contentContainer *ngIf="safeHtml" [innerHTML]="safeHtml"></div>
+</div>

@@ -1,0 +1,52 @@
+.traffic-due-to-solar-eclipse p,
+.traffic-due-to-solar-eclipse h3,
+.traffic-due-to-solar-eclipse h1,
+.traffic-due-to-solar-eclipse .author,
+.traffic-due-to-solar-eclipse .date {
+  max-width: 1000px;
+}
+
+.traffic-due-to-solar-eclipse .intro {
+  margin-bottom: 50px;
+}
+
+#main-content {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h3 {
+  font-size: 14px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.map-container,
+.chart-container {
+  height: 500px;
+  margin-bottom: 10px;
+}
+
+.map-container div {
+  width: 100%;
+  height: 100%;
+}
+
+.map-container {
+  margin-bottom: 30px;
+}
+
+.chart-outer-container {
+  border-width: 1px;
+  border-color: #aaa;
+  border-style: solid;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 50px;
+}
+
+.chart-outer-container p {
+  padding: 0;
+  margin-top: 0;
+}

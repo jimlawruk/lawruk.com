@@ -1,13 +1,12 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Lawruk.Models;
 using Lawruk.Services;
 
 namespace Lawruk.Controllers
 {
     [ApiController]
-    [Route("")]
-    public class HomeController : Controller
+    [Route("api")]
+    public class HomeController : ControllerBase
     {        
         private RaceResultService raceResultService;
 
@@ -17,28 +16,43 @@ namespace Lawruk.Controllers
             raceResultService.RacesFolderFilePath = env.ContentRootPath + "\\races";
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        [Route("error")]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        [Route("race-results")]        
+        [Route("race-results")]
+        [HttpGet]
         public IActionResult RaceResults()
         {
-            return View(raceResultService.GetRaceResultsViewModel());
+            var vm = raceResultService.GetRaceResultsViewModel();
+            var result = vm.RaceResults.Select(r => new {
+                title = r.Title,
+                url = r.Url,
+                distance = r.Distance,
+                city = r.City,
+                state = r.State,
+                dateTimeDisplay = r.DateTimeDisplay,
+                gpxBaseFileName = r.GpxBaseFileName
+            });
+            return Ok(result);
         }
 
         [Route("race-results/{url}")]
+        [HttpGet]
         public IActionResult Race(string url)
         {
             var raceViewModel = raceResultService.GetRaceViewModelWithTextByUrl(url);
-            ViewData["Title"] = raceViewModel.Title;
             if (raceViewModel != null)
-                return View(raceViewModel);
-            else
-                return null;
+            {
+                return Ok(new {
+                    title = raceViewModel.Title,
+                    url = raceViewModel.Url,
+                    distance = raceViewModel.Distance,
+                    city = raceViewModel.City,
+                    state = raceViewModel.State,
+                    dateTimeDisplay = raceViewModel.DateTimeDisplay,
+                    gpxBaseFileName = raceViewModel.GpxBaseFileName,
+                    text = raceViewModel.Text
+                });
+            }
+            return NotFound();
         }       
     }
 }
+
