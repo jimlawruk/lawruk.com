@@ -6,6 +6,23 @@ namespace Lawruk.Services
     {
         public string RacesFolderFilePath { get; set; } = "";
 
+        private HashSet<string>? _gpxBaseFileNames;
+
+        private HashSet<string> GetGpxBaseFileNames()
+        {
+            if (_gpxBaseFileNames != null) return _gpxBaseFileNames;
+            var gpxFolder = Path.Combine(RacesFolderFilePath, "GPX");
+            _gpxBaseFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            if (Directory.Exists(gpxFolder))
+            {
+                foreach (var file in Directory.GetFiles(gpxFolder, "*.gpx"))
+                {
+                    _gpxBaseFileNames.Add(Path.GetFileNameWithoutExtension(file));
+                }
+            }
+            return _gpxBaseFileNames;
+        }
+
         public RaceResultsViewModel GetRaceResultsViewModel()
         {
             var raceResultsViewModel = new RaceResultsViewModel();
@@ -71,6 +88,13 @@ namespace Lawruk.Services
                 }
             }
             raceViewModel.State = state;
+
+            var baseName = Path.GetFileNameWithoutExtension(raceFilePath);
+            if (GetGpxBaseFileNames().Contains(baseName))
+            {
+                raceViewModel.GpxBaseFileName = baseName;
+            }
+
             return raceViewModel;
         }
 

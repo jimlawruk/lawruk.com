@@ -11,5 +11,6 @@ namespace Lawruk.Models
         public int Id { get; set; }
         public bool Edit { get; set; }
         public string TimeText { get; set; }
+        public string? GpxBaseFileName { get; set; }
     }
 }

@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  height: 100vh;
+  position: relative;
+}
+
+#viewDiv {
+  height: 100%;
+  width: 100%;
+}
+
+#data-source {
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  left: 15px;
+  bottom: 27px;
+  width: 143px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#data-source a {
+  color: hsl(240, 43%, 33%);
+}

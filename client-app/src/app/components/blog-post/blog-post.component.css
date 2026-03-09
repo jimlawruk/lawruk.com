@@ -1,0 +1,22 @@
+.blog figure {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.blog figure img {
+  max-width: 100%;
+}
+
+.blog canvas {
+  max-width: 100%;
+}
+
+.blog .author-date {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.blog .author-date .author {
+  font-weight: bold;
+}
