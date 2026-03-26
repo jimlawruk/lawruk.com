@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RaceService } from '../../services/race.service';
@@ -7,7 +7,9 @@ import { RaceModel } from '../../models/race.model';
 @Component({
   selector: 'app-race-detail',
   standalone: false,
-  templateUrl: './race-detail.component.html'
+  templateUrl: './race-detail.component.html',
+  styleUrls: ['./race-detail.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RaceDetailComponent implements OnInit {
   race: RaceModel | null = null;
