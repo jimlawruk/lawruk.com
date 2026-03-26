@@ -38,6 +38,15 @@ export class RaceResultsComponent implements OnInit {
     'dateTimeDisplay', 'title', 'distance', 'city', 'state'
   ];
 
+  private distanceToMiles(s: string): number {
+    s = s.trim().toUpperCase();
+    if (s === 'M') return 26.2;
+    if (s === 'HM') return 13.1;
+    if (s.endsWith('M')) return parseFloat(s.slice(0, -1));
+    if (s.endsWith('K')) return parseFloat(s.slice(0, -1)) * 0.621371;
+    return 0;
+  }
+
   constructor(private raceService: RaceService, private titleService: Title) {
     this.titleService.setTitle('Race Results | Lawruk.com');
   }
@@ -87,6 +96,10 @@ export class RaceResultsComponent implements OnInit {
   private applySort(): void {
     const key = this.columnKeys[this.sortCol];
     this.filteredRaces = [...this.filteredRaces].sort((a, b) => {
+      if (key === 'distance') {
+        const diff = this.distanceToMiles(a.distance) - this.distanceToMiles(b.distance);
+        return this.sortAsc ? diff : -diff;
+      }
       const valA = String(a[key] ?? '');
       const valB = String(b[key] ?? '');
       return this.sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
