@@ -46,3 +46,12 @@
   padding: 0.4rem 0.5rem;
   border-bottom: 1px solid #dee2e6;
 }
+
+.race-filter-wrapper {
+  margin: 0.75rem auto;
+}
+
+.race-filter-input {
+  width: 100%;
+  box-sizing: border-box;
+}
