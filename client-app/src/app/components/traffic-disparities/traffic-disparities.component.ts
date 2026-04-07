@@ -6,6 +6,9 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer.js';
 import Graphic from '@arcgis/core/Graphic.js';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
 import { Chart, ChartItem } from 'chart.js/auto';
+import esriConfig from '@arcgis/core/config.js';
+
+esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
 
 @Component({
   selector: 'app-traffic-disparities',
