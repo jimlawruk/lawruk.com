@@ -10,10 +10,6 @@ import { HomeComponent } from './components/home/home.component';
 import { RaceResultsComponent } from './components/race-results/race-results.component';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
-import { BostonMarathonComponent } from './components/boston-marathon/boston-marathon.component';
-import { HauntedPlacesComponent } from './components/haunted-places/haunted-places.component';
-import { StreetLightsComponent } from './components/street-lights/street-lights.component';
-import { TrafficDisparitiesComponent } from './components/traffic-disparities/traffic-disparities.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +18,7 @@ import { TrafficDisparitiesComponent } from './components/traffic-disparities/tr
     HomeComponent,
     RaceResultsComponent,
     RaceDetailComponent,
-    BlogPostComponent,
-    BostonMarathonComponent,
-    HauntedPlacesComponent,
-    StreetLightsComponent,
-    TrafficDisparitiesComponent
+    BlogPostComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,9 @@ import Polyline from '@arcgis/core/geometry/Polyline.js';
 import SpatialReference from '@arcgis/core/geometry/SpatialReference.js';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol.js';
 import esriRequest from '@arcgis/core/request.js';
+import esriConfig from '@arcgis/core/config.js';
+
+esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
 
 @Component({
   selector: 'app-street-lights',

@@ -6,6 +6,9 @@ import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
 import Legend from '@arcgis/core/widgets/Legend.js';
 import Locate from '@arcgis/core/widgets/Locate.js';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer.js';
+import esriConfig from '@arcgis/core/config.js';
+
+esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
 
 @Component({
   selector: 'app-haunted-places',
