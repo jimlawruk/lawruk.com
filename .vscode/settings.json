@@ -1,6 +1,14 @@
 {
     "chat.tools.terminal.autoApprove": {
         "ng": true,
-        "Get-Item": true
+        "Get-Item": true,
+        "/^node scripts\\\\fix_squirrelly\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node scripts\\\\fix_binghamton\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }

@@ -1,14 +1,8 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import Map from '@arcgis/core/Map.js';
-import MapView from '@arcgis/core/views/MapView.js';
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer.js';
-import Graphic from '@arcgis/core/Graphic.js';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
+import type MapView from '@arcgis/core/views/MapView.js';
 import { Chart, ChartItem } from 'chart.js/auto';
-import esriConfig from '@arcgis/core/config.js';
-
-esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
+import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
 
 @Component({
   selector: 'app-traffic-disparities',
@@ -21,12 +15,14 @@ export class TrafficDisparitiesComponent implements AfterViewInit, OnDestroy {
 
   private view: MapView | null = null;
   private charts: Chart[] = [];
+  private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService) {
     this.titleService.setTitle('Traffic Disparities in PA Due to Solar Eclipse | Lawruk.com');
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+    this.esri = await this.arcgisLoader.load();
     this.initMap();
     this.initCharts();
   }
@@ -37,6 +33,8 @@ export class TrafficDisparitiesComponent implements AfterViewInit, OnDestroy {
   }
 
   private initMap(): void {
+    const { Map, MapView, Graphic, GraphicsLayer, FeatureLayer } = this.esri;
+
     // Explicitly set dimensions so ArcGIS MapView renders correctly in production builds
     const mapEl = this.mapViewDivEl.nativeElement;
     mapEl.style.width = '100%';
@@ -55,7 +53,7 @@ export class TrafficDisparitiesComponent implements AfterViewInit, OnDestroy {
       zoom: zoom,
       constraints: { rotationEnabled: false },
       center: [-78, 40.9],
-      ui: { components: ['attribution'] },
+      ui: { components: ['attribution'] as any },
       popup: {
         dockEnabled: true,
         dockOptions: {
