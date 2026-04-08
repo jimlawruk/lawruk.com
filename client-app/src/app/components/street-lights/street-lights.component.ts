@@ -1,20 +1,9 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import Map from '@arcgis/core/Map.js';
-import MapView from '@arcgis/core/views/MapView.js';
-import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
-import LayerList from '@arcgis/core/widgets/LayerList.js';
-import Locate from '@arcgis/core/widgets/Locate.js';
-import Graphic from '@arcgis/core/Graphic.js';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
-import Point from '@arcgis/core/geometry/Point.js';
-import Polyline from '@arcgis/core/geometry/Polyline.js';
-import SpatialReference from '@arcgis/core/geometry/SpatialReference.js';
-import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol.js';
-import esriRequest from '@arcgis/core/request.js';
-import esriConfig from '@arcgis/core/config.js';
-
-esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
+import type Map from '@arcgis/core/Map.js';
+import type MapView from '@arcgis/core/views/MapView.js';
+import type Graphic from '@arcgis/core/Graphic.js';
+import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
 
 @Component({
   selector: 'app-street-lights',
@@ -26,12 +15,16 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
   @ViewChild('viewDiv', { static: true }) viewDivEl!: ElementRef<HTMLDivElement>;
 
   private view: MapView | null = null;
+  private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService) {
     this.titleService.setTitle('Camp Hill Street Lights | Lawruk.com');
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+    this.esri = await this.arcgisLoader.load();
+    const { Map, MapView, GraphicsLayer, BasemapToggle, Locate, LayerList } = this.esri;
+
     const map = new Map({ basemap: 'streets-night-vector' });
 
     this.view = new MapView({
@@ -41,11 +34,11 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
       center: [-76.925, 40.245]
     });
 
-    this.view.ui.add(new BasemapToggle({ view: this.view } as any), 'bottom-right');
-    this.view.ui.add(new LayerList({ view: this.view }), 'top-right');
+    this.view.ui.add(new BasemapToggle({ view: this.view, nextBasemap: 'streets-navigation-vector' }), 'bottom-right');
     this.view.ui.add(new Locate({ view: this.view }), 'top-left');
 
     this.view.when(() => {
+      this.view!.ui.add(new LayerList({ view: this.view! }), 'top-right');
       this.addGeoJSONLayer(map, '/blog/collecting-mapping-street-lights/lines.json', 'Route', [200, 0, 0, 1]);
       this.addGeoJSONLayer(map, '/blog/collecting-mapping-street-lights/points.json', 'Street Lights', [200, 200, 0, 1]);
     });
@@ -56,6 +49,7 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
   }
 
   private addGeoJSONLayer(map: Map, fileName: string, title: string, colorArray: number[]): void {
+    const { esriRequest, Graphic, GraphicsLayer } = this.esri;
     esriRequest(fileName, { responseType: 'json' } as any).then((response: any) => {
       const geoJson = response.data;
       const type = geoJson.features.length && geoJson.features[0].geometry.type;
@@ -72,6 +66,7 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
   }
 
   private getPointGraphics(geoJson: any, wkid: number, colorArray: number[]): Graphic[] {
+    const { Graphic, Point, SpatialReference } = this.esri;
     return geoJson.features.map((feature: any) => {
       const coords = feature.geometry.coordinates;
       const point = new Point({
@@ -85,6 +80,7 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
   }
 
   private getLineGraphics(geoJson: any, wkid: number, colorArray: number[]): Graphic[] {
+    const { Graphic, Polyline, SpatialReference, SimpleLineSymbol } = this.esri;
     return geoJson.features.map((feature: any) => {
       const paths = feature.geometry.coordinates || feature.geometry.paths;
       const polyline = new Polyline({

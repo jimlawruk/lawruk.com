@@ -1,1 +1,10 @@
-<div #viewDiv id="viewDiv"></div>
+<div id="container">
+  <div #viewDiv id="viewDiv"></div>
+  <div #streetViewPanel id="streetview-panel">
+    <button id="streetview-close" (click)="hideStreetView()">&#x2715;</button>
+    <div #streetViewInner id="streetview-container"></div>
+  </div>
+  <div id="elevation-panel">
+    <canvas #elevationCanvas id="elevation-chart"></canvas>
+  </div>
+</div>

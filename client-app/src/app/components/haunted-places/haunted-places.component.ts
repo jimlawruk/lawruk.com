@@ -1,14 +1,7 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import Map from '@arcgis/core/Map.js';
-import MapView from '@arcgis/core/views/MapView.js';
-import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
-import Legend from '@arcgis/core/widgets/Legend.js';
-import Locate from '@arcgis/core/widgets/Locate.js';
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer.js';
-import esriConfig from '@arcgis/core/config.js';
-
-esriConfig.assetsPath = 'https://js.arcgis.com/4.34/@arcgis/core/assets';
+import type MapView from '@arcgis/core/views/MapView.js';
+import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
 
 @Component({
   selector: 'app-haunted-places',
@@ -20,12 +13,16 @@ export class HauntedPlacesComponent implements AfterViewInit, OnDestroy {
   @ViewChild('viewDiv', { static: true }) viewDivEl!: ElementRef<HTMLDivElement>;
 
   private view: MapView | null = null;
+  private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService) {
     this.titleService.setTitle('Haunted Places in America | Lawruk.com');
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+    this.esri = await this.arcgisLoader.load();
+    const { Map, MapView, FeatureLayer, Legend, BasemapToggle, Locate } = this.esri;
+
     const map = new Map({ basemap: 'streets-night-vector' });
 
     this.view = new MapView({
@@ -35,7 +32,7 @@ export class HauntedPlacesComponent implements AfterViewInit, OnDestroy {
       center: [-80.925, 38.245]
     });
 
-    this.view.ui.add(new BasemapToggle({ view: this.view } as any), 'bottom-right');
+    this.view.ui.add(new BasemapToggle({ view: this.view, nextBasemap: 'streets-navigation-vector' }), 'bottom-right');
     this.view.ui.add(new Locate({ view: this.view }), 'top-left');
 
     const hauntedPlacesLayer = new FeatureLayer({
@@ -72,7 +69,7 @@ export class HauntedPlacesComponent implements AfterViewInit, OnDestroy {
       ]
     } as any;
 
-    this.view.ui.add(new Legend({ view: this.view }), 'bottom-left');
+    this.view.ui.add(new Legend({ view: this.view } as any), 'bottom-left');
 
     hauntedPlacesLayer.when(() => {
       hauntedPlacesLayer.effect = 'bloom(1.5, 0.5px, 0.5)';
