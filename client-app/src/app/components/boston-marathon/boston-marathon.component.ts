@@ -64,7 +64,6 @@ const hills: number[][][] = [
 
 const landmarks: [number, number, string][] = [
   [42.34062175509552, -71.23860881147961, 'Firehouse'],
-  [42.34915968999376, -71.0964546275122, 'Citgo Sign'],
   [42.336120779553106, -71.17863482952106, 'Top of Heartbreak'],
   [42.358822895613926, -71.05694108486482, 'Boston Massacre'],
   [42.36632673826361, -71.05447249944879, 'Old North Church']
@@ -104,7 +103,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
   async ngAfterViewInit(): Promise<void> {
     this.esri = await this.arcgisLoader.load();
-    const { Map, MapView, FeatureLayer, GraphicsLayer, Point, SpatialReference, BasemapToggle, LayerList, Locate } = this.esri;
+    const { Map, MapView, FeatureLayer, GraphicsLayer, Point, SpatialReference, BasemapToggle, LayerList, Locate, Expand } = this.esri;
 
     const map = new Map({ basemap: 'topo-vector' });
 
@@ -122,7 +121,12 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.view.ui.add(locate, 'top-left');
 
      const layerList = new LayerList({ view: this.view });
-      this.view!.ui.add(layerList, 'top-right');
+     if (window.innerWidth <= 600) {
+       const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
+       this.view!.ui.add(expand, 'top-right');
+     } else {
+       this.view!.ui.add(layerList, 'top-right');
+     }
 
     const municipalitiesLayer = new FeatureLayer({
       url: 'https://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/SurveyTowns_WebMerc_doc/MapServer/0',
@@ -152,7 +156,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
     const marathonLayer = new FeatureLayer({
       url: 'https://services5.arcgis.com/wBdB5z26dRdLbBYy/arcgis/rest/services/Boston_Marathon/FeatureServer/0',
-      title: 'Boston Marathon'
+      title: 'Marathon Route'
     });
     marathonLayer.renderer = {
       type: 'simple',
@@ -176,15 +180,15 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addHillLayer(map);
-    this.addPointLayer('Landmarks', map, [0, 200, 0], landmarks);
-    this.addCitgoSignLayer(map);
+    const landmarksLayer = this.addPointLayer('Landmarks', map, [0, 200, 0], landmarks, true);
+    landmarksLayer.add(this.getCitgoSignGraphic());  
 
-    const textLandmarksLayer = new GraphicsLayer({ title: 'Landmark Labels', listMode: 'hide' });
+    const textLandmarksLayer = new GraphicsLayer({ title: 'Landmark Labels', visible: false });
     this.updateTextSymbols(textLandmarksLayer, landmarks, false);
     map.add(textLandmarksLayer);
 
-    this.addPointLayer('Mile Markers', map, DARK_YELLOW, mileMarkers);
-    const textMileMarkersLayer = new GraphicsLayer({ title: 'Mile Marker Labels', listMode: 'hide' });
+    this.addPointLayer('Mile Markers', map, DARK_YELLOW, mileMarkers, true);
+    const textMileMarkersLayer = new GraphicsLayer({ title: 'Mile Marker Labels' });
     this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
     map.add(textMileMarkersLayer);
 
@@ -413,13 +417,12 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         outline: { color: WHITE, width: 2 }
       } as any
     }));
-  }
+  }  
 
-  private addCitgoSignLayer(map: Map): void {
+  private getCitgoSignGraphic(): __esri.Graphic { 
     const { Graphic, GraphicsLayer, Point, SpatialReference } = this.esri;
-    const citgo = landmarks.find(l => l[2] === 'Citgo Sign')!;
-    const layer = new GraphicsLayer({ title: 'Citgo Sign' });
-    layer.add(new Graphic({
+    const citgo = [42.34915968999376, -71.0964546275122];
+    const graphic = new Graphic({
       geometry: new Point({
         latitude: citgo[0],
         longitude: citgo[1],
@@ -432,11 +435,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         height: '48px',
         yoffset: "12px"
       } as any
-    }));
-    map.add(layer);
+    });
+    return graphic;
   }
 
-  private addPointLayer(title: string, map: Map, colorArray: number[], pointsArray: [number, number, number | string][]): void {
+  private addPointLayer(title: string, map: Map, colorArray: number[], pointsArray: [number, number, number | string][], turnOn: boolean = false): __esri.GraphicsLayer {
     const { Graphic, GraphicsLayer, Point, SpatialReference } = this.esri;
     const graphics = pointsArray.map(pt =>
       new Graphic({
@@ -451,6 +454,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const layer = new GraphicsLayer({title: title});
     graphics.forEach(g => layer.add(g));
     map.add(layer);
+    layer.visible = turnOn;
+    return layer;
   }
 
   private addHillLayer(map: Map): void {
@@ -488,13 +493,13 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
             type: 'text', angle: 0, color: NAVY, text: String(pt[2]),
             font: { family: 'Arial', size: 20, weight: 'bold' },
             backgroundColor: DARK_YELLOW_ALPHA,
-            horizontalAlignment: 'center', verticalAlignment: 'bottom',
-            haloColor: DARK_YELLOW_ALPHA, haloSize: 0
+            horizontalAlignment: 'center', verticalAlignment: 'bottom'            
           }
         : {
-            type: 'text', angle: 0, color: [50, 50, 50, 0.8], text: String(pt[2]),
-            font: { family: 'Arial', size: 14 },
-            horizontalAlignment: 'center', verticalAlignment: 'top'
+            type: 'text', angle: 0, color: [255, 255, 255, 1], text: String(pt[2]),
+            font: { family: 'Arial', size: 12 },
+            horizontalAlignment: 'center', verticalAlignment: 'bottom',
+            backgroundColor: '#500000',
           };
       textLayer.add(new Graphic({
         geometry: textPoint,
