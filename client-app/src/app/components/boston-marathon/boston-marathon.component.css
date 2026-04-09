@@ -92,3 +92,9 @@
 ::ng-deep .esri-zoom .esri-widget--button:hover {
   background-color: #f3f3f3;
 }
+
+@media (max-width: 600px) {
+  #elevation-panel {
+    display: none;
+  }
+}
