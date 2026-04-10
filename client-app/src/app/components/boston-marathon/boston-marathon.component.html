@@ -4,7 +4,12 @@
     <button id="streetview-close" (click)="hideStreetView()">&#x2715;</button>
     <div #streetViewInner id="streetview-container"></div>
   </div>
-  <div id="elevation-panel">
+  <div id="elevation-panel" [class.collapsed]="elevationCollapsed">
+    <div id="elevation-header">
+      <span>Elevation Profile</span>
+      <span id="click-location" *ngIf="clickedLocation">Location: {{ clickedLocation }}</span>
+      <button id="elevation-toggle" (click)="toggleElevationChart()">{{ elevationCollapsed ? '▲' : '▼' }}</button>
+    </div>
     <canvas #elevationCanvas id="elevation-chart"></canvas>
   </div>
 </div>
