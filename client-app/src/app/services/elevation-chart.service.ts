@@ -27,7 +27,8 @@ export class ElevationChartService {
   buildChart(
     canvas: HTMLCanvasElement,
     elevationData: ElevationPoint[],
-    onChartClick: (distance: number) => void
+    onChartClick: (distance: number) => void,
+    xAxisTickCallback?: (value: number) => string | number
   ): Chart {
     const ctx = canvas.getContext('2d')!;
     const dataPoints = elevationData.map(p => ({ x: p.distance, y: p.ele }));
@@ -67,7 +68,10 @@ export class ElevationChartService {
           x: {
             type: 'linear',
             title: { display: true, text: 'Miles' },
-            ticks: { maxTicksLimit: 14 },
+            ticks: {
+              maxTicksLimit: 14,
+              ...(xAxisTickCallback ? { callback: (value: any) => xAxisTickCallback(value) } : {})
+            },
             min: 0,
             max: maxDist,
           },

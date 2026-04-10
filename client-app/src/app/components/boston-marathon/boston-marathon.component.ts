@@ -7,8 +7,7 @@ import type GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
 import { Chart } from 'chart.js';
 import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
 import { ElevationChartService, ElevationPoint } from '../../services/elevation-chart.service';
-
-declare var google: any;
+import { StreetViewService } from '../../services/street-view.service';
 
 const NAVY: number[] = [0, 0, 128];
 const NAVY_ALPHA: number[] = [0, 0, 128, 0.8];
@@ -80,6 +79,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   @ViewChild('streetViewPanel', { static: true }) streetViewPanelEl!: ElementRef<HTMLDivElement>;
   @ViewChild('streetViewInner', { static: true }) streetViewInnerEl!: ElementRef<HTMLDivElement>;
 
+  public elevationCollapsed = false;
+  public clickedLocation: string | null = null;
   private view: MapView | null = null;
   private elevationChart: Chart | null = null;
   private elevationData: ElevationPoint[] = [];
@@ -89,7 +90,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
   private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService) {
+  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService) {
     this.titleService.setTitle('Boston Marathon Course Map | Lawruk.com');
   }
 
@@ -163,7 +164,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
     this.view.on('click', (e: any) => {
       if (e.mapPoint) {
-        this.onPolylineClick(e.mapPoint.latitude, e.mapPoint.longitude);
+        const lat = e.mapPoint.latitude as number;
+        const lon = e.mapPoint.longitude as number;
+        this.clickedLocation = `${lat.toFixed(8)}, ${lon.toFixed(8)}`;
+        console.log(`Map clicked at: ${this.clickedLocation}`); 
+        this.onPolylineClick(lat, lon);
         if (this.streetViewEnabled) {
           this.lastStreetViewPos = { lat: e.mapPoint.latitude, lon: e.mapPoint.longitude };
           this.showStreetViewAt(e.mapPoint.latitude, e.mapPoint.longitude);
@@ -185,26 +190,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     map.add(textMileMarkersLayer);
 
     this.view.when(() => {
-     
-
-      // Street View toggle widget — desktop only
-      if (window.innerWidth > 600) {
-        const toggleDiv = document.createElement('div');
-        toggleDiv.style.cssText = 'background:white;padding:6px 10px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;';
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = 'sv-toggle';
-        checkbox.checked = true;
-        checkbox.style.cursor = 'pointer';
-        const label = document.createElement('label');
-        label.htmlFor = 'sv-toggle';
-        label.textContent = 'Street View';
-        label.style.cursor = 'pointer';
-        checkbox.addEventListener('change', () => this.onStreetViewToggle(checkbox.checked));
-        toggleDiv.appendChild(checkbox);
-        toggleDiv.appendChild(label);
-        this.view!.ui.add(toggleDiv, 'top-right');
-      }
+      this.addStreetViewToggleWidget();
     });
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
@@ -219,6 +205,14 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.view?.destroy();
   }
 
+  public toggleElevationChart(): void {
+    this.elevationCollapsed = !this.elevationCollapsed;
+    if (!this.elevationCollapsed) {
+      // Let the DOM update before resizing so Chart.js gets the correct canvas dimensions
+      setTimeout(() => this.elevationChart?.resize(), 0);
+    }
+  }
+
   public onStreetViewToggle(enabled: boolean): void {
     this.streetViewEnabled = enabled;
     if (!enabled) {
@@ -228,15 +222,30 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private addStreetViewToggleWidget(): void {
+    if (window.innerWidth <= 600) return;
+    const toggleDiv = document.createElement('div');
+    toggleDiv.style.cssText = 'background:white;padding:6px 10px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'sv-toggle';
+    checkbox.checked = true;
+    checkbox.style.cursor = 'pointer';
+    const label = document.createElement('label');
+    label.htmlFor = 'sv-toggle';
+    label.textContent = 'Street View';
+    label.style.cursor = 'pointer';
+    checkbox.addEventListener('change', () => this.onStreetViewToggle(checkbox.checked));
+    toggleDiv.appendChild(checkbox);
+    toggleDiv.appendChild(label);
+    this.view!.ui.add(toggleDiv, 'top-right');
+  }
+
   private updateStreetViewArrow(lat: number, lon: number, heading: number): void {
     if (!this.streetViewMarkerLayer) return;
     const { Graphic, Point, SpatialReference } = this.esri;
     this.streetViewMarkerLayer.removeAll();
-    // SVG arrow pointing up (north = 0°). Stem is narrow; wide arrowhead makes direction obvious.
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40">
-      <polygon points="10,0 20,18 13,18 13,40 7,40 7,18 0,18"
-        fill="#FFDD00" stroke="#000080" stroke-width="1.5"/>
-    </svg>`;
+    const svg = this.streetViewService.buildArrowSvg('#FFDD00', '#000080');
     this.streetViewMarkerLayer.add(new Graphic({
       geometry: new Point({ latitude: lat, longitude: lon, spatialReference: new SpatialReference({ wkid: 4326 }) }),
       symbol: {
@@ -250,26 +259,20 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   }
 
   private showStreetViewAt(lat: number, lon: number): void {
-    if (typeof google === 'undefined') return;
-    const service = new google.maps.StreetViewService();
-    service.getPanorama({ location: { lat, lng: lon }, radius: 50 }, (data: any, status: any) => {
-      if (status === 'OK') {
-        this.streetViewPanelEl.nativeElement.style.display = 'block';
-        const panorama = new google.maps.StreetViewPanorama(this.streetViewInnerEl.nativeElement, {
-          position: { lat, lng: lon },
-          pov: { heading: 34, pitch: 10 },
-          zoom: 1
-        });
-        this.updateStreetViewArrow(lat, lon, 34);
-        panorama.addListener('pov_changed', () => {
-          const pov = panorama.getPov();
-          const pos = panorama.getPosition();
-          this.updateStreetViewArrow(pos ? pos.lat() : lat, pos ? pos.lng() : lon, pov.heading);
-        });
-      } else {
-        this.streetViewPanelEl.nativeElement.style.display = 'none';
+    this.streetViewService.showAt(
+      this.streetViewInnerEl.nativeElement,
+      lat,
+      lon,
+      {
+        onShow: () => { this.streetViewPanelEl.nativeElement.style.display = 'block'; },
+        onNotFound: () => { this.streetViewPanelEl.nativeElement.style.display = 'none'; },
+        onCreated: (heading) => this.updateStreetViewArrow(lat, lon, heading),
+        onPovChanged: (heading, posLat, posLon) => this.updateStreetViewArrow(posLat, posLon, heading),
+        initialHeading: 34,
+        initialPitch: 10,
+        zoom: 1
       }
-    });
+    );
   }
 
   public hideStreetView(): void {
@@ -289,8 +292,9 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.elevationChart = this.elevationService.buildChart(
       this.elevationCanvasEl.nativeElement,
       this.elevationData,
-      dist => this.onChartClick(dist)
-    );
+      dist => this.onChartClick(dist),
+      value => value === 26.4 ? 26.2 : value
+    ); // show 26.2 instead of 26.4
   }
 
   private onPolylineClick(lat: number, lon: number): void {
@@ -402,7 +406,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
       const symbol = isMileMarker
         ? {
             type: 'text', angle: 0, color: NAVY, text: String(pt[2]),
-            font: { family: 'Arial', size: 20, weight: 'bold' },
+            font: { family: 'Arial', size: 12, weight: 'bold' },
             backgroundColor: DARK_YELLOW_ALPHA,
             horizontalAlignment: 'center', verticalAlignment: 'bottom'            
           }

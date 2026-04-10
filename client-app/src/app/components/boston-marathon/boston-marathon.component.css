@@ -61,15 +61,61 @@
 #elevation-panel {
   height: 20%;
   flex: 0 0 180px;
-  padding: 10px;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   border-top: 2px solid #ccc;
   background-color: rgba(255, 255, 255, 0.95);
+  transition: flex-basis 0.2s ease;
+}
+
+#elevation-panel.collapsed {
+  height: 0%;
+  flex: 0 0 32px;
+}
+
+#elevation-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 10px;
+  flex: 0 0 32px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  cursor: default;
+}
+
+#click-location {
+  font-weight: 400;
+  color: #555;
+  font-size: 12px;
+  flex: 1;
+}
+
+#elevation-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  line-height: 1;
+  color: #555;
+}
+
+#elevation-toggle:hover {
+  color: #000;
 }
 
 #elevation-chart {
-  width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 10px 8px;
+  box-sizing: border-box;
+  display: block;
+}
+
+#elevation-panel.collapsed #elevation-chart {
+  display: none;
 }
 
 /* Prevent Bootstrap from breaking ESRI widget buttons */
@@ -95,6 +141,6 @@
 
 @media (max-width: 600px) {
   #elevation-panel {
-    display: none;
+    display: none !important;
   }
 }
