@@ -4,12 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import type Map from '@arcgis/core/Map.js';
 import type MapView from '@arcgis/core/views/MapView.js';
 import type GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
+import { ElevationChartService, ElevationPoint } from '../../services/elevation-chart.service';
 
 declare var google: any;
-
-Chart.register(...registerables);
 
 const NAVY: number[] = [0, 0, 128];
 const NAVY_ALPHA: number[] = [0, 0, 128, 0.8];
@@ -69,13 +68,6 @@ const landmarks: [number, number, string][] = [
   [42.36632673826361, -71.05447249944879, 'Old North Church']
 ];
 
-interface ElevationPoint {
-  lat: number;
-  lon: number;
-  ele: number;
-  distance: number;
-}
-
 @Component({
   selector: 'app-boston-marathon',
   standalone: false,
@@ -93,11 +85,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private elevationData: ElevationPoint[] = [];
   private clickMarkerLayer: GraphicsLayer | null = null;
   private streetViewMarkerLayer: GraphicsLayer | null = null;
-  private streetViewEnabled = true;
+  private streetViewEnabled = window.innerWidth > 600;
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
   private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService) {
+  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService) {
     this.titleService.setTitle('Boston Marathon Course Map | Lawruk.com');
   }
 
@@ -195,22 +187,24 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.view.when(() => {
      
 
-      // Street View toggle widget
-      const toggleDiv = document.createElement('div');
-      toggleDiv.style.cssText = 'background:white;padding:6px 10px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;';
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.id = 'sv-toggle';
-      checkbox.checked = true;
-      checkbox.style.cursor = 'pointer';
-      const label = document.createElement('label');
-      label.htmlFor = 'sv-toggle';
-      label.textContent = 'Street View';
-      label.style.cursor = 'pointer';
-      checkbox.addEventListener('change', () => this.onStreetViewToggle(checkbox.checked));
-      toggleDiv.appendChild(checkbox);
-      toggleDiv.appendChild(label);
-      this.view!.ui.add(toggleDiv, 'top-right');
+      // Street View toggle widget — desktop only
+      if (window.innerWidth > 600) {
+        const toggleDiv = document.createElement('div');
+        toggleDiv.style.cssText = 'background:white;padding:6px 10px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;';
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'sv-toggle';
+        checkbox.checked = true;
+        checkbox.style.cursor = 'pointer';
+        const label = document.createElement('label');
+        label.htmlFor = 'sv-toggle';
+        label.textContent = 'Street View';
+        label.style.cursor = 'pointer';
+        checkbox.addEventListener('change', () => this.onStreetViewToggle(checkbox.checked));
+        toggleDiv.appendChild(checkbox);
+        toggleDiv.appendChild(label);
+        this.view!.ui.add(toggleDiv, 'top-right');
+      }
     });
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
@@ -292,112 +286,29 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildElevationChart(): void {
-    const canvas = this.elevationCanvasEl.nativeElement;
-    const ctx = canvas.getContext('2d')!;
-    const dataPoints = this.elevationData.map(p => ({ x: p.distance, y: p.ele }));
-    const elevations = dataPoints.map(p => p.y);
-    const minEle = Math.floor(Math.min(...elevations) / 10) * 10;
-    const maxEle = Math.ceil(Math.max(...elevations) / 10) * 10;
-    const maxDist = Math.round(this.elevationData[this.elevationData.length - 1].distance * 10) / 10;
-
-    this.elevationChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        datasets: [
-          {
-            label: 'Elevation (ft)',
-            data: dataPoints,
-            borderColor: 'grey',
-            backgroundColor: 'rgba(200, 200, 200, 0.5)',
-            fill: true,
-            pointRadius: 0,
-            tension: 0.3,
-          },
-          {
-            label: 'Position',
-            data: [],
-            borderColor: 'red',
-            backgroundColor: 'red',
-            pointRadius: 6,
-            showLine: false,
-          }
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: {
-            type: 'linear',
-            title: { display: true, text: 'Miles' },
-            ticks: { maxTicksLimit: 14 },
-            min: 0,
-            max: maxDist,
-          },
-          y: {
-            title: { display: true, text: 'Elevation (ft)' },
-            min: minEle,
-            max: maxEle,
-            ticks: { padding: 5, autoSkip: true, maxTicksLimit: 6 },
-          },
-        },
-        onClick: (_event, elements, chart) => {
-          const xScale = chart.scales['x'];
-          const canvasPosition = (chart as any).canvas.getBoundingClientRect();
-          const nativeEvent = (_event as any).native;
-          if (!nativeEvent) return;
-          const clickX = nativeEvent.clientX - canvasPosition.left;
-          const distance = xScale.getValueForPixel(clickX);
-          if (distance !== undefined) {
-            this.onChartClick(distance);
-          }
-        }
-      },
-    });
+    this.elevationChart = this.elevationService.buildChart(
+      this.elevationCanvasEl.nativeElement,
+      this.elevationData,
+      dist => this.onChartClick(dist)
+    );
   }
 
   private onPolylineClick(lat: number, lon: number): void {
     if (!this.elevationData.length || !this.elevationChart) return;
-
-    // Find closest elevation data point
-    let closestIdx = 0;
-    let minDist = Infinity;
-    for (let i = 0; i < this.elevationData.length; i++) {
-      const d = (this.elevationData[i].lat - lat) ** 2 + (this.elevationData[i].lon - lon) ** 2;
-      if (d < minDist) { minDist = d; closestIdx = i; }
-    }
-    if (minDist > 0.01) return; // ignore clicks more than ~0.1 degrees from the route
-
-    const pt = this.elevationData[closestIdx];
-    this.elevationChart.data.datasets[1].data = [{ x: pt.distance, y: pt.ele }];
-    this.elevationChart.update('none');
-
-    // Show marker on map
+    const result = this.elevationService.findClosestByLatLon(this.elevationData, lat, lon);
+    if (!result || result.distanceSq > 0.01) return; // ignore clicks more than ~0.1 degrees from the route
+    this.elevationService.updateChartMarker(this.elevationChart, result.point);
     this.showClickMarker(lat, lon);
   }
 
   private onChartClick(distance: number): void {
     if (!this.elevationData.length) return;
-
-    // Find closest point by distance
-    let closestIdx = 0;
-    let minDiff = Infinity;
-    for (let i = 0; i < this.elevationData.length; i++) {
-      const diff = Math.abs(this.elevationData[i].distance - distance);
-      if (diff < minDiff) { minDiff = diff; closestIdx = i; }
-    }
-
-    const pt = this.elevationData[closestIdx];
-
-    // Update chart marker
+    const result = this.elevationService.findClosestByDistance(this.elevationData, distance);
+    if (!result) return;
     if (this.elevationChart) {
-      this.elevationChart.data.datasets[1].data = [{ x: pt.distance, y: pt.ele }];
-      this.elevationChart.update('none');
+      this.elevationService.updateChartMarker(this.elevationChart, result.point);
     }
-
-    // Show marker on map and center
-    this.showClickMarker(pt.lat, pt.lon);
+    this.showClickMarker(result.point.lat, result.point.lon);
   }
 
   private showClickMarker(lat: number, lon: number): void {
@@ -420,7 +331,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   }  
 
   private getCitgoSignGraphic(): __esri.Graphic { 
-    const { Graphic, GraphicsLayer, Point, SpatialReference } = this.esri;
+    const { Graphic, Point, SpatialReference } = this.esri;
     const citgo = [42.34915968999376, -71.0964546275122];
     const graphic = new Graphic({
       geometry: new Point({
