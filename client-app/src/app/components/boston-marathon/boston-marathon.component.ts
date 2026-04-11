@@ -8,6 +8,7 @@ import { Chart } from 'chart.js';
 import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
 import { ElevationChartService, ElevationPoint } from '../../services/elevation-chart.service';
 import { StreetViewService } from '../../services/street-view.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 const NAVY: number[] = [0, 0, 128];
 const NAVY_ALPHA: number[] = [0, 0, 128, 0.8];
@@ -17,8 +18,8 @@ const WHITE: number[] = [255, 255, 255];
 
 const mileMarkers: [number, number, number | string][] = [
   [42.2297210, -71.5181970, 'Start'],
-  [42.23626191262371, -71.50627202510685, 1],
-  [42.24068539216792, -71.48754851853018, 2],
+  [42.23648823, -71.50173820, 1],
+  [42.24229067, -71.48399896, 2],
   [42.250906680613696, -71.47219151128903, 3],
   [42.258127, -71.456966, 4],
   [42.26973747414591, -71.44469118833605, 5],
@@ -29,21 +30,26 @@ const mileMarkers: [number, number, number | string][] = [
   [42.283760323873864, -71.34761875418138, 10],
   [42.287891452612385, -71.33305583927591, 11],
   [42.29439, -71.318865, 12],
-  [42.295977, -71.302814, 13],
-  [42.302666, -71.28599, 14],
-  [42.311471, -71.275248, 15],
-  [42.323513, -71.262313, 16],
-  [42.331841, -71.247112, 17],
-  [42.339324, -71.236382, 18],
-  [42.33714, -71.21742, 19],
-  [42.337851, -71.198494, 20],
-  [42.336277, -71.180072, 21],
-  [42.34007490450584, -71.16403135373514, 22],
-  [42.33682509623725, -71.14594087569148, 23],
-  [42.34141286097229, -71.12364635435664, 24],
-  [42.34539763993352, -71.10906586615123, 25],
-  [42.348981742762206, -71.08975396124349, 26],
+  [42.29610199, -71.29642136, 13],
+  [42.30535354, -71.28273673, 14],
+  [42.31598317, -71.26953087, 15],
+  [42.32566014, -71.25661737, 16],
+  [42.33543278, -71.24247409, 17],
+  [42.33899071, -71.22837588, 18],
+  [42.33792898, -71.21048338, 19],
+  [42.33617729, -71.19246430, 20],
+  [42.33709726, -71.17335088, 21],
+  [42.33862191, -71.15539617, 22],
+  [42.33857929, -71.13788000, 23],
+  [42.34257713, -71.11916757, 24],
+  [42.34777108, -71.10080517, 25],
+  [42.34847157, -71.08335687, 26],
   [42.34975908098082, -71.07861399650574, 'Finish']  
+];
+
+const gelStations: [number, number][] = [
+  [42.33444636, -71.24390169],
+  [42.34003849, -71.16152770],
 ];
 
 const hills: number[][][] = [
@@ -86,11 +92,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private elevationData: ElevationPoint[] = [];
   private clickMarkerLayer: GraphicsLayer | null = null;
   private streetViewMarkerLayer: GraphicsLayer | null = null;
-  private streetViewEnabled = window.innerWidth > 600;
+  private streetViewEnabled = false;
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
   private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService) {
+  constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService, private analytics: AnalyticsService) {
     this.titleService.setTitle('Boston Marathon Course Map | Lawruk.com');
   }
 
@@ -107,7 +113,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
       center: [-71.07, 42.29]
     });
 
-    const basemapToggle = new BasemapToggle({ view: this.view, nextBasemap: 'streets-night-vector' });
+    const basemapToggle = new BasemapToggle({ view: this.view, nextBasemap: 'satellite' });
     this.view.ui.add(basemapToggle, 'bottom-right');
 
     const locate = new Locate({ view: this.view });
@@ -167,7 +173,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         const lat = e.mapPoint.latitude as number;
         const lon = e.mapPoint.longitude as number;
         this.clickedLocation = `${lat.toFixed(8)}, ${lon.toFixed(8)}`;
-        console.log(`Map clicked at: ${this.clickedLocation}`); 
+        this.analytics.trackMapClick('Boston Marathon', lat, lon);
         this.onPolylineClick(lat, lon);
         if (this.streetViewEnabled) {
           this.lastStreetViewPos = { lat: e.mapPoint.latitude, lon: e.mapPoint.longitude };
@@ -178,7 +184,44 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
     this.addHillLayer(map);
     const landmarksLayer = this.addPointLayer('Landmarks', map, [0, 200, 0], landmarks, true);
-    landmarksLayer.add(this.getCitgoSignGraphic());  
+    landmarksLayer.add(this.getCitgoSignGraphic());
+    this.addPointLayer('Gel Stations', map, [255, 140, 0], gelStations as any, false, true);
+
+    const mbtaLinesLayer = new FeatureLayer({
+      url: 'https://services1.arcgis.com/jIRgb54Jq9V3BUeD/ArcGIS/rest/services/MBTA_Rapid_Transit_Lines_Apr23/FeatureServer/0',
+      title: 'MBTA Transit Lines',
+      visible: false,
+      renderer: {
+        type: 'unique-value',
+        field: 'LINE',
+        uniqueValueInfos: [
+          { value: 'GREEN',  symbol: { type: 'simple-line', color: [0, 135, 68],   width: 3 } },
+          { value: 'RED',    symbol: { type: 'simple-line', color: [218, 41, 28],  width: 3 } },
+          { value: 'BLUE',   symbol: { type: 'simple-line', color: [0, 61, 165],   width: 3 } },
+          { value: 'ORANGE', symbol: { type: 'simple-line', color: [255, 130, 0],  width: 3 } },
+          { value: 'SILVER', symbol: { type: 'simple-line', color: [175, 175, 175], width: 3 } },
+        ]
+      } as any
+    });
+    map.add(mbtaLinesLayer);
+
+    const mbtaStationsLayer = new FeatureLayer({
+      url: 'https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/MBTA_Stops/FeatureServer/0',
+      title: 'MBTA T Stations',
+      visible: false,
+      renderer: {
+        type: 'unique-value',
+        field: 'LINE',
+        uniqueValueInfos: [
+          { value: 'GREEN',  symbol: { type: 'simple-marker', color: [0, 135, 68],    size: 8, outline: { color: [255,255,255], width: 1 } } },
+          { value: 'RED',    symbol: { type: 'simple-marker', color: [218, 41, 28],   size: 8, outline: { color: [255,255,255], width: 1 } } },
+          { value: 'BLUE',   symbol: { type: 'simple-marker', color: [0, 61, 165],    size: 8, outline: { color: [255,255,255], width: 1 } } },
+          { value: 'ORANGE', symbol: { type: 'simple-marker', color: [255, 130, 0],   size: 8, outline: { color: [255,255,255], width: 1 } } },
+          { value: 'SILVER', symbol: { type: 'simple-marker', color: [175, 175, 175], size: 8, outline: { color: [255,255,255], width: 1 } } },
+        ]
+      } as any
+    });
+    map.add(mbtaStationsLayer);
 
     const textLandmarksLayer = new GraphicsLayer({ title: 'Landmark Labels', visible: false });
     this.updateTextSymbols(textLandmarksLayer, landmarks, false);
@@ -191,6 +234,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
     this.view.when(() => {
       this.addStreetViewToggleWidget();
+      map.allLayers.forEach((layer: any) => {
+        layer.watch('visible', (visible: boolean) => {
+          this.analytics.trackLayerToggle('Boston Marathon', layer.title ?? 'Unknown', visible);
+        });
+      });
     });
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
@@ -229,7 +277,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = 'sv-toggle';
-    checkbox.checked = true;
+    checkbox.checked = false;
     checkbox.style.cursor = 'pointer';
     const label = document.createElement('label');
     label.htmlFor = 'sv-toggle';
@@ -354,7 +402,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     return graphic;
   }
 
-  private addPointLayer(title: string, map: Map, colorArray: number[], pointsArray: [number, number, number | string][], turnOn: boolean = false): __esri.GraphicsLayer {
+  private addPointLayer(title: string, map: Map, colorArray: number[], pointsArray: [number, number, number | string][], turnOn: boolean = false, addLabels: boolean = false): __esri.GraphicsLayer {
     const { Graphic, GraphicsLayer, Point, SpatialReference } = this.esri;
     const graphics = pointsArray.map(pt =>
       new Graphic({
@@ -368,6 +416,20 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     );
     const layer = new GraphicsLayer({title: title});
     graphics.forEach(g => layer.add(g));
+    if (addLabels) {
+      graphics.forEach((g, i) => {
+        const labelGraphic = new Graphic({  
+          geometry: g.geometry, 
+          symbol: {
+            type: 'text', angle: 0, color: '#000', text: 'Gel',
+            backgroundColor: '#FF8C00',
+            font: { family: 'Arial', size: 14, weight: 'bold' },    
+            horizontalAlignment: 'center', verticalAlignment: 'bottom'           
+          } as any
+        });
+        layer.add(labelGraphic);
+      } );
+    }
     map.add(layer);
     layer.visible = turnOn;
     return layer;

@@ -4,6 +4,7 @@ import type Map from '@arcgis/core/Map.js';
 import type MapView from '@arcgis/core/views/MapView.js';
 import type Graphic from '@arcgis/core/Graphic.js';
 import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-street-lights',
@@ -17,7 +18,7 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
   private view: MapView | null = null;
   private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService) {
+  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService, private analytics: AnalyticsService) {
     this.titleService.setTitle('Camp Hill Street Lights | Lawruk.com');
   }
 
@@ -41,6 +42,16 @@ export class StreetLightsComponent implements AfterViewInit, OnDestroy {
       this.view!.ui.add(new LayerList({ view: this.view! }), 'top-right');
       this.addGeoJSONLayer(map, '/blog/collecting-mapping-street-lights/lines.json', 'Route', [200, 0, 0, 1]);
       this.addGeoJSONLayer(map, '/blog/collecting-mapping-street-lights/points.json', 'Street Lights', [200, 200, 0, 1]);
+      this.view!.on('click', (e: any) => {
+        if (e.mapPoint) {
+          this.analytics.trackMapClick('Street Lights', e.mapPoint.latitude, e.mapPoint.longitude);
+        }
+      });
+      map.allLayers.forEach((layer: any) => {
+        layer.watch('visible', (visible: boolean) => {
+          this.analytics.trackLayerToggle('Street Lights', layer.title ?? 'Unknown', visible);
+        });
+      });
     });
   }
 
