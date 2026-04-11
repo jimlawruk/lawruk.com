@@ -94,6 +94,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private streetViewMarkerLayer: GraphicsLayer | null = null;
   private streetViewEnabled = false;
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
+  private mbtaLinesLayer: any = null;
+  private mbtaStationsLayer: any = null;
   private esri!: ArcGISClasses;
 
   constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService, private analytics: AnalyticsService) {
@@ -175,6 +177,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         this.clickedLocation = `${lat.toFixed(8)}, ${lon.toFixed(8)}`;
         this.analytics.trackMapClick('Boston Marathon', lat, lon);
         this.onPolylineClick(lat, lon);
+        this.queryMbtaPopup(lat, lon, e.mapPoint);
         if (this.streetViewEnabled) {
           this.lastStreetViewPos = { lat: e.mapPoint.latitude, lon: e.mapPoint.longitude };
           this.showStreetViewAt(e.mapPoint.latitude, e.mapPoint.longitude);
@@ -190,7 +193,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const mbtaLinesLayer = new FeatureLayer({
       url: 'https://services1.arcgis.com/jIRgb54Jq9V3BUeD/ArcGIS/rest/services/MBTA_Rapid_Transit_Lines_Apr23/FeatureServer/0',
       title: 'MBTA Transit Lines',
-      visible: false,
+      visible: true,
       renderer: {
         type: 'unique-value',
         field: 'LINE',
@@ -203,6 +206,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         ]
       } as any
     });
+    this.mbtaLinesLayer = mbtaLinesLayer;
     map.add(mbtaLinesLayer);
 
     const mbtaStationsLayer = new FeatureLayer({
@@ -221,6 +225,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         ]
       } as any
     });
+    this.mbtaStationsLayer = mbtaStationsLayer;
     map.add(mbtaStationsLayer);
 
     const textLandmarksLayer = new GraphicsLayer({ title: 'Landmark Labels', visible: false });
@@ -343,6 +348,35 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
       dist => this.onChartClick(dist),
       value => value === 26.4 ? 26.2 : value
     ); // show 26.2 instead of 26.4
+  }
+
+  private async queryMbtaPopup(lat: number, lon: number, point: any): Promise<void> {
+    const candidates: { layer: any; title: string; toleranceMeters: number }[] = [];
+    if (this.mbtaStationsLayer?.visible) candidates.push({ layer: this.mbtaStationsLayer, title: 'MBTA T Station', toleranceMeters: 400 });
+    // Remove lines if (this.mbtaLinesLayer?.visible)    candidates.push({ layer: this.mbtaLinesLayer,    title: 'MBTA Transit Line', toleranceMeters: 150 });
+
+    const skipFields = new Set(['OBJECTID', 'SHAPE_Length', 'Shape_Length', 'Shape__Length', 'Shape_Area', 'GlobalID', 'CreationDate', 'Creator', 'EditDate', 'Editor']);
+
+    for (const { layer, title, toleranceMeters } of candidates) {
+      const result = await layer.queryFeatures({
+        geometry: point,
+        distance: toleranceMeters,
+        units: 'meters',
+        spatialRelationship: 'intersects',
+        outFields: ['*'],
+        returnGeometry: false,
+        num: 1
+      });
+      if (result.features.length > 0) {
+        const attrs = result.features[0].attributes as Record<string, unknown>;
+        const rows = Object.entries(attrs)
+          .filter(([k, v]) => !skipFields.has(k) && v != null && v !== '')
+          .map(([k, v]) => `<tr><td style="padding:2px 8px 2px 0;font-weight:bold">${k}</td><td>${v}</td></tr>`)
+          .join('');
+        this.view?.popup?.open({ title, content: `<table style="font-size:13px">${rows}</table>`, location: point });
+        return;
+      }
+    }
   }
 
   private onPolylineClick(lat: number, lon: number): void {
