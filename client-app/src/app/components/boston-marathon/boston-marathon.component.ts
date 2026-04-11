@@ -52,6 +52,29 @@ const gelStations: [number, number][] = [
   [42.34003849, -71.16152770],
 ];
 
+const startingArea: number[][] = [
+  [42.21956067, -71.52137823],
+  [42.21771729, -71.52059502],
+  [42.21759810, -71.52098126],
+  [42.21684325, -71.52062721],
+  [42.21695449, -71.51999421],
+  [42.21647774, -71.51969380],
+  [42.21662871, -71.51858873],
+  [42.21691476, -71.51647515],
+  [42.21807485, -71.51710815],
+  [42.21961629, -71.51796646],
+  [42.21985466, -71.51857800],
+  [42.21972753, -71.51912517],
+  [42.21996589, -71.51937193],
+  [42.22014069, -71.51950068],
+];
+
+const busLoading: number[][][] = [
+  [
+  [42.35570489, -71.06916315],
+  [42.35289026, -71.06761283]
+]];
+
 const hills: number[][][] = [
   [
     [42.33614754609016, -71.19261047959259],
@@ -71,6 +94,19 @@ const landmarks: [number, number, string][] = [
   [42.336120779553106, -71.17863482952106, 'Top of Heartbreak'],
   [42.358822895613926, -71.05694108486482, 'Boston Massacre'],
   [42.36632673826361, -71.05447249944879, 'Old North Church']
+];
+
+const notableSpotLabels: [number, number, string][] = [
+  [42.33613, -71.18562, 'Heartbreak Hill'],
+  [42.35430, -71.06838, 'Bus Loading Area'],
+  [42.21830, -71.51900, 'Athletes\' Village'],
+  [42.34916, -71.09645, ''],
+  [42.34062175509552, -71.23860881147961, 'Firehouse'],
+  [42.336120779553106, -71.17863482952106, 'Top of Heartbreak'],
+  [42.358822895613926, -71.05694108486482, 'Boston Massacre'],
+  [42.36632673826361, -71.05447249944879, 'Old North Church'],
+  [42.33444636, -71.24390169, 'Gel Station'],
+  [42.34003849, -71.16152770, 'Gel Station'],
 ];
 
 @Component({
@@ -126,7 +162,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
        const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
        this.view!.ui.add(expand, 'top-right');
      } else {
-       this.view!.ui.add(layerList, 'top-right');
+       const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
+       this.view!.ui.add(expand, 'top-right');
      }
 
     const municipalitiesLayer = new FeatureLayer({
@@ -185,10 +222,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    this.addHillLayer(map);
-    const landmarksLayer = this.addPointLayer('Landmarks', map, [0, 200, 0], landmarks, true);
-    landmarksLayer.add(this.getCitgoSignGraphic());
-    this.addPointLayer('Gel Stations', map, [255, 140, 0], gelStations as any, false, true);
+    const notableLabelsLayer = this.addNotableRaceSpots(map);
 
     const mbtaLinesLayer = new FeatureLayer({
       url: 'https://services1.arcgis.com/jIRgb54Jq9V3BUeD/ArcGIS/rest/services/MBTA_Rapid_Transit_Lines_Apr23/FeatureServer/0',
@@ -212,7 +246,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const mbtaStationsLayer = new FeatureLayer({
       url: 'https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/MBTA_Stops/FeatureServer/0',
       title: 'MBTA T Stations',
-      visible: false,
+      visible: true,
+      minScale: 126000,
       renderer: {
         type: 'unique-value',
         field: 'LINE',
@@ -228,15 +263,10 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.mbtaStationsLayer = mbtaStationsLayer;
     map.add(mbtaStationsLayer);
 
-    const textLandmarksLayer = new GraphicsLayer({ title: 'Landmark Labels', visible: false });
-    this.updateTextSymbols(textLandmarksLayer, landmarks, false);
-    map.add(textLandmarksLayer);
-
     this.addPointLayer('Mile Markers', map, DARK_YELLOW, mileMarkers, true);
     const textMileMarkersLayer = new GraphicsLayer({ title: 'Mile Marker Labels' });
-    this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
+    this.updateTextSymbols(textMileMarkersLayer, mileMarkers, false);
     map.add(textMileMarkersLayer);
-
     this.view.when(() => {
       this.addStreetViewToggleWidget();
       map.allLayers.forEach((layer: any) => {
@@ -247,7 +277,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     });
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
-      this.updateTextSymbols(textLandmarksLayer, landmarks, false);
+      this.updateTextSymbols(notableLabelsLayer, notableSpotLabels, false, 20000);
     });
 
     this.loadGpxAndBuildChart();
@@ -373,7 +403,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
           .filter(([k, v]) => !skipFields.has(k) && v != null && v !== '')
           .map(([k, v]) => `<tr><td style="padding:2px 8px 2px 0;font-weight:bold">${k}</td><td>${v}</td></tr>`)
           .join('');
-        this.view?.popup?.open({ title, content: `<table style="font-size:13px">${rows}</table>`, location: point });
+        this.view?.popup?.open({ title: attrs["STATION"] as string, content: `<table style="font-size:13px">${rows}</table>`, location: point });
         return;
       }
     }
@@ -416,26 +446,6 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     }));
   }  
 
-  private getCitgoSignGraphic(): __esri.Graphic { 
-    const { Graphic, Point, SpatialReference } = this.esri;
-    const citgo = [42.34915968999376, -71.0964546275122];
-    const graphic = new Graphic({
-      geometry: new Point({
-        latitude: citgo[0],
-        longitude: citgo[1],
-        spatialReference: new SpatialReference({ wkid: 4326 })
-      }),
-      symbol: {
-        type: 'picture-marker',
-        url: '/img/citgo.jpg',
-        width: '48px',
-        height: '48px',
-        yoffset: "12px"
-      } as any
-    });
-    return graphic;
-  }
-
   private addPointLayer(title: string, map: Map, colorArray: number[], pointsArray: [number, number, number | string][], turnOn: boolean = false, addLabels: boolean = false): __esri.GraphicsLayer {
     const { Graphic, GraphicsLayer, Point, SpatialReference } = this.esri;
     const graphics = pointsArray.map(pt =>
@@ -469,30 +479,78 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     return layer;
   }
 
-  private addHillLayer(map: Map): void {
-    const { Graphic, GraphicsLayer, Polyline } = this.esri;
-    const hillsLayer = new GraphicsLayer({title: 'Hills'});
-    const paths = hills.map(hill => hill.map(p => [p[1], p[0]]));
-    const line = new Polyline({
-      hasZ: false,
-      hasM: true,
-      paths: paths,
-      spatialReference: { wkid: 4326 } as any
-    });
-    hillsLayer.add(new Graphic({
-      geometry: line,
+  private addNotableRaceSpots(map: Map): GraphicsLayer {
+    const { Graphic, GraphicsLayer, Polyline, Polygon, Point, SpatialReference } = this.esri;
+    const notableRaceSpots = new GraphicsLayer({ title: 'Notable Race Spots' });
+
+    // Heartbreak Hill
+    notableRaceSpots.add(new Graphic({
+      geometry: new Polyline({
+        hasZ: false, hasM: true,
+        paths: hills.map(hill => hill.map(p => [p[1], p[0]])),
+        spatialReference: { wkid: 4326 } as any
+      }),
       symbol: { type: 'simple-line', color: [200, 0, 0, 0.6], width: 4, style: 'solid' } as any
     }));
-    map.add(hillsLayer);
+
+    // Bus loading zone
+    notableRaceSpots.add(new Graphic({
+      geometry: new Polyline({
+        hasZ: false, hasM: true,
+        paths: busLoading.map(x => x.map(p => [p[1], p[0]])),
+        spatialReference: { wkid: 4326 } as any
+      }),
+      symbol: { type: 'simple-line', color: DARK_YELLOW, width: 4, style: 'solid' } as any
+    }));
+
+    // Starting area polygon
+    notableRaceSpots.add(new Graphic({
+      geometry: new Polygon({
+        rings: [startingArea.map(p => [p[1], p[0]])],
+        spatialReference: { wkid: 4326 } as any
+      }),
+      symbol: { type: 'simple-fill', color: [...DARK_YELLOW, 0.25], outline: { color: DARK_YELLOW, width: 2 } } as any
+    }));
+
+    // Citgo sign
+    notableRaceSpots.add(new Graphic({
+      geometry: new Point({
+        latitude: 42.34915968999376, longitude: -71.0964546275122,
+        spatialReference: new SpatialReference({ wkid: 4326 })
+      }),
+      symbol: { type: 'picture-marker', url: '/img/citgo.jpg', width: '48px', height: '48px', yoffset: '12px' } as any
+    }));
+
+    // Landmarks
+    for (const pt of landmarks) {
+      notableRaceSpots.add(new Graphic({
+        geometry: new Point({ latitude: pt[0], longitude: pt[1], spatialReference: new SpatialReference({ wkid: 4326 }) }),
+        symbol: { type: 'simple-marker', color: [20, 20, 0], size: 8, outline: { color: [255, 140, 0], width: 2 } } as any
+      }));
+    }
+
+    // Gel stations
+    for (const pt of gelStations) {
+      notableRaceSpots.add(new Graphic({
+        geometry: new Point({ latitude: pt[0], longitude: pt[1], spatialReference: new SpatialReference({ wkid: 4326 }) }),
+        symbol: { type: 'simple-marker', color: [255, 140, 0], size: 8, outline: { color: [255, 140, 0], width: 2 } } as any
+      }));
+    }
+
+    map.add(notableRaceSpots);
+
+    const labelsLayer = new GraphicsLayer({ title: 'Notable Spot Labels', listMode: 'hide' });
+    map.add(labelsLayer);
+    return labelsLayer;
   }
 
-  private updateTextSymbols(textLayer: GraphicsLayer, pointsArray: [number, number, number | string][], isMileMarker: boolean): void {
+  private updateTextSymbols(textLayer: GraphicsLayer, pointsArray: [number, number, number | string][], isMileMarker: boolean, maxScale = 126112): void {
     if (!this.view) return;
     const { Graphic, Point, SpatialReference } = this.esri;
     const scale = this.view.scale;
     const offset = Math.sqrt(scale) / 400000;
     textLayer.removeAll();
-    if (scale > 126112) return;
+    if (scale > maxScale) return;
     pointsArray.forEach(pt => {
       const textPoint = new Point({
         longitude: pt[1],
@@ -503,14 +561,17 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         ? {
             type: 'text', angle: 0, color: NAVY, text: String(pt[2]),
             font: { family: 'Arial', size: 12, weight: 'bold' },
-            backgroundColor: DARK_YELLOW_ALPHA,
-            horizontalAlignment: 'center', verticalAlignment: 'bottom'            
+            
+            horizontalAlignment: 'center', verticalAlignment: 'bottom',           
+            haloColor: DARK_YELLOW_ALPHA,
+            haloSize: 30
           }
         : {
-            type: 'text', angle: 0, color: [255, 255, 255, 1], text: String(pt[2]),
+            type: 'text', angle: 0, color: NAVY, text: String(pt[2]),
             font: { family: 'Arial', size: 12 },
-            horizontalAlignment: 'center', verticalAlignment: 'bottom',
-            backgroundColor: '#500000',
+            horizontalAlignment: 'center', verticalAlignment: 'bottom',            
+            haloColor: DARK_YELLOW,
+            haloSize: 20
           };
       textLayer.add(new Graphic({
         geometry: textPoint,

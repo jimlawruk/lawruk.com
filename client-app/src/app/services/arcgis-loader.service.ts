@@ -14,6 +14,7 @@ import type BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
 import type LayerList from '@arcgis/core/widgets/LayerList.js';
 import type Locate from '@arcgis/core/widgets/Locate.js';
 import type Expand from '@arcgis/core/widgets/Expand.js';
+import type Polygon from '@arcgis/core/geometry/Polygon.js';
 
 declare const $arcgis: {
   import: <T = any>(modules: string | string[]) => Promise<T>;
@@ -34,6 +35,7 @@ export interface ArcGISClasses {
   LayerList: typeof LayerList;
   Locate: typeof Locate;
   Expand: typeof Expand;
+  Polygon: typeof Polygon;
   esriRequest: typeof esriRequest;
 }
 
@@ -61,6 +63,7 @@ export class ArcGISLoaderService {
         LayerList,
         Locate,
         Expand,
+        Polygon,
       ] = await $arcgis.import([
         '@arcgis/core/Map.js',
         '@arcgis/core/views/MapView.js',
@@ -77,6 +80,7 @@ export class ArcGISLoaderService {
         '@arcgis/core/widgets/LayerList.js',
         '@arcgis/core/widgets/Locate.js',
         '@arcgis/core/widgets/Expand.js',
+        '@arcgis/core/geometry/Polygon.js',
       ]);
 
       return {
@@ -95,6 +99,7 @@ export class ArcGISLoaderService {
         LayerList,
         Locate,
         Expand,
+        Polygon,
       } as ArcGISClasses;
     });
 
