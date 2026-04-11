@@ -132,6 +132,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
   private mbtaLinesLayer: any = null;
   private mbtaStationsLayer: any = null;
+  private citgoGraphic: any = null;
   private esri!: ArcGISClasses;
 
   constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService, private analytics: AnalyticsService) {
@@ -278,6 +279,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
       this.updateTextSymbols(notableLabelsLayer, notableSpotLabels, false, 20000);
+      this.updateCitgoSize();
     });
 
     this.loadGpxAndBuildChart();
@@ -513,13 +515,14 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     }));
 
     // Citgo sign
-    notableRaceSpots.add(new Graphic({
+    this.citgoGraphic = new Graphic({
       geometry: new Point({
         latitude: 42.34915968999376, longitude: -71.0964546275122,
         spatialReference: new SpatialReference({ wkid: 4326 })
       }),
       symbol: { type: 'picture-marker', url: '/img/citgo.jpg', width: '48px', height: '48px', yoffset: '12px' } as any
-    }));
+    });
+    notableRaceSpots.add(this.citgoGraphic);
 
     // Landmarks
     for (const pt of landmarks) {
@@ -542,6 +545,13 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const labelsLayer = new GraphicsLayer({ title: 'Notable Spot Labels', listMode: 'hide' });
     map.add(labelsLayer);
     return labelsLayer;
+  }
+
+  private updateCitgoSize(): void {
+    if (!this.citgoGraphic || !this.view) return;
+    const scale = this.view.scale;
+    const size = Math.round(Math.max(16, Math.min(52, 52 * Math.pow(18000 / Math.max(scale, 18000), 0.5))));
+    this.citgoGraphic.symbol = { type: 'picture-marker', url: '/img/citgo.jpg', width: `${size}px`, height: `${size}px`, yoffset: `${Math.round(size / 4)}px` };
   }
 
   private updateTextSymbols(textLayer: GraphicsLayer, pointsArray: [number, number, number | string][], isMileMarker: boolean, maxScale = 126112): void {
