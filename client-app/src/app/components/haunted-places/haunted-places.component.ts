@@ -2,6 +2,7 @@ import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@ang
 import { Title } from '@angular/platform-browser';
 import type MapView from '@arcgis/core/views/MapView.js';
 import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-haunted-places',
@@ -15,7 +16,7 @@ export class HauntedPlacesComponent implements AfterViewInit, OnDestroy {
   private view: MapView | null = null;
   private esri!: ArcGISClasses;
 
-  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService) {
+  constructor(private titleService: Title, private arcgisLoader: ArcGISLoaderService, private analytics: AnalyticsService) {
     this.titleService.setTitle('Haunted Places in America | Lawruk.com');
   }
 
@@ -76,6 +77,18 @@ export class HauntedPlacesComponent implements AfterViewInit, OnDestroy {
     });
 
     map.add(hauntedPlacesLayer);
+
+    this.view.on('click', (e: any) => {
+      if (e.mapPoint) {
+        this.analytics.trackMapClick('Haunted Places', e.mapPoint.latitude, e.mapPoint.longitude);
+      }
+    });
+
+    map.allLayers.forEach((layer: any) => {
+      layer.watch('visible', (visible: boolean) => {
+        this.analytics.trackLayerToggle('Haunted Places', layer.title ?? 'Unknown', visible);
+      });
+    });
   }
 
   ngOnDestroy(): void {
