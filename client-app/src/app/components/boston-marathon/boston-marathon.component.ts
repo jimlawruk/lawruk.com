@@ -9,27 +9,30 @@ import { ArcGISLoaderService, ArcGISClasses } from '../../services/arcgis-loader
 import { ElevationChartService, ElevationPoint } from '../../services/elevation-chart.service';
 import { StreetViewService } from '../../services/street-view.service';
 import { AnalyticsService } from '../../services/analytics.service';
+import { not } from 'rxjs/internal/util/not';
 
 const NAVY: number[] = [0, 0, 128];
 const NAVY_ALPHA: number[] = [0, 0, 128, 0.8];
 const DARK_YELLOW: number[] = [218, 165, 32];
 const DARK_YELLOW_ALPHA: number[] = [218, 165, 32, 0.85];
 const WHITE: number[] = [255, 255, 255];
+const GEL_STATION_COLOR: number[] = [154, 205, 50];
+const HIGHLIGHT_COLOR: number[] = [135, 206, 235];
 
 const mileMarkers: [number, number, number | string][] = [
   [42.2297210, -71.5181970, 'Start'],
   [42.23648823, -71.50173820, 1],
   [42.24229067, -71.48399896, 2],
-  [42.250906680613696, -71.47219151128903, 3],
-  [42.258127, -71.456966, 4],
-  [42.26973747414591, -71.44469118833605, 5],
-  [42.27328718606571, -71.42690948367147, 6],
-  [42.27841342303497, -71.40922031521815, 7],
-  [42.28187235544563, -71.39129645347451, 8],
-  [42.2838091159092, -71.36780030250607, 9],
-  [42.283760323873864, -71.34761875418138, 10],
-  [42.287891452612385, -71.33305583927591, 11],
-  [42.29439, -71.318865, 12],
+  [42.25233335, -71.47058121, 3],
+  [42.25881319, -71.45376242, 4],
+  [42.27088071, -71.44377253, 5],
+  [42.27331953, -71.42684091, 6],
+  [42.27850074, -71.40863962, 7],
+  [42.28196959, -71.38967372, 8],
+  [42.28344697, -71.37019552, 9],
+  [42.28328103, -71.35114880, 10],
+  [42.28791064, -71.33303083, 11],
+  [42.29534510, -71.31599075, 12],
   [42.29610199, -71.29642136, 13],
   [42.30535354, -71.28273673, 14],
   [42.31598317, -71.26953087, 15],
@@ -48,6 +51,7 @@ const mileMarkers: [number, number, number | string][] = [
 ];
 
 const gelStations: [number, number][] = [
+  [42.29386311, -71.32099101],
   [42.33444636, -71.24390169],
   [42.34003849, -71.16152770],
 ];
@@ -105,9 +109,11 @@ const notableSpotLabels: [number, number, string][] = [
   [42.336120779553106, -71.17863482952106, 'Top of Heartbreak'],
   [42.358822895613926, -71.05694108486482, 'Boston Massacre'],
   [42.36632673826361, -71.05447249944879, 'Old North Church'],
-  [42.33444636, -71.24390169, 'Gel Station'],
-  [42.34003849, -71.16152770, 'Gel Station'],
 ];
+
+for (const item in gelStations) {
+  notableSpotLabels.push([gelStations[item][0], gelStations[item][1], 'Gel Station']);
+}
 
 @Component({
   selector: 'app-boston-marathon',
@@ -133,6 +139,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private mbtaLinesLayer: any = null;
   private mbtaStationsLayer: any = null;
   private citgoGraphic: any = null;
+  private highlightHandle: any = null;
   private esri!: ArcGISClasses;
 
   constructor(private titleService: Title, private http: HttpClient, private arcgisLoader: ArcGISLoaderService, private elevationService: ElevationChartService, private streetViewService: StreetViewService, private analytics: AnalyticsService) {
@@ -151,6 +158,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
       zoom: 11,
       center: [-71.07, 42.29]
     });
+
+    this.view.highlightOptions = { color: HIGHLIGHT_COLOR } as any;
 
     const basemapToggle = new BasemapToggle({ view: this.view, nextBasemap: 'satellite' });
     this.view.ui.add(basemapToggle, 'bottom-right');
@@ -275,6 +284,12 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
           this.analytics.trackLayerToggle('Boston Marathon', layer.title ?? 'Unknown', visible);
         });
       });
+      this.view?.popup?.watch('visible', (visible: boolean) => {
+        if (!visible) {
+          this.highlightHandle?.remove();
+          this.highlightHandle = null;
+        }
+      });
     });
     this.view.watch('scale', () => {
       this.updateTextSymbols(textMileMarkersLayer, mileMarkers, true);
@@ -383,8 +398,11 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   }
 
   private async queryMbtaPopup(lat: number, lon: number, point: any): Promise<void> {
+    this.highlightHandle?.remove();
+    this.highlightHandle = null;
+
     const candidates: { layer: any; title: string; toleranceMeters: number }[] = [];
-    if (this.mbtaStationsLayer?.visible) candidates.push({ layer: this.mbtaStationsLayer, title: 'MBTA T Station', toleranceMeters: 400 });
+    if (this.mbtaStationsLayer?.visible) candidates.push({ layer: this.mbtaStationsLayer, title: 'MBTA T Station', toleranceMeters: 100 });
     // Remove lines if (this.mbtaLinesLayer?.visible)    candidates.push({ layer: this.mbtaLinesLayer,    title: 'MBTA Transit Line', toleranceMeters: 150 });
 
     const skipFields = new Set(['OBJECTID', 'SHAPE_Length', 'Shape_Length', 'Shape__Length', 'Shape_Area', 'GlobalID', 'CreationDate', 'Creator', 'EditDate', 'Editor']);
@@ -400,12 +418,16 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         num: 1
       });
       if (result.features.length > 0) {
-        const attrs = result.features[0].attributes as Record<string, unknown>;
+        const feature = result.features[0];
+        const attrs = feature.attributes as Record<string, unknown>;
         const rows = Object.entries(attrs)
           .filter(([k, v]) => !skipFields.has(k) && v != null && v !== '')
           .map(([k, v]) => `<tr><td style="padding:2px 8px 2px 0;font-weight:bold">${k}</td><td>${v}</td></tr>`)
           .join('');
         this.view?.popup?.open({ title: attrs["STATION"] as string, content: `<table style="font-size:13px">${rows}</table>`, location: point });
+        this.view!.whenLayerView(layer).then((layerView: any) => {
+          this.highlightHandle = layerView.highlight(feature);
+        });
         return;
       }
     }
@@ -460,7 +482,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
         symbol: { type: 'simple-marker', color: colorArray, size: 8, outline: { color: colorArray, width: 2 } } as any
       })
     );
-    const layer = new GraphicsLayer({title: title});
+    const layer = new GraphicsLayer({title: title, listMode: 'show'});
     graphics.forEach(g => layer.add(g));
     if (addLabels) {
       graphics.forEach((g, i) => {
@@ -536,13 +558,13 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     for (const pt of gelStations) {
       notableRaceSpots.add(new Graphic({
         geometry: new Point({ latitude: pt[0], longitude: pt[1], spatialReference: new SpatialReference({ wkid: 4326 }) }),
-        symbol: { type: 'simple-marker', color: [255, 140, 0], size: 8, outline: { color: [255, 140, 0], width: 2 } } as any
+        symbol: { type: 'simple-marker', color: GEL_STATION_COLOR, size: 8, outline: { color: GEL_STATION_COLOR, width: 2 } } as any
       }));
     }
 
     map.add(notableRaceSpots);
 
-    const labelsLayer = new GraphicsLayer({ title: 'Notable Spot Labels', listMode: 'hide' });
+    const labelsLayer = new GraphicsLayer({ title: 'Notable Spot Labels', listMode: 'show' });
     map.add(labelsLayer);
     return labelsLayer;
   }
@@ -554,7 +576,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     this.citgoGraphic.symbol = { type: 'picture-marker', url: '/img/citgo.jpg', width: `${size}px`, height: `${size}px`, yoffset: `${Math.round(size / 4)}px` };
   }
 
-  private updateTextSymbols(textLayer: GraphicsLayer, pointsArray: [number, number, number | string][], isMileMarker: boolean, maxScale = 126112): void {
+  private updateTextSymbols(textLayer: GraphicsLayer, pointsArray: [number, number, number | string][], isMileMarker: boolean, maxScale = 186112): void {
     if (!this.view) return;
     const { Graphic, Point, SpatialReference } = this.esri;
     const scale = this.view.scale;
