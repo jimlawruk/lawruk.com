@@ -167,14 +167,9 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     const locate = new Locate({ view: this.view });
     this.view.ui.add(locate, 'top-left');
 
-     const layerList = new LayerList({ view: this.view });
-     if (window.innerWidth <= 600) {
-       const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
-       this.view!.ui.add(expand, 'top-right');
-     } else {
-       const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
-       this.view!.ui.add(expand, 'top-right');
-     }
+    const layerList = new LayerList({ view: this.view });
+    const expand = new Expand({ view: this.view, content: layerList, expanded: false, expandTooltip: 'Layers' });
+    this.view!.ui.add(expand, 'top-right');
 
     const municipalitiesLayer = new FeatureLayer({
       url: 'https://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/SurveyTowns_WebMerc_doc/MapServer/0',
