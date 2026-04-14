@@ -11,7 +11,7 @@ namespace Lawruk.Controllers
         {
             ["boston-marathon"] = (
                 "Boston Marathon Course Map",
-                "Interactive map of the iconic 26.2-mile Boston Marathon course with elevation profile, mile markers, Heartbreak Hill, and Google Street View.",
+                "Interactive map of the Boston Marathon course with mile markers, gel stations, WBTA rail lines, an elevation profile, and the Citgo sign.",
                 "/img/blog/boston-marathon_504x672.png"
             ),
             ["haunted-places"] = (
