@@ -1,0 +1,66 @@
+Christ	Cristo		
+church	la chiesa		
+
+ soup plate	 il piatto fondo		
+ water glass	 da acqua		
+ wine glass	 da vino		
+bottle	la bottiglia		
+bread plate	 il piattino		
+cup	la tazza		
+fork	la forchetta		
+glass	il bicchiere		
+
+l’insalata di frutti di mare	seafood salad		
+l’insalata di pollo	chicken salad		
+l’insalata mista	mixed salad		
+la focaccia	flat bread		
+apple	la mela
+carrot	la carota
+cherries	le ciliegie
+lemon	il limone
+melon	il melone
+peach	la pesca
+raspberry	il lampone
+strawberry	la fragola
+Amaretto	almond liqueur
+Anisetta	licorice–flavored liqueur
+i biscotti	"""twice–cooked"" almond cookies"
+il gelato	ice cream
+la cassata	ice cream cake with cream and custard
+la cioccolata	chocolate
+la crema al caramello	crème au caramel
+la torta di frutta	fruit tart
+
+
+Averna	bitter digestive
+la birra	beer
+Chianti	common red wine from Tuscany
+con acqua	with water
+con seltz/soda	with soda
+Marsala	fortified wine
+Strega	yellow liqueur with a taste of herbs and spices
+la vendemmia	vintage
+Vin Santo	sweet wine drunk after dinner with cantucci
+il vino	wine
+— secco	— dry wine
+valley	la valle
+bathroom	il bagno
+grocery store	il negozio di alimentari
+
+music store	il negozio di musica
+newsdealer	il giornalaio
+
+cash (noun)	i contanti
+bill	il biglietto
+bank account	il conto corrente
+rate of exchange	il corso del cambio
+credit	il credito
+cash (adj.)	in contanti
+bank	la banca
+credit card	la carta di credito
+signature	la firma
+coin	la moneta
+Internet	la rete
+receipt	la ricevuta
+check	l'assegno
+amount	l'importo
