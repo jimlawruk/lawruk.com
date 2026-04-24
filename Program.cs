@@ -21,6 +21,9 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
+// Serve the standalone Rome site (outside Angular) at /rome.
+app.MapGet("/rome", () => Results.Redirect("/rome/"));
+
 // Specific SPA fallback for race result URLs that include .html.
 // MapFallbackToFile("index.html") won't match paths with a file extension.
 app.MapFallbackToFile("/race-results/{*path}", "index.html");
