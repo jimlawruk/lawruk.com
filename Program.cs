@@ -21,6 +21,10 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
+// Specific SPA fallback for race result URLs that include .html.
+// MapFallbackToFile("index.html") won't match paths with a file extension.
+app.MapFallbackToFile("/race-results/{*path}", "index.html");
+
 // SPA fallback: any unmatched request serves index.html so Angular routing works on refresh
 app.MapFallbackToFile("index.html");
 
