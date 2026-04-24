@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "type": "BLOG",
+      "title": "Traffic Disparities in Pennsylvania on April 8th Due to Solar Eclipse",
+      "link": "/blog/traffic-disparities-in-pa-due-to-solar-eclipse",
+      "imagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png",
+      "thumbnailImagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png"
+    },
+    {
+      "type": "APP",
+      "title": "ReplayRun.com: Replay your GPX runs or rides on a map.",
+      "link": "https://replayrun.com",
+      "imagePath": "/img/blog/replayrun_150x200.png",
+      "thumbnailImagePath": "/img/blog/replayrun_150x200.png"
+    },
+    {
+      "type": "APP",
+      "title": "Race Results",
+      "link": "/race-results",
+      "imagePath": "/img/blog/race-results_150x200.png",
+      "thumbnailImagePath": "/img/blog/race-results_150x200.png"
+    },
+    {
+      "type": "MAP",
+      "title": "Boston Marathon Course Map",
+      "link": "/boston-marathon",
+      "imagePath": "/img/blog/boston-marathon_630x1200.png",
+      "thumbnailImagePath": "/img/blog/boston-marathon_630x1200.png"
+    },
+    {
+      "type": "BLOG",
+      "title": "Does Performance Drive Kudos on Strava",
+      "link": "/blog/does-performance-drive-kudos-on-strava",
+      "imagePath": "/img/blog/does-performance-drive-kudos-on-strava_150x200.png",
+      "thumbnailImagePath": "/img/blog/does-performance-drive-kudos-on-strava_150x200.png"
+    },
+    {
+      "type": "MAP",
+      "title": "Haunted Places in America",
+      "link": "/haunted-places",
+      "imagePath": "/img/blog/haunted-places_150x200.png",
+      "thumbnailImagePath": "/img/blog/haunted-places_150x200.png"
+    },
+    {
+      "type": "BLOG",
+      "title": "Graphing Holiday Traffic During Covid",
+      "link": "/blog/graphing-holiday-traffic-during-covid",
+      "imagePath": "/img/blog/holiday-traffic_150x200.png",
+      "thumbnailImagePath": "/img/blog/holiday-traffic_150x200.png"
+    },
+    {
+      "type": "BLOG",
+      "title": "Graphing Traffic During Covid",
+      "link": "/blog/tracking-traffic-during-covid",
+      "imagePath": "/img/blog/traffic-trends-during-covid_150x200.png",
+      "thumbnailImagePath": "/img/blog/traffic-trends-during-covid_150x200.png"
+    },
+    {
+      "type": "MAP",
+      "title": "Camp Hill Street Lights",
+      "link": "/camp-hill-street-lights",
+      "imagePath": "/img/blog/camp-hill-street-lights_150x200.png",
+      "thumbnailImagePath": "/img/blog/camp-hill-street-lights_150x200.png"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+/* src/styles.css */
+html.map-page,
+html.map-page body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body.map {
+  overflow: hidden;
+}
+.navbar {
+  background-color: #363555;
+  color: #fff;
+}
+a.navbar-brand {
+  color: #fff;
+  font-size: 24px;
+}
+.navbar a.navbar-brand:hover {
+  color: #ddd;
+}
+
+/* angular:styles/global:styles */
+/*# sourceMappingURL=styles.css.map */

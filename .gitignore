@@ -5,7 +5,6 @@ wwwroot/cg/*
 .vs
 *.user
 node_modules
-wwwroot/*
 publish/*
 publish
 wwwroot/js/race-results.js
