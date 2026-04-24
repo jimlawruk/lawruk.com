@@ -138,6 +138,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
   private lastStreetViewPos: { lat: number; lon: number } | null = null;
   private mbtaLinesLayer: any = null;
   private mbtaStationsLayer: any = null;
+  private mbtaRailStationsLayer: any = null;
   private citgoGraphic: any = null;
   private highlightHandle: any = null;
   private esri!: ArcGISClasses;
@@ -228,6 +229,30 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     });
 
     const notableLabelsLayer = this.addNotableRaceSpots(map);
+
+    const mbtaRailLinesLayer = new FeatureLayer({
+      url: 'https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/MBTA_Commuter_Rail/FeatureServer/2',
+      title: 'MBTA Rail Lines',
+      visible: true,
+      renderer: {
+        type: 'simple',
+        symbol: { type: 'simple-line', color: [128, 0, 128], width: 3 }
+      } as any
+    });
+    map.add(mbtaRailLinesLayer);
+
+    const mbtaRailStationsLayer = new FeatureLayer({
+      url: 'https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/MBTA_Commuter_Rail/FeatureServer/1',
+      title: 'MBTA Rail Stations',
+      visible: true,
+      minScale: 126000,
+      renderer: {
+        type: 'simple',
+        symbol: { type: 'simple-marker', color: [128, 0, 128], size: 8, outline: { color: [255, 255, 255], width: 1 } }
+      } as any
+    });
+    this.mbtaRailStationsLayer = mbtaRailStationsLayer;
+    map.add(mbtaRailStationsLayer);
 
     const mbtaLinesLayer = new FeatureLayer({
       url: 'https://services1.arcgis.com/jIRgb54Jq9V3BUeD/ArcGIS/rest/services/MBTA_Rapid_Transit_Lines_Apr23/FeatureServer/0',
@@ -398,6 +423,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
 
     const candidates: { layer: any; title: string; toleranceMeters: number }[] = [];
     if (this.mbtaStationsLayer?.visible) candidates.push({ layer: this.mbtaStationsLayer, title: 'MBTA T Station', toleranceMeters: 100 });
+    if (this.mbtaRailStationsLayer?.visible) candidates.push({ layer: this.mbtaRailStationsLayer, title: 'MBTA Rail Station', toleranceMeters: 100 });
     // Remove lines if (this.mbtaLinesLayer?.visible)    candidates.push({ layer: this.mbtaLinesLayer,    title: 'MBTA Transit Line', toleranceMeters: 150 });
 
     const skipFields = new Set(['OBJECTID', 'SHAPE_Length', 'Shape_Length', 'Shape__Length', 'Shape_Area', 'GlobalID', 'CreationDate', 'Creator', 'EditDate', 'Editor']);
@@ -419,7 +445,8 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
           .filter(([k, v]) => !skipFields.has(k) && v != null && v !== '')
           .map(([k, v]) => `<tr><td style="padding:2px 8px 2px 0;font-weight:bold">${k}</td><td>${v}</td></tr>`)
           .join('');
-        this.view?.popup?.open({ title: attrs["STATION"] as string, content: `<table style="font-size:13px">${rows}</table>`, location: point });
+        const popupTitle = (attrs['STATION'] ?? attrs['STOP_NAME'] ?? attrs['Station'] ?? title) as string;
+        this.view?.popup?.open({ title: popupTitle, content: `<table style="font-size:13px">${rows}</table>`, location: point });
         this.view!.whenLayerView(layer).then((layerView: any) => {
           this.highlightHandle = layerView.highlight(feature);
         });

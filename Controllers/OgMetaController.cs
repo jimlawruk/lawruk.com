@@ -9,10 +9,15 @@ namespace Lawruk.Controllers
 
         private static readonly Dictionary<string, (string Title, string Description, string Image)> PageMeta = new()
         {
+            [""] = (
+                "Lawruk.com",
+                "Running maps, race results, and data projects by Jim Lawruk.",
+                "/img/blog/boston-marathon_504x672.png"
+            ),
             ["boston-marathon"] = (
                 "Boston Marathon Course Map",
                 "Interactive map of the Boston Marathon course with mile markers, gel stations, WBTA rail lines, an elevation profile, and the Citgo sign.",
-                "/img/blog/boston-marathon_504x672.png"
+                "/img/blog/boston-marathon_630x1200.png"
             ),
             ["haunted-places"] = (
                 "Haunted Places in America",
@@ -33,6 +38,7 @@ namespace Lawruk.Controllers
 
         public OgMetaController(IWebHostEnvironment env) => _env = env;
 
+        [HttpGet("")]
         [HttpGet("boston-marathon")]
         [HttpGet("haunted-places")]
         [HttpGet("camp-hill-street-lights")]
@@ -48,6 +54,13 @@ namespace Lawruk.Controllers
                 return NotFound();
 
             var html = await System.IO.File.ReadAllTextAsync(indexPath);
+
+            // Replace the generic <title> with the page-specific one
+            html = System.Text.RegularExpressions.Regex.Replace(
+                html,
+                @"<title>[^<]*</title>",
+                $"<title>{System.Web.HttpUtility.HtmlEncode(meta.Title)}</title>"
+            );
 
             var baseUrl = $"{Request.Scheme}://{Request.Host}";
             var ogTags = $"""
