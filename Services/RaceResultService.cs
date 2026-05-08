@@ -6,21 +6,19 @@ namespace Lawruk.Services
     {
         public string RacesFolderFilePath { get; set; } = "";
 
-        private HashSet<string>? _gpxBaseFileNames;
-
         private HashSet<string> GetGpxBaseFileNames()
         {
-            if (_gpxBaseFileNames != null) return _gpxBaseFileNames;
             var gpxFolder = Path.Combine(RacesFolderFilePath, "GPX");
-            _gpxBaseFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var gpxBaseFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             if (Directory.Exists(gpxFolder))
             {
                 foreach (var file in Directory.GetFiles(gpxFolder, "*.gpx"))
                 {
-                    _gpxBaseFileNames.Add(Path.GetFileNameWithoutExtension(file));
+                    gpxBaseFileNames.Add(Path.GetFileNameWithoutExtension(file));
                 }
             }
-            return _gpxBaseFileNames;
+
+            return gpxBaseFileNames;
         }
 
         public RaceResultsViewModel GetRaceResultsViewModel()
@@ -29,15 +27,25 @@ namespace Lawruk.Services
             raceResultsViewModel.PageType = "App";
             raceResultsViewModel.PageTitle = "Race Results";
             raceResultsViewModel.RaceResults = GetRaceViewModelsFromRaceFiles();
+            raceResultsViewModel.RaceResults.Select(r => new {
+                title = r.Title,
+                url = r.Url,
+                distance = r.Distance,
+                city = r.City,
+                state = r.State,
+                dateTimeDisplay = r.DateTimeDisplay,
+                gpxBaseFileName = r.GpxBaseFileName
+            });
             return raceResultsViewModel;
         }
 
         private List<RaceViewModel> GetRaceViewModelsFromRaceFiles()
         {
             var raceViewModels = new List<RaceViewModel>();
+            var gpxRaceFileNames = GetGpxBaseFileNames();
             foreach (var raceFileName in GetRaceFileNames())
             {
-                raceViewModels.Add(GetViewModelFromRaceFile(raceFileName));
+                raceViewModels.Add(GetViewModelFromRaceFile(raceFileName, gpxRaceFileNames));
             }
             raceViewModels = raceViewModels.OrderByDescending(x => x.DateTime).ToList();
             return raceViewModels;
@@ -46,9 +54,10 @@ namespace Lawruk.Services
         public RaceViewModel GetRaceViewModelWithTextByUrl(string urlTitle)
         {
             string raceFilePath = GetRaceFileNameFromUrl(urlTitle);
+            var gpxRaceFileNames = GetGpxBaseFileNames();
             if (raceFilePath != null)
             {
-                var raceViewModel = GetViewModelFromRaceFile(raceFilePath);
+                var raceViewModel = GetViewModelFromRaceFile(raceFilePath, gpxRaceFileNames);
                 raceViewModel.Text = GetTextFromRaceFile(raceFilePath);
                 return raceViewModel;
             }
@@ -62,7 +71,7 @@ namespace Lawruk.Services
             return di.GetFiles().Select(x => x.Name).ToList();
         }
 
-        private RaceViewModel GetViewModelFromRaceFile(string raceFilePath)
+        private RaceViewModel GetViewModelFromRaceFile(string raceFilePath, HashSet<string> raceFileNames)
         {
             var raceViewModel = new RaceViewModel();
             raceViewModel.PageType = "App";
@@ -90,7 +99,7 @@ namespace Lawruk.Services
             raceViewModel.State = state;
 
             var baseName = Path.GetFileNameWithoutExtension(raceFilePath);
-            if (GetGpxBaseFileNames().Contains(baseName))
+            if (raceFileNames.Contains(baseName))
             {
                 raceViewModel.GpxBaseFileName = baseName;
             }
