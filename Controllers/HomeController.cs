@@ -20,16 +20,7 @@ namespace Lawruk.Controllers
         [HttpGet]
         public IActionResult RaceResults()
         {
-            var vm = raceResultService.GetRaceResultsViewModel();
-            var result = vm.RaceResults.Select(r => new {
-                title = r.Title,
-                url = r.Url,
-                distance = r.Distance,
-                city = r.City,
-                state = r.State,
-                dateTimeDisplay = r.DateTimeDisplay,
-                gpxBaseFileName = r.GpxBaseFileName
-            });
+            var result = raceResultService.GetRaceResultsViewModel();            
             return Ok(result);
         }
 

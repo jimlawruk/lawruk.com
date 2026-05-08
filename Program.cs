@@ -5,7 +5,7 @@ var services = builder.Services;
 
 services.AddControllers(
     options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
-services.AddSingleton<RaceResultService>();
+services.AddScoped<RaceResultService>();
 
 var app = builder.Build();
 

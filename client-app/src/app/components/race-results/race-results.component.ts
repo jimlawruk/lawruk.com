@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RaceService } from '../../services/race.service';
 import { RaceModel } from '../../models/race.model';
+import { RaceResultsModel } from '../../models/race-results.model';
 
 @Component({
   selector: 'app-race-results',
@@ -53,7 +54,8 @@ export class RaceResultsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      const races = await this.raceService.getRaceResults();
+      const viewModel: RaceResultsModel = await this.raceService.getRaceResults();
+      const races = viewModel.raceResults ?? [];
       this.allRaces = races.sort((a, b) =>
         b.dateTimeDisplay.localeCompare(a.dateTimeDisplay)
       );
