@@ -1,0 +1,28 @@
+<div class="container recipe-detail">
+  <div *ngIf="loading" class="text-center py-4">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <ng-container *ngIf="!loading && !error && recipe">
+    <h1>{{ recipe.title }}</h1>
+    <p class="serves" *ngIf="recipe.serves !== null">Serves: {{ recipe.serves }}</p>
+
+    <section>
+      <h2>Ingredients</h2>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">
+          {{ ingredient.number }} {{ ingredient.unitOfMeasurement }} {{ ingredient.name }}
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps</h2>
+      <ol>
+        <li *ngFor="let instruction of recipe.instructions">
+          <strong>{{ instruction.title }}</strong>
+          <div>{{ instruction.description }}</div>
+        </li>
+      </ol>
+    </section>
+  </ng-container>
+</div>
