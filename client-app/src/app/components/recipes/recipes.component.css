@@ -1,0 +1,24 @@
+#recipes .recipe-header {
+  background-color: #2c3e50;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#recipes .recipe-header th:hover {
+  background-color: #3d5166;
+}
+
+.sort-asc::after {
+  content: ' ▲';
+  font-size: 0.7em;
+}
+
+.sort-desc::after {
+  content: ' ▼';
+  font-size: 0.7em;
+}
+
+.table td,
+.table th {
+  padding: 0.5rem;
+}

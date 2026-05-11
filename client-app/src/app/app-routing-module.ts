@@ -4,9 +4,13 @@ import { HomeComponent } from './components/home/home.component';
 import { RaceResultsComponent } from './components/race-results/race-results.component';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'recipes', component: RecipesComponent },
+  { path: 'recipes/:title', component: RecipeDetailComponent },
   { path: 'race-results', component: RaceResultsComponent },
   { path: 'race-results/:url', component: RaceDetailComponent },
   { path: 'blog/traffic-disparities-in-pa-due-to-solar-eclipse', loadChildren: () => import('./components/traffic-disparities/traffic-disparities.module').then(m => m.TrafficDisparitiesModule) },

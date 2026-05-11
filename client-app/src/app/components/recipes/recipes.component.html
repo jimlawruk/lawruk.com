@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Recipes</h1>
+
+  <div *ngIf="loading" class="text-center py-4">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="!loading && !error" class="mb-3">
+    <input
+      type="text"
+      [(ngModel)]="filterTitle"
+      (input)="applyFilters()"
+      class="form-control"
+      placeholder="Search recipes..." />
+  </div>
+
+  <table *ngIf="!loading && !error" id="recipes" class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="recipe-header">
+        <th (click)="sortByTitle()" [class.sort-asc]="sortAsc" [class.sort-desc]="!sortAsc">Recipe</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recipe of filteredRecipes">
+        <td><a [routerLink]="['/recipes', recipe.slug]">{{ recipe.title }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

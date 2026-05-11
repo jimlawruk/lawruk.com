@@ -9,11 +9,14 @@ namespace Lawruk.Controllers
     public class HomeController : ControllerBase
     {        
         private RaceResultService raceResultService;
+        private RecipeService recipeService;
 
-        public HomeController([FromServices] IWebHostEnvironment env, RaceResultService diRaceResultService)
+        public HomeController([FromServices] IWebHostEnvironment env, RaceResultService diRaceResultService, RecipeService diRecipeService)
         {           
             raceResultService = diRaceResultService;
             raceResultService.RacesFolderFilePath = env.ContentRootPath + "\\races";
+            recipeService = diRecipeService;
+            recipeService.RecipesFolderFilePath = env.ContentRootPath + "\\recipes";
         }
 
         [Route("race-results")]
@@ -43,7 +46,34 @@ namespace Lawruk.Controllers
                 });
             }
             return NotFound();
-        }       
+        }
+
+        [Route("recipes")]
+        [HttpGet]
+        public IActionResult Recipes()
+        {
+            var result = recipeService.GetRecipeResultsViewModel();
+            return Ok(result);
+        }
+
+        [Route("recipes/{title}")]
+        [HttpGet]
+        public IActionResult Recipe(string title)
+        {
+            var recipe = recipeService.GetRecipeBySlug(title);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new {
+                slug = recipe.Slug,
+                title = recipe.Title,
+                serves = recipe.Serves,
+                ingredients = recipe.Ingredients,
+                instructions = recipe.Instructions
+            });
+        }
     }
 }
 
