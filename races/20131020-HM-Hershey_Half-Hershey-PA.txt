@@ -1,0 +1,10 @@
+Jim Lawruk
+Bib Number	4806
+HALF	42 of 4528
+Gender Place	39 of 1617
+M 25-34	14 of 482
+Gender	M
+Age	33
+Gun	01:28:22
+Chip	01:28:20
+Pace	06:44 min/mile
