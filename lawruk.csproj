@@ -15,6 +15,11 @@
     <None Remove="publish\**" />
     <None Remove="client-app\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="recipes\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
   <!-- Build Angular app before the .NET build (Release only) -->
   <Target Name="BuildAngular" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
