@@ -7,6 +7,7 @@ services.AddControllers(
     options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 services.AddScoped<RaceResultService>();
 services.AddScoped<RecipeService>();
+services.AddScoped<SitemapGenerator>();
 
 var app = builder.Build();
 
