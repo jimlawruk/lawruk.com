@@ -7,4 +7,8 @@ wwwroot/cg/*
 node_modules
 publish/*
 publish
+wwwroot/*.js
+wwwroot/*.css
+wwwroot/index.html
 wwwroot/js/race-results.js
+wwwroot/index.html
