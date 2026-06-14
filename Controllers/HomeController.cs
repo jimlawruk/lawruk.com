@@ -7,23 +7,25 @@ namespace Lawruk.Controllers
     [ApiController]
     [Route("api")]
     public class HomeController : ControllerBase
-    {        
-        private RaceResultService raceResultService;
-        private RecipeService recipeService;
+    {
+        private SitemapGenerator SitemapGenerator;
+        private RaceResultService RaceResultService;
+        private RecipeService RecipeService;
 
-        public HomeController([FromServices] IWebHostEnvironment env, RaceResultService diRaceResultService, RecipeService diRecipeService)
-        {           
-            raceResultService = diRaceResultService;
-            raceResultService.RacesFolderFilePath = env.ContentRootPath + "\\races";
-            recipeService = diRecipeService;
-            recipeService.RecipesFolderFilePath = env.ContentRootPath + "\\recipes";
+        public HomeController([FromServices] IWebHostEnvironment env, SitemapGenerator sitemapGenerator, RaceResultService raceResultService, RecipeService recipeService)
+        {
+            SitemapGenerator = sitemapGenerator;
+            RaceResultService = raceResultService;
+            RaceResultService.RacesFolderFilePath = env.ContentRootPath + "\\races";
+            RecipeService = recipeService;
+            RecipeService.RecipesFolderFilePath = env.ContentRootPath + "\\recipes";
         }
 
         [Route("race-results")]
         [HttpGet]
         public IActionResult RaceResults()
         {
-            var result = raceResultService.GetRaceResultsViewModel();            
+            var result = RaceResultService.GetRaceResultsViewModel();            
             return Ok(result);
         }
 
@@ -31,7 +33,7 @@ namespace Lawruk.Controllers
         [HttpGet]
         public IActionResult Race(string url)
         {
-            var raceViewModel = raceResultService.GetRaceViewModelWithTextByUrl(url);
+            var raceViewModel = RaceResultService.GetRaceViewModelWithTextByUrl(url);
             if (raceViewModel != null)
             {
                 return Ok(new {
@@ -52,7 +54,7 @@ namespace Lawruk.Controllers
         [HttpGet]
         public IActionResult Recipes()
         {
-            var result = recipeService.GetRecipeResultsViewModel();
+            var result = RecipeService.GetRecipeResultsViewModel();
             return Ok(result);
         }
 
@@ -60,7 +62,7 @@ namespace Lawruk.Controllers
         [HttpGet]
         public IActionResult Recipe(string title)
         {
-            var recipe = recipeService.GetRecipeBySlug(title);
+            var recipe = RecipeService.GetRecipeBySlug(title);
             if (recipe == null)
             {
                 return NotFound();
@@ -73,6 +75,14 @@ namespace Lawruk.Controllers
                 ingredients = recipe.Ingredients,
                 instructions = recipe.Instructions
             });
+        }
+
+        [Route("sitemap")]
+        [HttpGet]
+        public IActionResult Sitemap()
+        {
+            var xmlString = SitemapGenerator.GenerateSitemap();
+            return Content(xmlString, "application/xml");
         }
     }
 }
