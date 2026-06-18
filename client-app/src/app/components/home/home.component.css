@@ -3,3 +3,14 @@
   height: 150px;
   object-fit: cover;
 }
+
+.blog-posts .list .info {
+  padding-right: 1rem;
+}
+
+.blog-posts .list .info .description {
+  margin-top: 0.35rem;
+  color: #6c757d;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}

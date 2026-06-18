@@ -14,6 +14,7 @@
                 <div class="info">
                   <div class="type">{{ item.type }}</div>
                   <div class="title">{{ item.title }}</div>
+                  <div *ngIf="item.description" class="description">{{ item.description }}</div>
                 </div>
                 <div class="img"><img [src]="item.imagePath" /></div>
               </div>
@@ -23,6 +24,7 @@
                 <div class="info">
                   <div class="type">{{ item.type }}</div>
                   <div class="title">{{ item.title }}</div>
+                  <div *ngIf="item.description" class="description">{{ item.description }}</div>
                 </div>
                 <div class="img"><img [src]="item.imagePath" /></div>
               </div>
