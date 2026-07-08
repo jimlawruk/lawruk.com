@@ -1,67 +1,84 @@
 {
-  "items": [
+  "items": [    
     {
-      "type": "BLOG",
-      "title": "Traffic Disparities in Pennsylvania on April 8th Due to Solar Eclipse",
-      "link": "/blog/traffic-disparities-in-pa-due-to-solar-eclipse",
-      "imagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png",
-      "thumbnailImagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png"
+      "type": "MAP",
+      "title": "Boston Marathon Course Map",
+      "link": "/boston-marathon",
+      "imagePath": "/img/blog/boston-marathon_630x1200.png",
+      "thumbnailImagePath": "/img/blog/boston-marathon_630x1200.png",
+      "description": "An interactive map of the Boston marathon course including mile markers, aid stations, subway lines, and famous landmarks."
     },
     {
       "type": "APP",
       "title": "ReplayRun.com: Replay your GPX runs or rides on a map.",
       "link": "https://replayrun.com",
       "imagePath": "/img/blog/replayrun_150x200.png",
-      "thumbnailImagePath": "/img/blog/replayrun_150x200.png"
+      "thumbnailImagePath": "/img/blog/replayrun_150x200.png",
+      "description": "Analyze and replay your runs or rides. Compare your race to previous years. Review how your overall pace changed during the race."
+    },
+    {
+      "type": "APP",
+      "title": "ALDI Prices",
+      "link": "https://aldi-prices.lawruk.com",
+      "imagePath": "/img/blog/aldi-prices_150x200.png",
+      "thumbnailImagePath": "/img/blog/aldi-prices_150x200.png",
+      "description": "Compare how grocery prices at ALDI have changed over time."
     },
     {
       "type": "APP",
       "title": "Race Results",
       "link": "/race-results",
       "imagePath": "/img/blog/race-results_150x200.png",
-      "thumbnailImagePath": "/img/blog/race-results_150x200.png"
-    },
-    {
-      "type": "MAP",
-      "title": "Boston Marathon Course Map",
-      "link": "/boston-marathon",
-      "imagePath": "/img/blog/boston-marathon_630x1200.png",
-      "thumbnailImagePath": "/img/blog/boston-marathon_630x1200.png"
+      "thumbnailImagePath": "/img/blog/race-results_150x200.png",
+      "description": "My collection of known race results since my first race in 2003"
     },
     {
       "type": "BLOG",
-      "title": "Does Performance Drive Kudos on Strava",
+      "title": "Traffic Disparities in Pennsylvania on April 8th Due to Solar Eclipse",
+      "link": "/blog/traffic-disparities-in-pa-due-to-solar-eclipse",
+      "imagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png",
+      "thumbnailImagePath": "/img/blog/traffic-disparities-in-pa-due-to-solar-eclipse_150x200.png",
+      "description": "A graphical analysis of traffic data from Pennsylvania during the solar eclipse in 2024."
+    },
+    {
+      "type": "BLOG",
+      "title": "Does Performance Drive Kudos on Strava?",
       "link": "/blog/does-performance-drive-kudos-on-strava",
       "imagePath": "/img/blog/does-performance-drive-kudos-on-strava_150x200.png",
-      "thumbnailImagePath": "/img/blog/does-performance-drive-kudos-on-strava_150x200.png"
+      "thumbnailImagePath": "/img/blog/does-performance-drive-kudos-on-strava_150x200.png",
+      "description": "An analysis of Strava kudos data over an entire year to see what factors contribute to receiving more kudos."
     },
     {
       "type": "MAP",
       "title": "Haunted Places in America",
       "link": "/haunted-places",
       "imagePath": "/img/blog/haunted-places_150x200.png",
-      "thumbnailImagePath": "/img/blog/haunted-places_150x200.png"
+      "thumbnailImagePath": "/img/blog/haunted-places_150x200.png",
+      "description": "A map of haunted places across America."
     },
     {
       "type": "BLOG",
       "title": "Graphing Holiday Traffic During Covid",
       "link": "/blog/graphing-holiday-traffic-during-covid",
       "imagePath": "/img/blog/holiday-traffic_150x200.png",
-      "thumbnailImagePath": "/img/blog/holiday-traffic_150x200.png"
+      "thumbnailImagePath": "/img/blog/holiday-traffic_150x200.png",
+      "description": "A visualization of Thanksgiving and Christmas traffic patterns in Pennsylvania during the Covid-19 pandemic."
     },
     {
       "type": "BLOG",
       "title": "Graphing Traffic During Covid",
       "link": "/blog/tracking-traffic-during-covid",
       "imagePath": "/img/blog/traffic-trends-during-covid_150x200.png",
-      "thumbnailImagePath": "/img/blog/traffic-trends-during-covid_150x200.png"
+      "thumbnailImagePath": "/img/blog/traffic-trends-during-covid_150x200.png",
+      "description": "A visualization of traffic patterns in Pennsylvania during the Covid-19 pandemic."
     },
     {
       "type": "MAP",
       "title": "Camp Hill Street Lights",
       "link": "/camp-hill-street-lights",
       "imagePath": "/img/blog/camp-hill-street-lights_150x200.png",
-      "thumbnailImagePath": "/img/blog/camp-hill-street-lights_150x200.png"
+      "thumbnailImagePath": "/img/blog/camp-hill-street-lights_150x200.png",
+      "description": "A map of street lights in Camp Hill, PA."
     }
   ]
 }
