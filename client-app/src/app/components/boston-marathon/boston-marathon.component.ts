@@ -199,7 +199,7 @@ export class BostonMarathonComponent implements AfterViewInit, OnDestroy {
     map.add(municipalitiesLayer);
 
     const marathonLayer = new FeatureLayer({
-      url: 'https://services5.arcgis.com/wBdB5z26dRdLbBYy/arcgis/rest/services/Boston_Marathon/FeatureServer/0',
+      url: 'https://services.arcgis.com/DO4gTjwJVIJ7O9Ca/ArcGIS/rest/services/Boston_Marathon_Route/FeatureServer/0',
       title: 'Marathon Route'
     });
     marathonLayer.renderer = {
