@@ -4,14 +4,14 @@ Lawruk.com has existed as my personal website for over 25 years. It started as a
 
 ## Tech stack
 
-- .NET 7 Web app
+- .NET 10 Web app
 - Angular 20 front-end
 - TypeScript
 - Static race and recipe content
 
 ## Prerequisites
 
-- .NET 7 SDK
+- .NET 10 SDK
 - Node.js and npm
 
 ## Run locally
