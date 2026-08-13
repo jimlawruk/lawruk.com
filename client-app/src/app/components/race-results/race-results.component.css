@@ -16,6 +16,17 @@
   padding: 4px 6px;
 }
 
+.race-results-count-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.race-results-count {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
 .sort-asc::after {
   content: ' ▲';
   font-size: 0.7em;

@@ -4,6 +4,10 @@
   <div *ngIf="loading" class="text-center py-4">Loading...</div>
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
+  <div *ngIf="!loading && !error" class="race-results-count-wrap">
+    <span class="race-results-count">Count: {{ filteredRaces.length }}</span>
+  </div>
+
   <table *ngIf="!loading && !error" id="race-results" class="table table-bordered table-striped table-condensed">
     <thead>
       <tr class="race-header">
